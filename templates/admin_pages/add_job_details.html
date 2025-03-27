@@ -15,44 +15,42 @@
                       <form class="forms-sample" method="POST" enctype="multipart/form-data"> {% csrf_token %}
                         <div class="form-group">
                           <label for="JobPosition">Job Position</label>
-                          <input type="text" class="form-control" id="JobPosition" name="job_position" placeholder="Job Position">
+                          <input type="text" class="form-control" id="JobPosition" name="job_position" placeholder="Job Position" required>
                         </div>
                         <div class="form-group">
                           <label for="JobType">Job Type</label>
-                          <input type="text" class="form-control" id="JobType" name="job_type" placeholder="Full time/Part time">
+                          <input type="text" class="form-control" id="JobType" name="job_type" placeholder="Full time/Part time" required>
                         </div>
                         <div class="form-group">
                           <label for="CompanyName">Company Name</label>
-                          <input type="text" class="form-control" id="CompanyName" name="company_name" placeholder="Company Name">
+                          <input type="text" class="form-control" id="CompanyName" name="company_name" placeholder="Company Name" required>
                         </div>
                         <div class="form-group">
                           <label for="place">Place</label>
-                          <input type="text" class="form-control" id="place" name="place" placeholder="Place">
+                          <input type="text" class="form-control" id="place" name="place" placeholder="Place" required>
                         </div>
                         <div class="form-group">
                           <label for="exampleDescription">Job Details</label>
                           <!-- <textarea class="form-control" name="job_details" id="exampleDescription" rows="3" style="height: 150px;" placeholder="job details"></textarea> -->
-                          <textarea class="form-control" id="exampleDescription" name="job_details" rows="4" style="height: 150px;" placeholder="Job Details">
-                          
-                            
-                            </textarea>
+                          <textarea class="form-control" id="exampleDescription" name="job_details" rows="4" style="height: 150px;" placeholder="Job Details" required></textarea>
+
                         </div>
                         
                         <div class="form-group">
                           <label for="salary">Monthly Salary</label>
-                          <input type="number" class="form-control" id="salary" name="salary" placeholder="Salary">
+                          <input type="number" class="form-control" id="salary" name="salary" placeholder="Salary" required>
                         </div>
                         <div class="form-group">
                           <label for="date">Posted Date</label>
-                          <input type="date" class="form-control" id="date" name="posted_date" placeholder="Place">
+                          <input type="date" class="form-control" id="date" name="posted_date" placeholder="Place" required>
                         </div>
                         <div class="form-group">
                           <label for="PostDate">End Date</label>
-                          <input type="date" class="form-control" id="PostDate" name="end_date" placeholder="End Date">
+                          <input type="date" class="form-control" id="PostDate" name="end_date" placeholder="End Date" required>
                         </div>
                         <div class="form-group">
                           <label for="EndDate">Post End Date</label>
-                          <input type="datetime-local" class="form-control" id="EndDate" name="post_end_date" placeholder="Post End Date">
+                          <input type="datetime-local" class="form-control" id="EndDate" name="post_end_date" placeholder="Post End Date" required>
                         </div>
                         <button type="submit" class="btn btn-primary me-2" style="width: 100px;text-align: center;" >Submit</button>
                       </div>

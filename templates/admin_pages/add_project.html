@@ -14,16 +14,16 @@
                       <form class="forms-sample" method="POST" enctype="multipart/form-data"> {% csrf_token %}
                         <div class="form-group">
                           <label for="ProjectName">Project Name</label>
-                          <input type="text" class="form-control" id="ProjectName" name="project_name" placeholder="Project Name">
+                          <input type="text" class="form-control" id="ProjectName" name="project_name" placeholder="Project Name" required>
                         </div>
                         
                         <div class="form-group">
                           <label for="ProjectLink">Project Link</label>
-                          <input type="text" class="form-control" id="ProjectLink" name="website_link" placeholder="project link">
+                          <input type="text" class="form-control" id="ProjectLink" name="website_link" placeholder="project link" required>
                       </div>
                       <div class="form-group">
                         <label for="imageFile">Project Image</label> <br>
-                        <input type="file" class="form-control-file" id="imageFile" name="project_image" accept="image/*">
+                        <input type="file" class="form-control-file" id="imageFile" name="project_image" accept="image/*" required>
                     </div>
                   
                         <button type="submit" class="btn btn-primary me-2">Submit</button>

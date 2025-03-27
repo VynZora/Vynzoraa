@@ -12,27 +12,27 @@
               {% csrf_token %}
               <div class="form-group">
                 <label for="exampleName">Slug Name</label>
-                <input type="text" class="form-control" id="exampleName" name="slug" placeholder="Enter Blog Name">
+                <input type="text" class="form-control" id="exampleName" name="slug" placeholder="Enter Blog Name" required>
             </div>
             <div class="form-group">
               <label for="exampleName">Meta Title</label>
-              <input type="text" class="form-control" id="exampleName" name="meta_title" placeholder="Enter Meta Title">
+              <input type="text" class="form-control" id="exampleName" name="meta_title" placeholder="Enter Meta Title" required>
           </div>
           <div class="form-group">
             <label for="exampleName">Meta Description</label>
-            <textarea class="form-control" id="exampleName" name="meta_description" style="height: 150px;" rows="5" placeholder="Enter Meta Description"></textarea>
+            <textarea class="form-control" id="exampleName" name="meta_description" style="height: 150px;" rows="5" placeholder="Enter Meta Description" required></textarea>
         </div>
               <div class="form-group">
                   <label for="exampleName">Blog Name</label>
-                  <input type="text" class="form-control" id="exampleName" name="name" placeholder="Enter Blog Name">
+                  <input type="text" class="form-control" id="exampleName" name="name" placeholder="Enter Blog Name" required>
               </div>
               <div class="form-group">
                   <label for="exampleDescription">Blog Description</label>
-                  <textarea class="form-control" name="description" id="addblogDescription" rows="5" placeholder="Enter Blog Description"></textarea>
+                  <textarea class="form-control" name="description" id="addblogDescription" rows="5" placeholder="Enter Blog Description" required></textarea>
               </div>
               <div class="form-group">
                   <label for="imageFile">Blog Image</label>
-                  <input type="file" class="form-control-file" id="imageFile" name="image" accept="image/*">
+                  <input type="file" class="form-control-file" id="imageFile" name="image" accept="image/*" required>
               </div>
               <button type="submit" class="btn btn-primary me-2">Submit</button>
           </form>
