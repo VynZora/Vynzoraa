@@ -23,7 +23,7 @@ urlpatterns = [
     path('careers/', views.careers, name= 'careers'),
     path('submit-application/', views.submit_application, name='submit_application'),
 
-    path('view_-andidate-details',views.view_candidate_details,name='view_candidate_details'),
+    path('view-andidate-details',views.view_candidate_details,name='view_candidate_details'),
     path('delete-candidate-certificates/<int:id>',views.delete_candidate_certificates,name='delete_candidate_certificates'),
     
     path('blog/', views.blog, name='blog'),
