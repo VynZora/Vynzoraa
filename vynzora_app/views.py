@@ -31,6 +31,9 @@ def index(request):
             return redirect('index')
     return render(request, 'index.html',{'technologies': technologies, 'client_logos' : client_logos, 'reviews':reviews,'projects': projects})
 
+def index_redirect(request):
+    return redirect('index')
+
 def generate_certificate_url(id):
     try:
         certificate = Certificates.objects.get(id1=id)

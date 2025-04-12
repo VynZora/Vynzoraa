@@ -7,7 +7,7 @@ urlpatterns = [
 
     # User Side
     path('', views.index, name='index'),
-    path('index.html/', views.index, name='index_html'), 
+    path('index.html/', views.index_redirect), 
     path('about/', views.about, name='about'),
     path('portfolio/', views.portfolio, name='portfolio'),
     path('contact/', views.contact, name='contact'),
