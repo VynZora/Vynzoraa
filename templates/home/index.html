@@ -1326,7 +1326,7 @@ Kochi, Kerala 683104, India</a>
                                                 </a>
                                                                                             </li>
                                              <li class="has-dropdown">
-                                                <a href="{% url 'blogs' %}">
+                                                <a href="{% url 'blog' %}">
                                                     Blogs
                                     
                                         
@@ -1341,7 +1341,7 @@ Kochi, Kerala 683104, India</a>
      {% if career_job_count > 0 %}
         <span class="hiring-badges">HIRING</span>
         {% endif %}
-    <a href="{% url 'submit_application' %}" class="career-nav-link">
+    <a href="{% url 'careers' %}" class="career-nav-link">
         Careers
        
     </a>
@@ -4613,7 +4613,7 @@ Smart Branding & Growth Partner
             </div> {% endcomment %}
             <div class="col-lg-4">
                 <div class="tp-service-ai-btn mb-40 text-lg-end tp_fade_anim" data-delay=".5" data-fade-from="top" data-ease="bounce">
-                    <a href="{% url 'blogs' %}" class="tp-btn-ai careers-btn tp-btn-switch-2-animation p-relative hover-text-white d-inline-block text-uppercase lh-1 fs-16 fw-700 tp-ff-dm">
+                    <a href="{% url 'blog' %}" class="tp-btn-ai careers-btn tp-btn-switch-2-animation p-relative hover-text-white d-inline-block text-uppercase lh-1 fs-16 fw-700 tp-ff-dm">
                         <span class="d-flex align-items-center justify-content-center">
                             <span class="btn-text">See All Blogs</span>
                             
@@ -4845,7 +4845,7 @@ Smart Branding & Growth Partner
                                 <a href="{% url 'index' %}">Home</a>
                             </li>
                             <li class="has-dropdown">
-                                <a href="{% url 'submit_application' %}" class="career-nav-link">
+                                <a href="{% url 'careers' %}">Careers</a>
                                     Careers
                                     {% if career_job_count > 0 %}
                                     <span class="hiring-badge">Hiring</span>
@@ -4933,11 +4933,11 @@ Smart Branding & Growth Partner
             <!-- Right Side -->
             <div class="col-md-6">
                 <div class="text-end">
-                    <a href="{% url 'terms_condition' %}" class="tp-ff-dm fw-500 tp-text-common-black-5 me-3">
+                    <a href="{% url 'terms_and_conditions' %}" class="tp-ff-dm fw-500 tp-text-common-black-5 me-3">
                         Terms & Conditions
                     </a>
                     <span class="tp-text-common-black-5">|</span>
-                    <a href="{% url 'privacy_policy' %}" class="tp-ff-dm fw-500 tp-text-common-black-5 ms-3">
+                    <a href="{% url 'privacy_and_policy' %}" class="tp-ff-dm fw-500 tp-text-common-black-5 me-3">
                         Privacy Policy
                     </a>
                 </div>

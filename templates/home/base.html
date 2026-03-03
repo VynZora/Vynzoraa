@@ -458,7 +458,7 @@ Kochi, Kerala 683104, India</a>
                                             </li>
 
                                             <li class="has-dropdown">
-                                                <a href="{% url 'blogs' %}">
+                                                <a href="{% url 'blog' %}">
                                                     blogs
                                     
                                                 </a>
@@ -480,7 +480,7 @@ Kochi, Kerala 683104, India</a>
      {% if career_job_count > 0 %}
         <span class="hiring-badges">HIRING</span>
         {% endif %}
-    <a href="{% url 'submit_application' %}" class="career-nav-link">
+    <a href="{% url 'careers' %}" class="career-nav-link">
         Careers
        
     </a>
@@ -1260,7 +1260,7 @@ document.head.appendChild(style);
                             {% comment %} <li><a href="{% url 'submit_application' %}">Career</a></li>
                             <span class="hiring-badge">Hiring</span> {% endcomment %}
                             <li >
-    <a href="{% url 'submit_application' %}">Careers</a>
+    <a href="{% url 'careers' %}">Careers</a>
     {% if career_job_count > 0 %}
         <span style="background-color: darkgreen; color: #fff;">Hiring</span>
     {% endif %}
@@ -1466,9 +1466,9 @@ document.head.appendChild(style);
             <!-- Right Side -->
             <div class="col-lg-6 col-md-5">
                 <div class="tp-footer-payment text-end">
-                    <a href="{% url 'terms_condition' %}" class="tp-text-grey-5 tp-ff-dm me-3">Terms & Conditions</a>
+                    <a href="{% url 'terms_and_conditions' %}" class="tp-text-grey-5 tp-ff-dm me-3">Terms & Conditions</a>
                     <span class="tp-text-grey-5">|</span>
-                    <a href="{% url 'privacy_policy' %}" class="tp-text-grey-5 tp-ff-dm ms-3">Privacy Policy</a>
+                    <a href="{% url 'privacy_and_policy' %}" class="tp-text-grey-5 tp-ff-dm ms-3">Privacy Policy</a>
                 </div>
             </div>
 

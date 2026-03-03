@@ -128,10 +128,10 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('partners/', views.partners, name='partners'),
     path('team/', views.index_team, name='team'),
-    path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
-    path('terms-condition/', views.terms_condition, name='terms_condition'),
+    path('privacy-policy/', views.privacy_policy, name='privacy_and_policy'),
+    path('terms-condition/', views.terms_condition, name='terms_and_conditions'),
     path('verify-certificate/', views.verify_certificate, name='verify_certificate'),
-    path('careers/', views.career_submit_application, name='submit_application'),
+    path('careers/', views.career_submit_application, name='careers'),
 
     # --- Static Pages (Hardcoded) ---
     path('advertising/', views.advertising, name='advertising'),
@@ -240,7 +240,7 @@ urlpatterns = [
     path('delete-jobdetails/<int:id>/', views.delete_job_details, name='delete_job_details'),
 
     # Blogs
-    path('blogs/', views.blog, name='blogs'),
+    path('blogs/', views.blog, name='blog'),
     path('blog/<slug:slug>/', views.blog_details, name='blog_details'),
     path('add-blog-details/', views.add_blog_details, name='add_blog_details'),
     path('view-blog-details/', views.view_blog_details, name='view_blog_details'),
