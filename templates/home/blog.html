@@ -14,7 +14,8 @@
       <div class="row pb-45">
          <div class="col-lg-7">
             <div class="tp-service-hero-left p-relative z-index-1 mb-40">
-               <h2 class="fs-70 fs-lg-60 fs-xs-40">Fresh Perspectives.&<br> Trending Ideas</h2>
+               <h2 class="fs-70 fs-lg-60 fs-xs-40">Ideas That Move Businesses.
+               </h2>
 
                <div class="tp-service-details-icon">
                   <img class="tp-live-anim-spin" src="{% static 'assets/img/breadcrumb/icon.webp' %}" alt="Breadcrumb Icon">
@@ -32,9 +33,8 @@
          <div class="col-lg-5">
             <div class="tp-service-hero-right mt-135">
                <p class="fs-20 lh-140-per">
-                  We don't just design—we craft immersive<br> digital experiences that connect brands with<br> their audiences in meaningful ways. From<br>
-                  branding and UI/UX design to web development<br> and digital marketing, we create solutions that<br>
-                  blend creativity, strategy, and technology.
+                  
+Expert insights on web development, software development, digital marketing, branding, SEO, and advertising written by Vynzora's team in Kochi, Kerala for businesses looking to grow smarter.
                </p>
             </div>
          </div>
@@ -64,24 +64,12 @@
 <div class="p-blog-banne-area tp-about-me-banner scale-up-img p-relative" style="overflow: hidden; height: 500px;">
    <div style="display: flex; height: 100%;">
 
-      <!-- Image Carousel -->
+      <!-- Static Image -->
       <div style="flex: 1; position: relative; overflow: hidden;">
-         <div id="blogCarousel" style="display: flex; height: 100%; transition: transform 0.5s ease-in-out;">
-            {% for blog in blogs %}
-            <div style="min-width: 100%; height: 100%; flex-shrink: 0;">
-               <img src="{{ blog.image.url }}" data-speed="0.4" class="img-cover scale-up"
-                    alt="{{ blog.name }}" 
-                    style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            {% empty %}
-            <div style="min-width: 100%; height: 100%; flex-shrink: 0;">
-               <img src="{% static 'assets/img/service/ai/four.jpg' %}"
-                    data-speed="0.4" class="img-cover scale-up"
-                    alt="Default" 
-                    style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            {% endfor %}
-         </div>
+         <img src="{% static 'assets/img/service/ai/four.jpg' %}"
+              data-speed="0.4" class="img-cover scale-up"
+              alt="Blog Banner"
+              style="width: 100%; height: 100%; object-fit: cover;">
       </div>
 
       <!-- Blog Info -->
@@ -144,7 +132,7 @@
 
          <div class="col-lg-8">
             <div class="tp-blog-title-wrap ml-20 mb-45">
-               <h2 class="tp-section-title fs-70 fs-lg-50 fs-xs-40 fw-700 text-uppercase mb-50">Updated Blog</h2>
+               <h2 class="tp-section-title fs-70 fs-lg-50 fs-xs-40 fw-700 text-uppercase mb-50">Updated Blogs</h2>
 
                <div class="d-flex align-items-start">
                   <span class="mr-40 tp-service-shape">
@@ -160,7 +148,7 @@
                   </span>
 
                   <p class="fs-18 tp-text-grey-1 lh-28">
-                     Strategists dedicated to creating stunning, functional websites aligned with your goals.
+                     
                   </p>
                </div>
             </div>
@@ -291,48 +279,5 @@
 }
 
 </style>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-   const carousel = document.getElementById('blogCarousel');
-   const dots = document.querySelectorAll('.carousel-dot');
-   let currentIndex = 0;
-   let autoplay;
-
-   function updateCarousel(index) {
-      const offset = -index * 100;
-      carousel.style.transform = `translateX(${offset}%)`;
-
-      dots.forEach((dot, i) => {
-         dot.style.background = i === index ? "#C4EE18" : "rgba(255,255,255,0.4)";
-      });
-
-      currentIndex = index;
-   }
-
-   function nextSlide() {
-      updateCarousel((currentIndex + 1) % carousel.children.length);
-   }
-
-   function startAutoplay() {
-      if (carousel.children.length > 1) {
-         autoplay = setInterval(nextSlide, 5000);
-      }
-   }
-
-   function resetAutoplay() {
-      clearInterval(autoplay);
-      startAutoplay();
-   }
-
-   dots.forEach((dot, index) => {
-      dot.addEventListener("click", () => {
-         updateCarousel(index);
-         resetAutoplay();
-      });
-   });
-
-   startAutoplay();
-});
-</script>
 
 {% endblock %}
