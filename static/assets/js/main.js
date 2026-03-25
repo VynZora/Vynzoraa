@@ -791,26 +791,165 @@
   	// 25. tp-service-pp-panel
 	let sv = gsap.matchMedia();
 	sv.add("(min-width: 1199px)", () => {
-		let tl = gsap.timeline();
-		let projectpanels = document.querySelectorAll('.tp-service-pp-panel');
-		let baseOffset = 130;
-		let offsetIncrement = 130;
+		let projectpanels = gsap.utils.toArray('.tp-service-pp-panel');
+		if (!projectpanels.length) return;
+
+		let baseOffset = 110;
+		let offsetIncrement = 28;
+		const servicePinWrap = document.querySelector('.tp-service-pp-pin');
+		const serviceArea = servicePinWrap ? servicePinWrap.closest('.tp-service-area') : null;
+
+		const setServiceSectionBottomSpace = () => {
+			if (!serviceArea) return;
+			const stackTravel = baseOffset + Math.max(0, projectpanels.length - 1) * offsetIncrement;
+			const extraBottomSpace = Math.max(250, stackTravel + 260);
+			serviceArea.style.setProperty('padding-bottom', `${extraBottomSpace}px`, 'important');
+		};
+
+		setServiceSectionBottomSpace();
+		ScrollTrigger.addEventListener('refreshInit', setServiceSectionBottomSpace);
 
 		projectpanels.forEach((section, index) => {
-			let topOffset = baseOffset + (index * offsetIncrement);
-			tl.to(section, {
-				scrollTrigger: {
-					trigger: section,
-					pin: section,
-					scrub: 1,
-					start: `top ${topOffset}px`,
-					end: "bottom 120%",
-					endTrigger: '.tp-service-pp-pin',
-					pinSpacing: false,
-					markers: false,
+			section.style.zIndex = String(index + 1);
+			ScrollTrigger.create({
+				trigger: section,
+				pin: section,
+				scrub: 1,
+				start: () => {
+					const minTopOffset = 70;
+					const maxTopOffset = Math.max(minTopOffset, window.innerHeight - section.offsetHeight - 40);
+					const preferredOffset = baseOffset + (index * offsetIncrement);
+					return `top ${Math.min(preferredOffset, maxTopOffset)}px`;
 				},
+				end: () => {
+					const minTopOffset = 70;
+					const maxTopOffset = Math.max(minTopOffset, window.innerHeight - section.offsetHeight - 40);
+					const preferredOffset = baseOffset + (index * offsetIncrement);
+					const topOffset = Math.min(preferredOffset, maxTopOffset);
+					return `bottom ${topOffset + 20}px`;
+				},
+				endTrigger: '.tp-service-pp-pin',
+				pinSpacing: false,
+				markers: false,
+				invalidateOnRefresh: true,
 			});
 		});
+
+		const serviceImages = document.querySelectorAll('.tp-service-pp-thumb .service-pp-thumb-img');
+		if (!serviceImages.length) return;
+
+		let loadedCount = 0;
+		const refreshServicePins = () => {
+			loadedCount += 1;
+			if (loadedCount === serviceImages.length) {
+				ScrollTrigger.refresh();
+			}
+		};
+
+		serviceImages.forEach((img) => {
+			if (img.complete) {
+				refreshServicePins();
+				return;
+			}
+			img.addEventListener('load', refreshServicePins, { once: true });
+			img.addEventListener('error', refreshServicePins, { once: true });
+		});
+
+		return () => {
+			ScrollTrigger.removeEventListener('refreshInit', setServiceSectionBottomSpace);
+			if (serviceArea) {
+				serviceArea.style.removeProperty('padding-bottom');
+			}
+		};
+	});
+
+	sv.add("(max-width: 991px)", () => {
+		let mobilePanels = gsap.utils.toArray('.tp-service-pp-panel');
+		if (!mobilePanels.length) return;
+		const mobilePinWrap = document.querySelector('.tp-service-pp-pin');
+		const mobileDotsWrap = document.querySelector('.tp-service-mobile-dots');
+		let handleMobileScroll = null;
+		let handleMobileResize = null;
+
+		mobilePanels.forEach((section) => {
+			section.style.zIndex = "";
+		});
+
+		if (mobilePinWrap) {
+			mobilePinWrap.classList.add('is-mobile-scroll');
+		}
+
+		gsap.from(mobilePanels, {
+			opacity: 0,
+			y: 22,
+			duration: 0.55,
+			stagger: 0.08,
+			ease: "power2.out",
+		});
+
+		if (mobilePinWrap && mobileDotsWrap) {
+			mobileDotsWrap.innerHTML = "";
+			const dotElements = mobilePanels.map((panel, index) => {
+				const dot = document.createElement("button");
+				dot.type = "button";
+				dot.className = "tp-service-mobile-dot";
+				dot.setAttribute("aria-label", `Go to service ${index + 1}`);
+				dot.addEventListener("click", () => {
+					mobilePinWrap.scrollTo({
+						left: panel.offsetLeft - 16,
+						behavior: "smooth",
+					});
+				});
+				mobileDotsWrap.appendChild(dot);
+				return dot;
+			});
+
+			const setActiveDot = (activeIndex) => {
+				dotElements.forEach((dot, index) => {
+					dot.classList.toggle("active", index === activeIndex);
+				});
+			};
+
+			const updateActiveDot = () => {
+				const wrapCenter = mobilePinWrap.scrollLeft + (mobilePinWrap.clientWidth / 2);
+				let activeIndex = 0;
+				let minDistance = Number.POSITIVE_INFINITY;
+
+				mobilePanels.forEach((panel, index) => {
+					const panelCenter = panel.offsetLeft + (panel.offsetWidth / 2);
+					const distance = Math.abs(panelCenter - wrapCenter);
+					if (distance < minDistance) {
+						minDistance = distance;
+						activeIndex = index;
+					}
+				});
+
+				setActiveDot(activeIndex);
+			};
+
+			handleMobileScroll = () => updateActiveDot();
+			handleMobileResize = () => updateActiveDot();
+
+			mobilePinWrap.addEventListener("scroll", handleMobileScroll, { passive: true });
+			window.addEventListener("resize", handleMobileResize);
+			updateActiveDot();
+		}
+
+		return () => {
+			if (mobilePinWrap) {
+				mobilePinWrap.classList.remove('is-mobile-scroll');
+			}
+			if (mobilePinWrap && handleMobileScroll) {
+				mobilePinWrap.removeEventListener("scroll", handleMobileScroll);
+			}
+			if (handleMobileResize) {
+				window.removeEventListener("resize", handleMobileResize);
+			}
+			if (mobileDotsWrap) {
+				mobileDotsWrap.innerHTML = "";
+			}
+			gsap.set(mobilePanels, { clearProps: "opacity,transform,z-index" });
+		};
 	});
 
 	/////////////////////////////////////////////////////
@@ -2294,4 +2433,3 @@
 
 
 })(jQuery);
-

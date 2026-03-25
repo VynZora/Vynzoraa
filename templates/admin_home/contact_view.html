@@ -770,7 +770,7 @@
             <td>
               <div class="contact-info">
                 <div class="contact-avatar">
-                  {{ contact.name|first|upper|default:"?" }}
+                  {{ contact.name|default:"?"|first|upper }}
                 </div>
                 <div class="contact-details">
                   <h4 class="contact-name">{{ contact.name|default:"Unknown" }}</h4>

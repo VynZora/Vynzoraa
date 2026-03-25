@@ -729,7 +729,96 @@ function onPlayerError(event) {
                               <p class="fw-500 fs-16 tp-text-grey-2 lh-130-per mb-0 d-inline-block">We have <b class="tp-text-common-white">2K+</b><br> 
                                  customers in world-wide.</p>
                            </div>
-                           <p class="fw-400 fs-20 tp-text-grey-2 mb-30">We design stunning, <b class="tp-text-common-white fw-500">Responsive,</b> and <b class="tp-text-common-white fw-500">User-friendly websites</b> tailored to your business goals. Let’s create a <b class="tp-text-common-white fw-500">Digital experience</b> your audience will love.</p>
+                           {% comment %} <p class="fw-400 fs-20 tp-text-grey-2 mb-30">We design stunning, <b class="tp-text-common-white fw-500">Responsive,</b> and <b class="tp-text-common-white fw-500">User-friendly websites</b> tailored to your business goals. Let’s create a <b class="tp-text-common-white fw-500">Digital experience</b> your audience will love.</p> {% endcomment %}
+                           <p class="fw-400 fs-20 tp-text-grey-2 mb-30">As the leading digital agency in Kochi, we combine deep local expertise with enterprise-grade capabilities giving Kerala businesses a genuine competitive advantage online.
+                        </p>
+
+<!-- CTA Buttons -->
+<div class="tp-hero-cta-buttons d-flex align-items-center gap-3 flex-wrap">
+    <a href="{% url 'contact' %}" class="tp-btn-primary">
+        Get Started
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 13L13 1M13 1H4.77778M13 1V9.22222" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+    <a href="{% url 'portfolio' %}" class="tp-btn-secondary">
+        View Our Work
+    </a>
+</div>
+
+<style>
+/* Hero CTA Buttons */
+.tp-hero-cta-buttons {
+    margin-top: 10px;
+}
+
+.tp-btn-primary,
+.tp-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+}
+
+.tp-btn-primary {
+    background: linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+}
+
+.tp-btn-primary:hover {
+    background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
+    box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+
+.tp-btn-primary svg {
+    transition: transform 0.3s ease;
+}
+
+.tp-btn-primary:hover svg {
+    transform: translateX(4px);
+}
+
+.tp-btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.tp-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+
+/* Mobile Responsive */
+@media (max-width: 767px) {
+    .tp-hero-cta-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .tp-btn-primary,
+    .tp-btn-secondary {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 24px;
+        font-size: 14px;
+    }
+}
+</style>
+                           
                            <a href="about-me-light.html" class="tp-left-right fw-500 fs-15 tp-text-common-white text-uppercase hover-text-white">
                             
                            </a>
@@ -849,7 +938,8 @@ function onPlayerError(event) {
     </style>
                                         <div class="tp_fade_anim" data-delay=".5">
                                             <p class="tp-about-ai-para tp-ff-dm mb-55 fw-400 fs-22 ls-m-2 lh-150-per tp-text-common-black-6">
-                                                At Vynzora, we harness the power of artificial intelligence, machine learning, and advanced automation to create intelligent digital solutions that redefine industries. Our expertise lies in developing scalable, secure, and AI-powered IT solutions that help businesses thrive in an era of digital transformation.
+                                                Vynzora was founded in Kochi in 2018 with a single belief: that businesses in Kerala deserve the same quality of web development, software development, digital marketing, and branding as companies in any major city in India delivered by a team that actually understands the local market, culture, and competitive landscape.
+
                                             </p>
                                         </div>
                                         <div class="tp_fade_anim" data-delay=".7" data-fade-from="bottom" data-ease="bounce">
@@ -1230,8 +1320,7 @@ function onPlayerError(event) {
                 <div class="tp-testimonial-ai-title-wrap mb-40">
                     <span class="tp-ff-inter fw-500 fs-18 ls-m-4 tp-text-common-black-5 mb-10 d-inline-block tp_fade_anim" data-delay=".3">/ Our Testimonial /</span>
                     <h2 class="tp-section-ai-title fs-72 fs-xl-65 fs-lg-55 fs-sm-45 fs-xs-40 fw-600 ls-m-4 tp-ff-jakarta tp-text-common-black-6 tp_fade_anim" data-delay=".5">
-                        Resonance is trusted by <span class="title-slide-gradient">1,1000+</span>
-                        Customers.
+                        What People Say
                     </h2>
                 </div>
             </div>
@@ -1595,7 +1684,7 @@ function onPlayerError(event) {
                 <div class="tp-testimonial-ai-title-wrap mb-30">
                     <span class="text-anim tp-ff-inter fw-500 fs-18 ls-m-4 tp-text-grey-5 mb-10 d-inline-block">/ Our Blog /</span>
                     <h2 class="text-anim tp-section-ai-title fs-72 fs-xl-65 fs-lg-55 fs-sm-45 fs-xs-40 fw-600 ls-m-4 tp-ff-jakarta tp-text-grey-5">
-                        Your Guide to All Things Artificial Intelligence.
+                        Insights, Ideas & Inspiration for Brands That Mean Business
                     </h2>
                 </div>
             </div>

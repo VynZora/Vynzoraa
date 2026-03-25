@@ -231,6 +231,191 @@
     border-color: #fff !important;
 }
 
+.tp-service-area .tp-service-pp-pin .tp-service-pp-thumb {
+    width: min(100%, 430px);
+    margin-left: auto;
+}
+
+.tp-service-area .tp-service-pp-pin .tp-service-pp-thumb .service-pp-thumb-img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 18px;
+    display: block;
+}
+
+.tp-service-pp-btn-mobile,
+.tp-service-mobile-dots {
+    display: none;
+}
+
+@media (max-width: 991px) {
+    .tp-service-area .tp-service-pp-pin.is-mobile-scroll {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 16px;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 16px 8px 16px;
+    }
+
+    .tp-service-area .tp-service-pp-pin.is-mobile-scroll::-webkit-scrollbar {
+        height: 5px;
+    }
+
+    .tp-service-area .tp-service-pp-pin.is-mobile-scroll .tp-service-pp-item {
+        flex: 0 0 88vw;
+        max-width: 460px;
+        scroll-snap-align: start;
+        border: 1px dashed #8d838373;
+        border-radius: 18px;
+        display: flex;
+    }
+
+    .tp-service-area .tp-service-pp-pin.is-mobile-scroll .tp-service-pp-item:last-child {
+        border-bottom: 1px dashed #8d838373;
+    }
+
+    .tp-service-area .tp-service-pp-pin.is-mobile-scroll .tp-service-pp-item .row {
+        margin: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tp-service-area .tp-service-pp-pin.is-mobile-scroll .tp-service-pp-item [class*="col-"] {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .tp-service-area .tp-service-pp-pin.is-mobile-scroll .service-col-content .tp-service-pp-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tp-service-area .tp-service-pp-pin.is-mobile-scroll .service-col-content .tp-service-pp-content h4 {
+        margin-bottom: 14px !important;
+    }
+
+    .tp-service-area .tp-service-pp-pin.is-mobile-scroll .service-col-content .tp-service-pp-content p {
+        margin-bottom: 0 !important;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .tp-service-area .tp-service-pp-pin.is-mobile-scroll .service-col-media {
+        margin-top: 14px;
+    }
+
+    .tp-service-area .tp-service-mobile-dots {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+    }
+
+    .tp-service-area .tp-service-mobile-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        border: 0;
+        background: rgba(255, 255, 255, 0.35);
+        padding: 0;
+        transition: all 0.25s ease;
+    }
+
+    .tp-service-area .tp-service-mobile-dot.active {
+        width: 22px;
+        border-radius: 999px;
+        background: #1b56d2;
+    }
+
+    .tp-service-area .tp-service-pp-pin .tp-service-pp-thumb {
+        width: 100%;
+    }
+
+    .tp-service-area .tp-service-pp-pin.is-mobile-scroll .tp-service-pp-content > .tp-service-pp-btn {
+        display: none !important;
+    }
+
+    .tp-service-area .tp-service-pp-pin .tp-service-pp-thumb .service-pp-thumb-img {
+        aspect-ratio: 16 / 10;
+    }
+
+    .tp-service-area .tp-service-pp-pin.is-mobile-scroll .tp-service-pp-thumb {
+        position: relative;
+        margin-top: 18px;
+        text-align: left !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    .tp-service-area .tp-service-pp-pin.is-mobile-scroll .tp-service-pp-btn-mobile {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+        flex-wrap: nowrap;
+    }
+
+    .tp-service-area .tp-service-pp-pin.is-mobile-scroll .tp-service-mobile-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 34px;
+        min-width: 108px;
+        padding: 0 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        background: rgba(1, 13, 41, 0.82);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        text-decoration: none;
+        white-space: nowrap;
+    }
+
+    .tp-service-area {
+        padding-bottom: 120px !important;
+    }
+
+    .tp-service-area .tp-service-pp-item {
+        padding: 28px 16px;
+    }
+
+    .tp-service-area .tp-service-pp-content h4 {
+        margin-bottom: 20px !important;
+    }
+
+    .tp-service-area .tp-service-pp-content p {
+        margin-bottom: 24px !important;
+    }
+
+    .tp-service-area .tp-service-pp-content .tp-service-pp-btn {
+        padding-bottom: 0 !important;
+        flex-wrap: wrap;
+    }
+
+    .tp-service-area .tp-service-pp-content .tp-service-pp-btn .tp-btn-lg {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .tp-service-area .tp-service-pp-thumb {
+        margin-top: 22px;
+        text-align: left !important;
+    }
+}
+
 
 .video-overlay {
     position: absolute;
@@ -2803,7 +2988,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             {% for s in services %}
                             <div class="tp-service-pp-item tp-service-pp-panel">
                                 <div class="row">
-                                    <div class="col-xxl-3 col-xl-2 col-lg-1 col-md-1">
+                                    <div class="col-xxl-3 col-xl-2 col-lg-1 col-md-1 service-col-number">
                                         <div class="tp-service-pp-number">
                                             <span class="fw-500 fs-20 tp-text-common-white text-uppercase">
                                                 {{ forloop.counter|stringformat:"02d" }}.
@@ -2811,7 +2996,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         </div>
                                     </div>
                 
-                                    <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-7">
+                                    <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-7 service-col-content">
                                         <div class="tp-service-pp-content">
                                             <h4 class="tp-section-title text-uppercase tp-text-common-white fs-80 fs-xl-65 fs-md-40 fw-500 mb-55">
                                                 <a class="tp_text_invert" href="{% url 'service_detail' s.slug %}">{{ s.name }}</a>
@@ -2847,19 +3032,24 @@ document.addEventListener('DOMContentLoaded', function() {
                                         </div>
                                     </div>
                 
-                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4">
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 service-col-media">
                                         <div class="tp-service-pp-thumb text-end">
                                             {% if s.image %}
-                                                <img class="tp_fade_anim" data-fade-from="right" data-delay=".2" src="{{ s.image.url }}" alt="{{ s.name }}">
+                                                <img class="tp_fade_anim service-pp-thumb-img" data-fade-from="right" data-delay=".2" src="{{ s.image.url }}" alt="{{ s.name }}">
                                             {% else %}
-                                                <img class="tp_fade_anim" data-fade-from="right" data-delay=".2" src="{% static 'assets/img/service/pp/pp.jpg' %}" alt="Default Image">
+                                                <img class="tp_fade_anim service-pp-thumb-img" data-fade-from="right" data-delay=".2" src="{% static 'assets/img/service/pp/pp.jpg' %}" alt="Default Image">
                                             {% endif %}
+                                            <div class="tp-service-pp-btn-mobile">
+                                                <a href="{% url 'service_detail' s.slug %}" class="tp-service-mobile-btn">More Info</a>
+                                                <a href="{% url 'contact' %}" class="tp-service-mobile-btn">Contact Us</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             {% endfor %}
                         </div>
+                        <div class="tp-service-mobile-dots" aria-label="Service slide pagination"></div>
                     </div>
                 </div>
 <!-- tp-service-area-end -->
@@ -4846,7 +5036,7 @@ Smart Branding & Growth Partner
                             </li>
                             <li class="has-dropdown">
                                 <a href="{% url 'careers' %}">Careers</a>
-                                    Careers
+
                                     {% if career_job_count > 0 %}
                                     <span class="hiring-badge">Hiring</span>
                                     {% endif %}

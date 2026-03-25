@@ -169,7 +169,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='candidate',
             name='email',
-            field=models.EmailField(default=django.utils.timezone.now, max_length=150, unique=True),
+            field=models.EmailField(default=django.utils.timezone.now, max_length=150),
             preserve_default=False,
         ),
         migrations.AlterField(

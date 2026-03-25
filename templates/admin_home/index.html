@@ -304,6 +304,19 @@
     
   }
 
+  .dashboard-bottom-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .dashboard-bottom-layout > .recent-activities,
+  .dashboard-bottom-layout > .quick-actions {
+    display: flex;
+    flex-direction: column;
+  }
+
   .section-header {
     margin-bottom: 24px;
     padding-bottom: 16px;
@@ -320,6 +333,8 @@
   .activities-list {
     max-height: 500px;
     overflow-y: auto;
+    margin: 0;
+    flex: 1;
   }
 
   .activity-item {
@@ -363,15 +378,20 @@
     font-weight: 600;
     color: #2c3e50;
     margin: 0 0 4px 0;
+    overflow-wrap: anywhere;
+  }
+
+  .activity-content {
+    min-width: 0;
   }
 
   .activity-content p {
     font-size: 13px;
     color: #6c757d;
     margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .activity-time {
@@ -380,6 +400,11 @@
   }
 
   /* Quick Actions */
+  .action-buttons {
+    display: grid;
+    gap: 10px;
+  }
+
   .action-btn {
     display: flex;
     align-items: center;
@@ -447,6 +472,10 @@
 
     .score-text h2 {
       font-size: 36px;
+    }
+
+    .dashboard-bottom-layout {
+      grid-template-columns: 1fr;
     }
   }
 
@@ -649,57 +678,53 @@
   </div> {% endcomment %}
 
   <!-- Recent Activities and Quick Actions -->
-  <div class="row" >
-    <div class="col-lg-8 col-md-12" >
-      <div class="recent-activities" >
-        <div class="section-header d-flex justify-content-between align-items-center">
-          <h3>Recent Activities</h3>
-        </div>
-        <ul class="activities-list list-unstyled" >
-          {% for activity in recent_activities %}
-          <li class="activity-item d-flex align-items-start" >
-            <div class="activity-icon {{ activity.status_class }}" style="margin-right: 15px;">
-              
-              <i class="{{ activity.icon }}" ></i>
-            </div>
-            <div class="activity-content flex-grow-1">
-              <h4>{{ activity.title }}</h4>
-              <p>{{ activity.description|safe|truncatechars:15 }}</p>
-            </div>
-            <div class="activity-time text-muted">{{ activity.time_ago }}</div>
-          </li>
-          {% empty %}
-          <li class="text-center text-muted py-5">No recent activities</li>
-          {% endfor %}
-        </ul>
+  <div class="dashboard-bottom-layout">
+    <div class="recent-activities">
+      <div class="section-header d-flex justify-content-between align-items-center">
+        <h3>Recent Activities</h3>
       </div>
+      <ul class="activities-list list-unstyled">
+        {% for activity in recent_activities %}
+        <li class="activity-item d-flex align-items-start">
+          <div class="activity-icon {{ activity.status_class }}" style="margin-right: 15px;">
+            
+            <i class="{{ activity.icon }}" ></i>
+          </div>
+          <div class="activity-content flex-grow-1">
+            <h4>{{ activity.title }}</h4>
+            <p>{{ activity.description|striptags|truncatechars:60 }}</p>
+          </div>
+          <div class="activity-time text-muted">{{ activity.time_ago }}</div>
+        </li>
+        {% empty %}
+        <li class="text-center text-muted py-5">No recent activities</li>
+        {% endfor %}
+      </ul>
     </div>
 
-    <div class="col-lg-4 col-md-12">
-      <div class="quick-actions">
-        <div class="section-header">
-          <h3>Quick Actions</h3>
-        </div>
-        <div class="action-buttons d-flex flex-column gap-2">
-          <a href="{% url 'add_project' %}" class="action-btn">
-            <i class="mdi mdi-plus-circle me-2"></i><span>Add New Project</span>
-          </a>
-          <a href="{% url 'add_team' %}" class="action-btn">
-            <i class="mdi mdi-account-plus me-2"></i><span>Add Team Member</span>
-          </a>
-          <a href="{% url 'add_blog_details' %}" class="action-btn">
-            <i class="mdi mdi-post me-2"></i><span>Create Blog Post</span>
-          </a>
-          <a href="{% url 'add_job_details' %}" class="action-btn">
-            <i class="mdi mdi-briefcase me-2"></i><span>Post Job Opening</span>
-          </a>
-          <a href="{% url 'view_candidate_details' %}" class="action-btn">
-            <i class="mdi mdi-account-search me-2"></i><span>Review Applications</span>
-          </a>
-          <a href="{% url 'contact_view' %}" class="action-btn">
-            <i class="mdi mdi-email me-2"></i><span>View Messages</span>
-          </a>
-        </div>
+    <div class="quick-actions">
+      <div class="section-header">
+        <h3>Quick Actions</h3>
+      </div>
+      <div class="action-buttons">
+        <a href="{% url 'add_project' %}" class="action-btn">
+          <i class="mdi mdi-plus-circle me-2"></i><span>Add New Project</span>
+        </a>
+        <a href="{% url 'add_team' %}" class="action-btn">
+          <i class="mdi mdi-account-plus me-2"></i><span>Add Team Member</span>
+        </a>
+        <a href="{% url 'add_blog_details' %}" class="action-btn">
+          <i class="mdi mdi-post me-2"></i><span>Create Blog Post</span>
+        </a>
+        <a href="{% url 'add_job_details' %}" class="action-btn">
+          <i class="mdi mdi-briefcase me-2"></i><span>Post Job Opening</span>
+        </a>
+        <a href="{% url 'view_candidate_details' %}" class="action-btn">
+          <i class="mdi mdi-account-search me-2"></i><span>Review Applications</span>
+        </a>
+        <a href="{% url 'contact_view' %}" class="action-btn">
+          <i class="mdi mdi-email me-2"></i><span>View Messages</span>
+        </a>
       </div>
     </div>
   </div>

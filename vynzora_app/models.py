@@ -263,7 +263,7 @@ class Candidate(models.Model):
     ]
 
     name = models.CharField(max_length=150)
-    email = models.EmailField(max_length=150, unique=True)
+    email = models.EmailField(max_length=150)
     phone = models.CharField(max_length=20)
     job_position = models.ForeignKey(
         Career_Model,
@@ -284,7 +284,7 @@ class Candidate(models.Model):
         return self.name
     
 
-    #New models which are not present in the old code 
+#New models which are not present in the old code 
 
 class Partner(models.Model):
     name = models.CharField(max_length=150, unique=True)
