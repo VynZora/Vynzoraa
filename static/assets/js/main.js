@@ -868,15 +868,17 @@
 		if (!mobilePanels.length) return;
 		const mobilePinWrap = document.querySelector('.tp-service-pp-pin');
 		const mobileDotsWrap = document.querySelector('.tp-service-mobile-dots');
-		let handleMobileScroll = null;
-		let handleMobileResize = null;
 
 		mobilePanels.forEach((section) => {
 			section.style.zIndex = "";
 		});
 
 		if (mobilePinWrap) {
-			mobilePinWrap.classList.add('is-mobile-scroll');
+			mobilePinWrap.classList.remove('is-mobile-scroll');
+		}
+
+		if (mobileDotsWrap) {
+			mobileDotsWrap.innerHTML = "";
 		}
 
 		gsap.from(mobilePanels, {
@@ -887,63 +889,9 @@
 			ease: "power2.out",
 		});
 
-		if (mobilePinWrap && mobileDotsWrap) {
-			mobileDotsWrap.innerHTML = "";
-			const dotElements = mobilePanels.map((panel, index) => {
-				const dot = document.createElement("button");
-				dot.type = "button";
-				dot.className = "tp-service-mobile-dot";
-				dot.setAttribute("aria-label", `Go to service ${index + 1}`);
-				dot.addEventListener("click", () => {
-					mobilePinWrap.scrollTo({
-						left: panel.offsetLeft - 16,
-						behavior: "smooth",
-					});
-				});
-				mobileDotsWrap.appendChild(dot);
-				return dot;
-			});
-
-			const setActiveDot = (activeIndex) => {
-				dotElements.forEach((dot, index) => {
-					dot.classList.toggle("active", index === activeIndex);
-				});
-			};
-
-			const updateActiveDot = () => {
-				const wrapCenter = mobilePinWrap.scrollLeft + (mobilePinWrap.clientWidth / 2);
-				let activeIndex = 0;
-				let minDistance = Number.POSITIVE_INFINITY;
-
-				mobilePanels.forEach((panel, index) => {
-					const panelCenter = panel.offsetLeft + (panel.offsetWidth / 2);
-					const distance = Math.abs(panelCenter - wrapCenter);
-					if (distance < minDistance) {
-						minDistance = distance;
-						activeIndex = index;
-					}
-				});
-
-				setActiveDot(activeIndex);
-			};
-
-			handleMobileScroll = () => updateActiveDot();
-			handleMobileResize = () => updateActiveDot();
-
-			mobilePinWrap.addEventListener("scroll", handleMobileScroll, { passive: true });
-			window.addEventListener("resize", handleMobileResize);
-			updateActiveDot();
-		}
-
 		return () => {
 			if (mobilePinWrap) {
 				mobilePinWrap.classList.remove('is-mobile-scroll');
-			}
-			if (mobilePinWrap && handleMobileScroll) {
-				mobilePinWrap.removeEventListener("scroll", handleMobileScroll);
-			}
-			if (handleMobileResize) {
-				window.removeEventListener("resize", handleMobileResize);
 			}
 			if (mobileDotsWrap) {
 				mobileDotsWrap.innerHTML = "";

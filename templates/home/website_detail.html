@@ -980,336 +980,392 @@ function onPlayerError(event) {
                     </div>
                     <!-- tp-banner-area-end -->
                     
-                    <!-- tp-service-area-start -->
-<div class="tp-service-area pt-150  p-relative z-index-1">
-    <img class="tp-service-ai-ring p-absolute" src="{% static 'assets/img/about/ai/ring.webp' %}" alt="">
-    <div class="container-fluid container-1524">
-        <div class="row align-items-end">
-            <div class="col-lg-8">
-                <div class="tp-service-ai-title-wrap mb-30">
-                    <span class="text-anim tp-ff-inter fw-500 fs-18 ls-m-4 tp-text-common-black-5 mb-10 d-inline-block">/ What We Offer /</span>
-                    <h2 class="text-anim tp-section-ai-title fs-72 fs-xl-65 fs-lg-55 fs-sm-45 fs-xs-40 fw-600 tp-ff-jakarta tp-text-common-black-6">
-                          {{ website.add_title }}
-                    </h2>
-                </div>
-            </div>
-             <div class="col-lg-4">
-                <div class="tp-service-ai-btn mb-80 text-lg-end tp_fade_anim" data-delay=".4" data-fade-from="bottom" data-ease="bounce">
-                    {# Optional button can be added here if needed #}
-                </div>
-            </div> 
-        </div>
-        
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="tp-service-ai-content ">
-                    <!-- Website Overview Description -->
-                    <div class="tp-service-overview mb-60">
-                        <div class="tp-service-description-box p-relative">
-                            <p class="tp-ff-inter fw-400 fs-18 fs-md-16 ls-m-4 lh-160-per tp-text-common-black-5">
-                                {{ website.add_description|safe|linebreaks }}
-                            </p>
+                    <div class="tp-website-offer-area pt-120 pb-120">
+                        <div class="container-fluid container-1524">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="tp-website-offer-content">
+                                        <span class="tp-ff-inter fw-500 fs-18 ls-m-4 tp-text-common-black-5 mb-15 d-inline-block">/ What We Offer /</span>
+                                        {% if website.add_title %}
+                                            <h2 class="tp-website-offer-title tp-ff-jakarta fw-600 mb-25">
+                                                {{ website.add_title }}
+                                            </h2>
+                                        {% endif %}
+                                        <div class="tp-website-offer-desc tp-ff-dm">
+                                            {{ website.add_description|safe|linebreaks }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <style>
+                        .tp-website-offer-area {
+                            background: #ffffff;
+                        }
 
-                    <!-- Services List -->
-                    {% if services %}
-                    <div class="tp-services-list-wrap">
-                        <div class="row">
-                            {% for service in services %}
-                            <div class="col-lg-6 col-md-12 mb-40">
-                                <a href="{% url 'service_detail' service.slug %}" class="text-decoration-none">
+                        .tp-website-offer-title {
+                            font-size: 46px;
+                            line-height: 1.2;
+                            color: #111112;
+                        }
 
-                                <div class="tp-service-item-card p-relative" >
-                                    <div class="tp-service-ai-item-main">
-                                        <div class="tp-service-ai-item">
-                                            <div class="d-flex align-items-start mb-20">
-                                                <span class="tp-service-ai-count tp-ff-jakarta fw-600 fs-24 fs-sm-18 ls-m-4 mr-30">
-                                                    {% if forloop.counter < 10 %}0{{ forloop.counter }}{% else %}{{ forloop.counter }}{% endif %}
+                        .tp-website-offer-desc {
+                            font-size: 20px;
+                            line-height: 1.7;
+                            color: #3c3c45;
+                        }
+
+                        .tp-website-offer-desc p {
+                            margin-bottom: 18px;
+                        }
+
+                        .tp-website-offer-desc strong {
+                            color: #111112;
+                            font-weight: 700;
+                        }
+
+                        .tp-website-offer-desc ul {
+                            margin: 0 0 20px 20px;
+                            padding: 0;
+                        }
+
+                        .tp-website-offer-desc li {
+                            margin-bottom: 12px;
+                        }
+
+                        .tp-website-offer-desc a {
+                            color: #111112;
+                            text-decoration: underline;
+                        }
+
+                        @media (max-width: 991px) {
+                            .tp-website-offer-area {
+                                padding-top: 90px;
+                                padding-bottom: 90px;
+                            }
+
+                            .tp-website-offer-title {
+                                font-size: 34px;
+                            }
+
+                            .tp-website-offer-desc {
+                                font-size: 18px;
+                            }
+                        }
+
+                        @media (max-width: 575px) {
+                            .tp-website-offer-title {
+                                font-size: 28px;
+                            }
+                        }
+                    </style>
+                    
+                    <!-- tp-service-area-start -->
+                    <div class="tp-service-area tp-bg-common-black pt-90 pb-250">
+                        <div class="container-fluid p-0">
+                            <div class="tp-service-pp-title-box">
+                                <div class="row">
+                                    <div class="col-lg-5 col-12">
+                                        <div class="tp-about-pp-title-wrap mb-40">
+                                            <span class="tp-section-pp-subtitle mb-15 tp-ff-heading fw-500 fs-18 tp-text-common-white d-inline-block">What We Offer</span>
+                                            <h2 class="tp-section-pp-title fw-500 fs-80 fs-xl-65 fs-md-40 fs-xs-30 text-uppercase tp-text-common-white lh-1 mb-0">
+                                                Services
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 col-12">
+                                        <div class="tp-about-pp-title-wrap mb-20 text-lg-end text-start pt-lg-45">
+                                            <h2 class="tp-section-pp-title fw-400 fs-50 fs-lg-42 fs-xs-30 lh-120-per tp_text_invert">
+                                                Everything Your Brand <br>Needs to Win Online
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tp-service-pp-pin">
+                                {% for s in services %}
+                                <div class="tp-service-pp-item tp-service-pp-panel">
+                                    <div class="row">
+                                        <div class="col-xxl-3 col-xl-2 col-lg-1 col-md-1 service-col-number">
+                                            <div class="tp-service-pp-number">
+                                                <span class="fw-500 fs-20 tp-text-common-white text-uppercase">
+                                                    {{ forloop.counter|stringformat:"02d" }}.
                                                 </span>
-                                                <div class="tp-service-content-wrap flex-grow-1">
-                                                    <h3 class="tp-service-ai-title tp-ff-jakarta fs-36 fs-xl-32 fs-lg-28 fs-md-24 fs-sm-22 ls-m-4 lh-120-per tp-text-common-black-6 mb-20">
-                                                        <span class="title-slide-gradient">{{ service.name }}</span>
-                                                    </h3>
-                                                    <div class="tp-service-description">
-                                                        <p class="tp-ff-inter fw-400 fs-16 fs-sm-15 ls-m-2 lh-160-per tp-text-common-black-5">
-                                                            {{ service.description|truncatewords:40|safe }}
-                                                        </p>
-                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-7 service-col-content">
+                                            <div class="tp-service-pp-content">
+                                                <h4 class="tp-section-title text-uppercase tp-text-common-white fs-80 fs-xl-65 fs-md-40 fw-500 mb-55">
+                                                    <a class="tp_text_invert" href="{% url 'service_detail' s.slug %}">{{ s.name }}</a>
+                                                </h4>
+                                                <p class="fs-18 tp-text-grey-2 mb-55">
+                                                    {{ s.description|striptags|truncatewords:25 }}
+                                                </p>
+                                                <div class="tp-service-pp-btn pb-90 d-flex align-items-center gap-3">
+                                                    <a href="{% url 'service_detail' s.slug %}" class="tp-btn-lg tp-btn-white d-inline-block lh-0 tp-round-26 fs-15 tp-bg-common-black text-uppercase ls-0 tp-btn-switch-animation tp-text-common-white hover-text-white tp-ff-heading fw-500">
+                                                        <span class="d-flex align-items-center justify-content-center">
+                                                            <span class="btn-text">More Info</span>
+                                                            <span class="btn-icon">
+                                                                <svg width="25" height="10" viewBox="0 0 25 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.675 9.91054L24.72 5.63362C24.806 5.56483 24.8766 5.47086 24.9255 5.36023C24.9744 5.2496 25 5.12579 25 5C25 4.87421 24.9744 4.7504 24.9255 4.63977C24.8766 4.52914 24.806 4.43518 24.72 4.36638L18.675 0.0894619C18.5572 0.0111909 18.4215 -0.0168364 18.2892 0.00979851C18.157 0.0364334 18.0358 0.116215 17.9446 0.236567C17.8535 0.356918 17.7977 0.510993 17.7859 0.674501C17.7742 0.838009 17.8072 1.00165 17.8798 1.13963L19.633 4.26665L0.598757 4.26665C0.439957 4.26665 0.287661 4.34391 0.175371 4.48144C0.0630817 4.61897 0 4.8055 0 5C0 5.1945 0.0630817 5.38103 0.175371 5.51856C0.287661 5.65609 0.439957 5.73335 0.598757 5.73335L19.633 5.73335L17.8798 8.86038C17.8072 8.99835 17.7742 9.16199 17.7859 9.3255C17.7977 9.48901 17.8535 9.64308 17.9446 9.76343C18.0358 9.88378 18.157 9.96357 18.2892 9.9902C18.4215 10.0168 18.5572 9.98881 18.675 9.91054Z" fill="currentColor"/></svg>
+                                                            </span>
+                                                            <span class="btn-icon">
+                                                                <svg width="25" height="10" viewBox="0 0 25 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.675 9.91054L24.72 5.63362C24.806 5.56483 24.8766 5.47086 24.9255 5.36023C24.9744 5.2496 25 5.12579 25 5C25 4.87421 24.9744 4.7504 24.9255 4.63977C24.8766 4.52914 24.806 4.43518 24.72 4.36638L18.675 0.0894619C18.5572 0.0111909 18.4215 -0.0168364 18.2892 0.00979851C18.157 0.0364334 18.0358 0.116215 17.9446 0.236567C17.8535 0.356918 17.7977 0.510993 17.7859 0.674501C17.7742 0.838009 17.8072 1.00165 17.8798 1.13963L19.633 4.26665L0.598757 4.26665C0.439957 4.26665 0.287661 4.34391 0.175371 4.48144C0.0630817 4.61897 0 4.8055 0 5C0 5.1945 0.0630817 5.38103 0.175371 5.51856C0.287661 5.65609 0.439957 5.73335 0.598757 5.73335L19.633 5.73335L17.8798 8.86038C17.8072 8.99835 17.7742 9.16199 17.7859 9.3255C17.7977 9.48901 17.8535 9.64308 17.9446 9.76343C18.0358 9.88378 18.157 9.96357 18.2892 9.9902C18.4215 10.0168 18.5572 9.98881 18.675 9.91054Z" fill="currentColor"/></svg>
+                                                            </span>
+                                                        </span>
+                                                    </a>
+                                                    <a href="{% url 'contact' %}" class="tp-btn-lg tp-btn-white d-inline-block lh-0 tp-round-26 fs-15 tp-bg-common-black text-uppercase ls-0 tp-btn-switch-animation tp-text-common-white hover-text-white tp-ff-heading fw-500">
+                                                        <span class="d-flex align-items-center justify-content-center">
+                                                            <span class="btn-text">Contact Us</span>
+                                                            <span class="btn-icon">
+                                                                <svg width="25" height="10" viewBox="0 0 25 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.675 9.91054L24.72 5.63362C24.806 5.56483 24.8766 5.47086 24.9255 5.36023C24.9744 5.2496 25 5.12579 25 5C25 4.87421 24.9744 4.7504 24.9255 4.63977C24.8766 4.52914 24.806 4.43518 24.72 4.36638L18.675 0.0894619C18.5572 0.0111909 18.4215 -0.0168364 18.2892 0.00979851C18.157 0.0364334 18.0358 0.116215 17.9446 0.236567C17.8535 0.356918 17.7977 0.510993 17.7859 0.674501C17.7742 0.838009 17.8072 1.00165 17.8798 1.13963L19.633 4.26665L0.598757 4.26665C0.439957 4.26665 0.287661 4.34391 0.175371 4.48144C0.0630817 4.61897 0 4.8055 0 5C0 5.1945 0.0630817 5.38103 0.175371 5.51856C0.287661 5.65609 0.439957 5.73335 0.598757 5.73335L19.633 5.73335L17.8798 8.86038C17.8072 8.99835 17.7742 9.16199 17.7859 9.3255C17.7977 9.48901 17.8535 9.64308 17.9446 9.76343C18.0358 9.88378 18.157 9.96357 18.2892 9.9902C18.4215 10.0168 18.5572 9.98881 18.675 9.91054Z" fill="currentColor"/></svg>
+                                                            </span>
+                                                            <span class="btn-icon">
+                                                                <svg width="25" height="10" viewBox="0 0 25 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.675 9.91054L24.72 5.63362C24.806 5.56483 24.8766 5.47086 24.9255 5.36023C24.9744 5.2496 25 5.12579 25 5C25 4.87421 24.9744 4.7504 24.9255 4.63977C24.8766 4.52914 24.806 4.43518 24.72 4.36638L18.675 0.0894619C18.5572 0.0111909 18.4215 -0.0168364 18.2892 0.00979851C18.157 0.0364334 18.0358 0.116215 17.9446 0.236567C17.8535 0.356918 17.7977 0.510993 17.7859 0.674501C17.7742 0.838009 17.8072 1.00165 17.8798 1.13963L19.633 4.26665L0.598757 4.26665C0.439957 4.26665 0.287661 4.34391 0.175371 4.48144C0.0630817 4.61897 0 4.8055 0 5C0 5.1945 0.0630817 5.38103 0.175371 5.51856C0.287661 5.65609 0.439957 5.73335 0.598757 5.73335L19.633 5.73335L17.8798 8.86038C17.8072 8.99835 17.7742 9.16199 17.7859 9.3255C17.7977 9.48901 17.8535 9.64308 17.9446 9.76343C18.0358 9.88378 18.157 9.96357 18.2892 9.9902C18.4215 10.0168 18.5572 9.98881 18.675 9.91054Z" fill="currentColor"/></svg>
+                                                            </span>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 service-col-media">
+                                            <div class="tp-service-pp-thumb text-end">
+                                                {% if s.image %}
+                                                    <img class="tp_fade_anim service-pp-thumb-img" data-fade-from="right" data-delay=".2" src="{{ s.image.url }}" alt="{{ s.name }}">
+                                                {% else %}
+                                                    <img class="tp_fade_anim service-pp-thumb-img" data-fade-from="right" data-delay=".2" src="{% static 'assets/img/service/ai/thumb.webp' %}" alt="{{ s.name }}">
+                                                {% endif %}
+                                                <div class="tp-service-pp-btn-mobile">
+                                                    <a href="{% url 'service_detail' s.slug %}" class="tp-service-mobile-btn">More Info</a>
+                                                    <a href="{% url 'contact' %}" class="tp-service-mobile-btn">Contact Us</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </a>
+                                {% endfor %}
                             </div>
-                            {% endfor %}
+                            <div class="tp-service-mobile-dots" aria-label="Service slide pagination"></div>
                         </div>
                     </div>
-                    {% else %}
-                    <div class="tp-no-services-message text-center py-50">
-                        <p class="tp-ff-inter fw-500 fs-18 tp-text-common-black-5 opacity-7">No services available at the moment.</p>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+                    <style>
+                        .tp-service-pp-description {
+                            margin-bottom: 60px;
+                        }
 
-        <!-- Service Images Section (Keep your existing design) -->
-        {% comment %} <div class="tp-service-ai-box-wrp pt-40">
-            <div class="container-fluid container-1824">
-                <div class="row gx-60">
-                    <div class="col-lg-3 col-md-6 col-sm-6 tp_fade_anim" data-delay=".3" data-duration="2" data-fade-from="bottom" data-ease="bounce">
-                        <div class="tp-service-ai-box mb-30">
-                            <div class="tp-service-ai-main">
-                                <div class="tp-service-ai-wrap fix p-relative">
-                                    <div class="tp-service-ai-thumb">
-                                        <img src="{% static 'assets/img/service/ai/four.jpg' %}" alt="Consulting">
-                                    </div>
-                                    <div class="tp-service-ai-content-2">
-                                        <a href="service-details-2-light.html" class="tp-ff-jakarta fw-700 fs-28 hover-text-white tp-text-grey-5 underline-black">Consulting</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 tp_fade_anim" data-delay=".5" data-duration="2" data-fade-from="bottom" data-ease="bounce">
-                        <div class="tp-service-ai-box mb-30">
-                            <div class="tp-service-ai-main">
-                                <div class="tp-service-ai-wrap fix p-relative">
-                                    <div class="tp-service-ai-thumb">
-                                        <img src="{% static 'assets/img/service/ai/two.jpg' %}" alt="Data Analytics">
-                                    </div>
-                                    <div class="tp-service-ai-content-2">
-                                        <a href="service-details-2-light.html" class="tp-ff-jakarta fw-700 fs-28 hover-text-white tp-text-grey-5 underline-black">Data Analytics</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 tp_fade_anim" data-delay=".7" data-duration="2" data-fade-from="bottom" data-ease="bounce">
-                        <div class="tp-service-ai-box mb-30">
-                            <div class="tp-service-ai-main">
-                                <div class="tp-service-ai-wrap fix p-relative">
-                                    <div class="tp-service-ai-thumb">
-                                        <img src="{% static 'assets/img/service/ai/three.jpg' %}" alt="AI Chatbots">
-                                    </div>
-                                    <div class="tp-service-ai-content-2">
-                                        <a href="service-details-2-light.html" class="tp-ff-jakarta fw-700 fs-28 hover-text-white tp-text-grey-5 underline-black">AI Chatbots</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 tp_fade_anim" data-delay=".9" data-duration="2" data-fade-from="bottom" data-ease="bounce">
-                        <div class="tp-service-ai-box mb-30">
-                            <div class="tp-service-ai-main">
-                                <div class="tp-service-ai-wrap fix p-relative">
-                                    <div class="tp-service-ai-thumb">
-                                        <img src="{% static 'assets/img/service/ai/five.jpg' %}" alt="AI Integration">
-                                    </div>
-                                    <div class="tp-service-ai-content-2">
-                                        <a href="service-details-2-light.html" class="tp-ff-jakarta fw-700 fs-28 hover-text-white tp-text-grey-5 underline-black">AI Integration</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- tp-service-area-end --> {% endcomment %}
- <div class="tp-service-ai-box-wrp pt-40">
-    <div class="container-fluid container-1824">
-        <div class="row gx-60">
-            <div class="col-lg-3 col-md-6 col-sm-6 tp_fade_anim" data-delay=".3" data-duration="2" data-fade-from="bottom" data-ease="bounce">
-                <div class="tp-service-ai-box mb-30">
-                    <div class="tp-service-ai-main">
-                        <div class="tp-service-ai-wrap fix p-relative">
-                            <div class="tp-service-ai-thumb">
-                                <img src="{% static 'assets/img/service/ai/four.jpg' %}" alt="Consulting">
-                            </div>
-                            <div class="tp-service-ai-content-2">
-                                <span class="tp-ff-jakarta fw-700 fs-28 tp-text-grey-5">Consulting</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 tp_fade_anim" data-delay=".5" data-duration="2" data-fade-from="bottom" data-ease="bounce">
-                <div class="tp-service-ai-box mb-30">
-                    <div class="tp-service-ai-main">
-                        <div class="tp-service-ai-wrap fix p-relative">
-                            <div class="tp-service-ai-thumb">
-                                <img src="{% static 'assets/img/service/ai/two.jpg' %}" alt="Data Analytics">
-                            </div>
-                            <div class="tp-service-ai-content-2">
-                                <span class="tp-ff-jakarta fw-700 fs-28 tp-text-grey-5">Data Analytics</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 tp_fade_anim" data-delay=".7" data-duration="2" data-fade-from="bottom" data-ease="bounce">
-                <div class="tp-service-ai-box mb-30">
-                    <div class="tp-service-ai-main">
-                        <div class="tp-service-ai-wrap fix p-relative">
-                            <div class="tp-service-ai-thumb">
-                                <img src="{% static 'assets/img/service/ai/three.jpg' %}" alt="AI Chatbots">
-                            </div>
-                            <div class="tp-service-ai-content-2">
-                                <span class="tp-ff-jakarta fw-700 fs-28 tp-text-grey-5">AI Chatbots</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 tp_fade_anim" data-delay=".9" data-duration="2" data-fade-from="bottom" data-ease="bounce">
-                <div class="tp-service-ai-box mb-30">
-                    <div class="tp-service-ai-main">
-                        <div class="tp-service-ai-wrap fix p-relative">
-                            <div class="tp-service-ai-thumb">
-                                <img src="{% static 'assets/img/service/ai/five.jpg' %}" alt="AI Integration">
-                            </div>
-                            <div class="tp-service-ai-content-2">
-                                <span class="tp-ff-jakarta fw-700 fs-28 tp-text-grey-5">AI Integration</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                        .tp-service-pp-desc-text p {
+                            color: var(--tp-grey-2);
+                            margin-bottom: 18px;
+                            line-height: 1.6;
+                        }
 
-<style>
-/* Service Section Additional Styles */
+                        .tp-service-pp-desc-text strong {
+                            color: var(--tp-common-white);
+                            font-weight: 700;
+                        }
 
-/* Match website overview description font with About section (DM Sans) */
-.tp-service-overview p {
-    font-family: "DM Sans", sans-serif !important; /* same as tp-about-ai-para */
-    font-weight: 400 !important;
-    font-size: 18px !important;
-    line-height: 160% !important;
-    letter-spacing: -0.02em !important;
-    color: var(--tp-common-black-5) !important;
-}
+                        .tp-service-pp-desc-text ul {
+                            margin: 0 0 20px 20px;
+                            padding: 0;
+                        }
 
-/* Fix service title font to match 'We empower businesses...' style */
-.tp-service-ai-title {
-    font-family: "Plus Jakarta Sans", sans-serif !important; /* matches tp-about-ai-text */
-    font-weight: 600 !important;
-    letter-spacing: -0.04em !important;
-    color: var(--tp-common-black-6) !important;
-    line-height: 120% !important;
-}
+                        .tp-service-pp-desc-text li {
+                            margin-bottom: 12px;
+                            color: var(--tp-grey-2);
+                        }
 
-/* Fix service description font to match your paragraph style */
-.tp-service-description p {
-    font-family: "DM Sans", sans-serif !important; /* matches tp-about-ai-para */
-    font-weight: 400 !important;
-    font-size: 18px !important;
-    line-height: 160% !important;
-    color: var(--tp-common-black-5) !important;
-}
+                        .tp-service-pp-desc-text a {
+                            color: var(--tp-common-white);
+                            text-decoration: underline;
+                        }
 
-/* Optional: unify number font (001, 002...) */
-.tp-service-ai-count {
-    font-family: "Plus Jakarta Sans", sans-serif !important;
-    font-weight: 600 !important;
-    color: rgba(17, 17, 18, 0.3) !important;
-}
+                        .tp-service-pp-btn .tp-btn-white:hover {
+                            background-color: transparent !important;
+                            color: #fff !important;
+                            border-color: #fff !important;
+                        }
 
-.tp-service-overview {
-    max-width: 100%;
-}
+                        .tp-service-area .tp-service-pp-pin .tp-service-pp-thumb {
+                            width: min(100%, 430px);
+                            margin-left: auto;
+                        }
 
-.tp-service-description-box {
-    background: transparent;
-}
+                        .tp-service-area .tp-service-pp-pin .tp-service-pp-thumb .service-pp-thumb-img {
+                            width: 100%;
+                            aspect-ratio: 4 / 3;
+                            object-fit: cover;
+                            object-position: center;
+                            border-radius: 18px;
+                            display: block;
+                        }
 
-.tp-service-item-card {
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 16px;
-    padding: 35px 30px;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(17, 17, 18, 0.08);
-    height: 100%;
-}
+                        .tp-service-pp-btn-mobile,
+                        .tp-service-mobile-dots {
+                            display: none;
+                        }
 
-.tp-service-item-card:hover {
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-    transform: translateY(-5px);
-}
+                        @media (max-width: 991px) {
+                            .tp-service-area .tp-service-pp-pin.is-mobile-scroll {
+                                display: flex;
+                                gap: 14px;
+                                overflow-x: auto;
+                                overflow-y: hidden;
+                                scroll-snap-type: x mandatory;
+                                scroll-padding-left: 16px;
+                                -webkit-overflow-scrolling: touch;
+                                padding: 0 16px 8px 16px;
+                            }
 
+                            .tp-service-area .tp-service-pp-pin.is-mobile-scroll::-webkit-scrollbar {
+                                height: 5px;
+                            }
 
+                            .tp-service-area .tp-service-pp-pin.is-mobile-scroll .tp-service-pp-item {
+                                flex: 0 0 88vw;
+                                max-width: 460px;
+                                scroll-snap-align: start;
+                                border: 1px dashed #8d838373;
+                                border-radius: 18px;
+                                display: flex;
+                            }
 
-.tp-service-content-wrap {
-    width: 100%;
-}
+                            .tp-service-area .tp-service-pp-pin.is-mobile-scroll .tp-service-pp-item:last-child {
+                                border-bottom: 1px dashed #8d838373;
+                            }
 
-.tp-service-description p {
-    margin-bottom: 0;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-}
+                            .tp-service-area .tp-service-pp-pin.is-mobile-scroll .tp-service-pp-item .row {
+                                margin: 0;
+                                width: 100%;
+                                display: flex;
+                                flex-direction: column;
+                            }
 
-.lh-160-per {
-    line-height: 160% !important;
-}
+                            .tp-service-area .tp-service-pp-pin.is-mobile-scroll .tp-service-pp-item [class*="col-"] {
+                                padding-left: 0;
+                                padding-right: 0;
+                            }
 
-.lh-120-per {
-    line-height: 120% !important;
-}
+                            .tp-service-area .tp-service-pp-pin.is-mobile-scroll .service-col-content .tp-service-pp-content {
+                                display: flex;
+                                flex-direction: column;
+                            }
 
-/* Fixed white space issue */
-.tp-service-ai-box-wrp {
-    padding-top: 40px !important;
-}
+                            .tp-service-area .tp-service-pp-pin.is-mobile-scroll .service-col-content .tp-service-pp-content h4 {
+                                margin-bottom: 14px !important;
+                            }
 
-.tp-service-ai-box {
-    margin-bottom: 30px !important;
-}
+                            .tp-service-area .tp-service-pp-pin.is-mobile-scroll .service-col-content .tp-service-pp-content p {
+                                margin-bottom: 0 !important;
+                                display: -webkit-box;
+                                -webkit-line-clamp: 3;
+                                -webkit-box-orient: vertical;
+                                overflow: hidden;
+                            }
 
-/* Responsive adjustments */
-@media (max-width: 991px) {
-    .tp-service-item-card {
-        padding: 25px 20px;
-    }
-    
-    .tp-service-ai-count {
-        font-size: 18px !important;
-        margin-right: 20px !important;
-    }
-    
-    .tp-service-ai-box-wrp {
-        padding-top: 30px !important;
-    }
-}
+                            .tp-service-area .tp-service-pp-pin.is-mobile-scroll .service-col-media {
+                                margin-top: 14px;
+                            }
 
-@media (max-width: 767px) {
-    .tp-service-item-card {
-        padding: 20px 15px;
-        margin-bottom: 25px;
-    }
-    
-    .tp-service-ai-count {
-        font-size: 16px !important;
-        margin-right: 15px !important;
-    }
-    
-    .tp-service-ai-box-wrp {
-        padding-top: 20px !important;
-    }
-    
-    .tp-service-ai-box {
-        margin-bottom: 20px !important;
-    }
-}
-</style>
+                            .tp-service-area .tp-service-mobile-dots {
+                                display: none;
+                            }
+
+                            .tp-service-area .tp-service-mobile-dot {
+                                width: 8px;
+                                height: 8px;
+                                border-radius: 50%;
+                                border: 0;
+                                background: rgba(255, 255, 255, 0.35);
+                                padding: 0;
+                                transition: all 0.25s ease;
+                            }
+
+                            .tp-service-area .tp-service-mobile-dot.active {
+                                width: 22px;
+                                border-radius: 999px;
+                                background: #1b56d2;
+                            }
+
+                            .tp-service-area .tp-service-pp-pin .tp-service-pp-thumb {
+                                width: 100%;
+                            }
+
+                            .tp-service-area .tp-service-pp-pin.is-mobile-scroll .tp-service-pp-content > .tp-service-pp-btn {
+                                display: none !important;
+                            }
+
+                            .tp-service-area .tp-service-pp-pin .tp-service-pp-thumb .service-pp-thumb-img {
+                                aspect-ratio: 16 / 10;
+                            }
+
+                            .tp-service-area .tp-service-pp-pin.is-mobile-scroll .tp-service-pp-thumb {
+                                position: relative;
+                                margin-top: 18px;
+                                text-align: left !important;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: flex-end;
+                            }
+
+                            .tp-service-area .tp-service-pp-pin.is-mobile-scroll .tp-service-pp-btn-mobile {
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                                margin-top: 10px;
+                                flex-wrap: nowrap;
+                            }
+
+                            .tp-service-area .tp-service-pp-pin.is-mobile-scroll .tp-service-mobile-btn {
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: center;
+                                height: 34px;
+                                min-width: 108px;
+                                padding: 0 12px;
+                                border-radius: 999px;
+                                border: 1px solid rgba(255, 255, 255, 0.35);
+                                background: rgba(1, 13, 41, 0.82);
+                                color: #fff;
+                                font-size: 11px;
+                                font-weight: 600;
+                                letter-spacing: 0.02em;
+                                text-transform: uppercase;
+                                text-decoration: none;
+                                white-space: nowrap;
+                            }
+
+                            .tp-service-area {
+                                padding-bottom: 120px !important;
+                            }
+
+                            .tp-service-area .tp-service-pp-item {
+                                padding: 28px 16px;
+                            }
+
+                            .tp-service-area .tp-service-pp-content h4 {
+                                margin-bottom: 20px !important;
+                            }
+
+                            .tp-service-area .tp-service-pp-content p {
+                                margin-bottom: 24px !important;
+                            }
+
+                            .tp-service-area .tp-service-pp-content .tp-service-pp-btn {
+                                padding-bottom: 0 !important;
+                                flex-wrap: wrap;
+                            }
+
+                            .tp-service-area .tp-service-pp-content .tp-service-pp-btn .tp-btn-lg {
+                                width: 100%;
+                                justify-content: center;
+                            }
+
+                            .tp-service-area .tp-service-pp-thumb {
+                                margin-top: 22px;
+                                text-align: left !important;
+                            }
+                        }
+                    </style>
                   
                   
                                 <div class="tp-testimonial-area pt-155 tp-bg-common-white pb-120 p-relative z-index-1">
@@ -1568,78 +1624,118 @@ function onPlayerError(event) {
                     <!-- tp-testimonial-area-end -->
                     <!-- tp-faq-area-start -->
                     <div class="tp-faq-area tp-bg-common-black-5 pt-155 pb-100 p-relative z-index-1">
-                        <img class="tp-faq-ai-noise" src="{% static 'assets/img/body/noise.webp' %}" alt="">
                         <div class="container">
-                            <div class="row">
-                                <div class="col-lg-9 offset-lg-3">
-                                    <div class="tp-faq-ai-title-wrap mb-90">
+                            <div class="row align-items-end mb-35">
+                                <div class="col-lg-8">
+                                    <div class="tp-faq-ai-title-wrap mb-0">
                                         <span class="text-anim tp-ff-inter fw-500 fs-18 ls-m-4 tp-text-common-white mb-10 d-inline-block">/ FAQ /</span>
-                                        <h2 class="text-anim tp-section-ai-title fs-72 fs-xl-65 fs-lg-55  fs-sm-45 fs-xs-40 fw-600 ls-m-4 tp-ff-jakarta tp-text-common-white">
+                                        <h2 class="text-anim tp-section-ai-title fs-72 fs-xl-65 fs-lg-55 fs-sm-45 fs-xs-40 fw-600 ls-m-4 tp-ff-jakarta tp-text-common-white">
                                             Explore Answers to<br>Our Most Asked Questions
                                         </h2>
                                     </div>
                                 </div>
-                               
-                                {% if website.faqs.all %}
-<div class="col-12">
-  <div class="tp-faq-wrap tp-faq-cst-tab-content tp-faq-ai-tab-content">
-    <div class="accordion mb-60" id="general_faqaccordion">
-
-      {% for faq in website.faqs.all %}
-      <div class="accordion-item tp_fade_anim" data-delay=".{{ forloop.counter0 }}">
-        <h2 class="accordion-header p-relative" id="order_{{ forloop.counter }}">
-          <button class="tp-faq-btn" type="button" data-bs-toggle="collapse"
-            data-bs-target="#order__collapse_{{ forloop.counter }}"
-            aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
-            aria-controls="order__collapse_{{ forloop.counter }}">
-            
-            <span class="tp-faq-ai-count tp-ff-jakarta fw-600 fs-24 fs-sm-18 ls-m-4 mr-30">
-              {% if forloop.counter < 10 %}0{{ forloop.counter }}{% else %}{{ forloop.counter }}{% endif %}
-            </span>
-            
-            {{ faq.question }}
-            <span class="accordion-btn"></span>
-          </button>
-        </h2>
-
-        <div id="order__collapse_{{ forloop.counter }}" 
-             class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" 
-             aria-labelledby="order_{{ forloop.counter }}" 
-             data-bs-parent="#general_faqaccordion">
-          <div class="accordion-body tp-faq-details-para">
-            <p class="tp-ff-inter fw-400 fs-16 fs-sm-15 ls-m-2 lh-160-per tp-text-common-black-5">
-              {{ faq.answer|linebreaks }}
-            </p>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-
-    </div>
-  </div>
-</div>
-{% else %}
-<div class="tp-no-faq-message text-center py-50">
-  <p class="tp-ff-inter fw-500 fs-18 tp-text-common-black-5 opacity-7">
-    No FAQs available at the moment.
-  </p>
-</div>
-{% endif %}
-
+                                <div class="col-lg-4 text-lg-end mt-40 mt-lg-0">
+                                    <div class="tp_fade_anim" data-delay=".5" data-fade-from="right" data-ease="bounce">
+                                        <a href="{% url 'contact' %}" class="tp-btn-ai faq-large-btn tp-btn-switch-2-animation p-relative d-inline-block text-uppercase lh-1 fw-700 tp-ff-dm">
+                                            <span class="d-flex align-items-center justify-content-center">
+                                                <span class="btn-text">Ask a Question</span>
+                                                <span class="btn-icon ml-10">
+                                                    <svg width="24" height="14" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M20 6.00071C16.4166 4.67142 11.9705 2.40252 9.21414 0L11.1357 5.31243H0.688756C0.552576 5.31246 0.419232 5.35209 0.305998 5.42773C0.192725 5.50341 0.104852 5.61172 0.0527125 5.73756C0.00064999 5.86334 -0.0134432 6.0016 0.0130924 6.13511C0.0396547 6.26871 0.105682 6.39175 0.201995 6.48809C0.330914 6.61703 0.505697 6.68939 0.688048 6.6897H11.135L9.21414 12C11.9701 9.59697 16.4165 7.32913 20 6.00071Z" fill="currentColor"/>
+                                                    </svg>
+                                                </span>
+                                                <span class="btn-icon">
+                                                    <svg width="24" height="14" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M20 6.00071C16.4166 4.67142 11.9705 2.40252 9.21414 0L11.1357 5.31243H0.688756C0.552576 5.31246 0.419232 5.35209 0.305998 5.42773C0.192725 5.50341 0.104852 5.61172 0.0527125 5.73756C0.00064999 5.86334 -0.0134432 6.0016 0.0130924 6.13511C0.0396547 6.26871 0.105682 6.39175 0.201995 6.48809C0.330914 6.61703 0.505697 6.68939 0.688048 6.6897H11.135L9.21414 12C11.9701 9.59697 16.4165 7.32913 20 6.00071Z" fill="currentColor"/>
+                                                    </svg>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
+                            {% if website.faqs.all %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="tp-faq-wrap tp-faq-cst-tab-content tp-faq-ai-tab-content">
+                                        <div class="accordion mb-60" id="general_faqaccordion">
+                                            {% for faq in website.faqs.all %}
+                                            <div class="accordion-item tp_fade_anim" data-delay=".3">
+                                                <h2 class="accordion-header p-relative" id="order_{{ forloop.counter }}">
+                                                    <button class="tp-faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#order__collapse_{{ forloop.counter }}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="order__collapse_{{ forloop.counter }}">
+                                                        <span class="tp-faq-ai-count">{{ forloop.counter|stringformat:"02d" }}</span>
+                                                        {{ faq.question }}
+                                                        <span class="accordion-btn"></span>
+                                                    </button>
+                                                </h2>
+                                                <div id="order__collapse_{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" aria-labelledby="order_{{ forloop.counter }}" data-bs-parent="#general_faqaccordion">
+                                                    <div class="accordion-body tp-faq-details-para">
+                                                        <p>{{ faq.answer|linebreaks }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="tp-no-faq-message text-center py-50">
+                                <p class="tp-ff-inter fw-500 fs-18 tp-text-common-black-5 opacity-7">No FAQs available at the moment.</p>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                     <!-- tp-faq-area-end -->
-                     <style>
-                        .tp-faq-details-para {
-  padding-left: 30px !important;
-  padding-right: 20px;
-}
-.tp-faq-details-para p {
-  margin-bottom: 0;
-}
+                    <style>
+                        .faq-large-btn {
+                            padding: 22px 50px !important;
+                            font-size: 18px !important;
+                            border-radius: 60px !important;
+                            background-color: #001448 !important;
+                            color: #ffffff !important;
+                            border: none !important;
+                            display: inline-flex !important;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 10px;
+                            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+                            transition: all 0.3s ease-in-out !important;
+                            overflow: hidden;
+                        }
 
-                     </style>
+                        .faq-large-btn .btn-text,
+                        .faq-large-btn svg path {
+                            color: #ffffff !important;
+                            fill: #ffffff !important;
+                        }
+
+                        .faq-large-btn:hover {
+                            background-color: #0a45b5 !important;
+                            color: #ffffff !important;
+                            transform: translateY(-5px);
+                            box-shadow: 0 15px 40px rgba(10, 69, 181, 0.4) !important;
+                        }
+
+                        @keyframes btn-pulse {
+                            0% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+                            50% { box-shadow: 0 10px 35px rgba(0, 20, 72, 0.4); }
+                            100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+                        }
+
+                        .faq-large-btn {
+                            animation: btn-pulse 3s infinite ease-in-out;
+                        }
+
+                        @media (max-width: 991px) {
+                            .faq-large-btn {
+                                padding: 18px 40px !important;
+                                font-size: 16px !important;
+                                margin-bottom: 20px !important;
+                                width: auto;
+                            }
+                        }
+                    </style>
                     <!-- tp-cta-area-start -->
                      <div class="tp-cta-area tp-bg-common-black-5 section-m-spacing p-relative z-index-1">
                         <img class="tp-faq-ai-noise" src="{% static 'assets/img/body/noise.webp' %}" alt="">
@@ -1676,91 +1772,81 @@ function onPlayerError(event) {
                     </div>
                     <!-- tp-cta-area-end -->
                     <!-- tp-blog-area-start -->
-                     <div class="tp-blog-area pt-155 tp-bg-common-black-5 section-m-spacing p-relative z-index-1 pb-130">
-    <img class="tp-faq-ai-noise" src="{% static 'assets/img/body/noise.webp' %}" alt="">
-    <div class="container-fluid container-1524">
-        <div class="row align-items-end mb-40">
-            <div class="col-lg-8">
-                <div class="tp-testimonial-ai-title-wrap mb-30">
-                    <span class="text-anim tp-ff-inter fw-500 fs-18 ls-m-4 tp-text-grey-5 mb-10 d-inline-block">/ Our Blog /</span>
-                    <h2 class="text-anim tp-section-ai-title fs-72 fs-xl-65 fs-lg-55 fs-sm-45 fs-xs-40 fw-600 ls-m-4 tp-ff-jakarta tp-text-grey-5">
-                        Insights, Ideas & Inspiration for Brands That Mean Business
-                    </h2>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="tp-service-ai-btn mb-40 text-lg-end tp_fade_anim" data-delay=".5" data-fade-from="top" data-ease="bounce">
-                    {% comment %} <a href="#" class="tp-btn-ai tp-btn-ai-black tp-btn-switch-2-animation p-relative hover-text-white d-inline-block text-uppercase tp-text-grey-5 lh-1 fs-16 fw-700 tp-ff-dm">
-                        <span class="d-flex align-items-center justify-content-center">
-                            <span class="btn-text">See All Blog</span>
-                            <span class="btn-icon">
-                                <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 6.00071C16.4166 4.67142 11.9705 2.40252 9.21414 0L11.1357 5.31243H0.688756C0.552576 5.31246 0.419232 5.35209 0.305998 5.42773C0.192725 5.50341 0.104852 5.61172 0.0527125 5.73756C0.00064999 5.86334 -0.0134432 6.0016 0.0130924 6.13511C0.0396547 6.26871 0.105682 6.39175 0.201995 6.48809C0.330914 6.61703 0.505697 6.68939 0.688048 6.6897H11.135L9.21414 12C11.9701 9.59697 16.4165 7.32913 20 6.00071Z" fill="currentColor"/>
-                                </svg>
-                            </span>
-                        </span>
-                    </a> {% endcomment %}
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-    {% for blog in blogs %}
-    <div class="col-xl-4 col-lg-6 col-md-6 d-flex">
-        <div class="tp-blog-ai-item tp-round-24 mb-30 tp_fade_anim w-100 d-flex flex-column"
-             data-delay=".4" data-fade-from="left" data-ease="bounce"
-             style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-            
-            <a href="#" class="tp-round-24 w-100 tp--hover-item fix p-relative d-inline-block" style="flex-shrink: 0;">
-                <div class="tp-blog-ai-thumb w-100 tp--hover-img tp-round-24"
-                     data-displacement="{% static 'assets/img/blog/ai/thumb.webp' %}"
-                     data-intensity="0.6" data-speedin="1" data-speedout="1">
-                    {% if blog.image %}
-                        <img class="tp-round-24 w-100" src="{{ blog.image.url }}" alt="{{ blog.name }}"
-                             style="width: 100%; height: 350px; object-fit: cover; border-radius: 10px;">
-                    {% else %}
-                        <img class="tp-round-24 w-100" src="{% static 'assets/img/blog/default.jpg' %}" alt="No image"
-                             style="width: 100%; height: 400px; object-fit: cover; border-radius: 10px;">
-                    {% endif %}
-                </div>
-            </a>
-
-            <div class="tp-blog-ai-content d-flex flex-column justify-content-between" style="flex-grow: 1; height: 100%;">
-                <div>
-                    <span class="tp-blog-ai-dates tp-round-32 tp-ff-dm mb-15 fw-500 fs-16 tp-text-grey-5 d-inline-block">
-                        <svg class="mr-5" width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 12.0683C0.000926244 12.8416 0.308512 13.5829 0.855289 14.1297C1.40207 14.6765 2.14339 14.984 2.91665 14.985H11.0833C11.8565 14.984 12.5978 14.6765 13.1446 14.1297C13.6914 13.5829 13.999 12.8416 13.9999 12.0683V6.81836H0V12.0683Z" fill="currentColor"/>
-                        </svg>
-                        {{ blog.created_date|date:"M d, Y" }}
-                    </span>
-                    <h4 class="tp-blog-ai-title tp-ff-jakarta fs-24 fs-md-22 lh-140-per ls-m-4 tp-text-grey-5">
-                        <a href="{% url 'blog_details' blog.slug %}" class="underline-white">{{ blog.name }}</a>
-                    </h4>
-                    {% comment %} <p class="tp-text-grey-5 mt-2" style="min-height: 60px;">{{ blog.description|safe|truncatewords:15 }}</p> {% endcomment %}
-                </div>
-
-                <div class="tp-blog-ai-btn d-flex justify-content-between mt-auto pt-3">
-                    <a href="{% url 'blog_details' blog.slug %}" class="tp-btn-switch-2-animation p-relative hover-text-white d-inline-block text-uppercase tp-text-grey-5 lh-1 fs-16 fw-700 tp-ff-dm">
-                        <span class="d-flex align-items-center justify-content-center">
-                            <span class="btn-text">Read More</span>
-                            <span class="btn-icon">
-                                <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 6.00071C16.4166 4.67142 11.9705 2.40252 9.21414 0L11.1357 5.31243H0.688756C0.552576 5.31246 0.419232 5.35209 0.305998 5.42773C0.192725 5.50341 0.104852 5.61172 0.0527125 5.73756C0.00064999 5.86334 -0.0134432 6.0016 0.0130924 6.13511C0.0396547 6.26871 0.105682 6.39175 0.201995 6.48809C0.330914 6.61703 0.505697 6.68939 0.688048 6.6897H11.135L9.21414 12C11.9701 9.59697 16.4165 7.32913 20 6.00071Z" fill="currentColor"/>
-                                </svg>
-                            </span>
-                        </span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-</div>
-
-
-       
-    </div>
-</div>
+                    <div class="tp-blog-area pt-155 tp-bg-common-black-5 section-m-spacing p-relative z-index-1 pb-130">
+                        <div class="container-fluid container-1524">
+                            <div class="row align-items-end mb-40">
+                                <div class="col-lg-8">
+                                    <div class="tp-testimonial-ai-title-wrap mb-30">
+                                        <span class="text-anim tp-ff-inter fw-500 fs-18 ls-m-4 tp-text-grey-5 mb-10 d-inline-block">/ Our Blog /</span>
+                                        <h2 class="text-anim tp-section-ai-title fs-72 fs-xl-65 fs-lg-55 fs-sm-45 fs-xs-40 fw-600 ls-m-4 tp-ff-jakarta tp-text-grey-5">
+                                            Insights, Ideas & Inspiration for Brands That Mean Business
+                                        </h2>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="tp-service-ai-btn mb-40 text-lg-end tp_fade_anim" data-delay=".5" data-fade-from="top" data-ease="bounce">
+                                        <a href="{% url 'blog' %}" class="tp-btn-ai careers-btn tp-btn-switch-2-animation p-relative hover-text-white d-inline-block text-uppercase lh-1 fs-16 fw-700 tp-ff-dm">
+                                            <span class="d-flex align-items-center justify-content-center">
+                                                <span class="btn-text">See All Blogs</span>
+                                                <span class="btn-icon ml-10">
+                                                    <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M20 6.00071C16.4166 4.67142 11.9705 2.40252 9.21414 0L11.1357 5.31243H0.688756C0.552576 5.31246 0.419232 5.35209 0.305998 5.42773C0.192725 5.50341 0.104852 5.61172 0.0527125 5.73756C0.00064999 5.86334 -0.0134432 6.0016 0.0130924 6.13511C0.0396547 6.26871 0.105682 6.39175 0.201995 6.48809C0.330914 6.61703 0.505697 6.68939 0.688048 6.6897H11.135L9.21414 12C11.9701 9.59697 16.4165 7.32913 20 6.00071Z" fill="currentColor"/>
+                                                    </svg>
+                                                </span>
+                                                <span class="btn-icon">
+                                                    <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M20 6.00071C16.4166 4.67142 11.9705 2.40252 9.21414 0L11.1357 5.31243H0.688756C0.552576 5.31246 0.419232 5.35209 0.305998 5.42773C0.192725 5.50341 0.104852 5.61172 0.0527125 5.73756C0.00064999 5.86334 -0.0134432 6.0016 0.0130924 6.13511C0.0396547 6.26871 0.105682 6.39175 0.201995 6.48809C0.330914 6.61703 0.505697 6.68939 0.688048 6.6897H11.135L9.21414 12C11.9701 9.59697 16.4165 7.32913 20 6.00071Z" fill="currentColor"/>
+                                                    </svg>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {% for blog in blogs %}
+                                <div class="col-xl-4 col-lg-6 col-md-6 d-flex">
+                                    <div class="tp-blog-ai-item tp-round-24 mb-30 tp_fade_anim w-100 d-flex flex-column" data-delay=".4" data-fade-from="left" data-ease="bounce" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                                        <a href="{% url 'blog_details' blog.slug %}" class="tp-round-24 w-100 tp--hover-item fix p-relative d-inline-block" style="flex-shrink: 0;">
+                                            <div class="tp-blog-ai-thumb w-100 tp--hover-img tp-round-24" data-displacement="{% static 'assets/img/blog/ai/thumb.webp' %}" data-intensity="0.6" data-speedin="1" data-speedout="1">
+                                                {% if blog.image %}
+                                                    <img class="tp-round-24 w-100" src="{{ blog.image.url }}" alt="{{ blog.name }}" style="width: 100%; height: 350px; object-fit: cover; border-radius: 10px;">
+                                                {% else %}
+                                                    <img class="tp-round-24 w-100" src="{% static 'assets/img/blog/default.jpg' %}" alt="No image" style="width: 100%; height: 400px; object-fit: cover; border-radius: 10px;">
+                                                {% endif %}
+                                            </div>
+                                        </a>
+                                        <div class="tp-blog-ai-content d-flex flex-column justify-content-between" style="flex-grow: 1; height: 100%;">
+                                            <div>
+                                                <span class="tp-blog-ai-dates tp-round-32 tp-ff-dm mb-15 fw-500 fs-16 tp-text-grey-5 d-inline-block">
+                                                    <svg class="mr-5" width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M0 12.0683C0.000926244 12.8416 0.308512 13.5829 0.855289 14.1297C1.40207 14.6765 2.14339 14.984 2.91665 14.985H11.0833C11.8565 14.984 12.5978 14.6765 13.1446 14.1297C13.6914 13.5829 13.999 12.8416 13.9999 12.0683V6.81836H0V12.0683Z" fill="currentColor"/>
+                                                    </svg>
+                                                    {{ blog.created_date|date:"M d, Y" }}
+                                                </span>
+                                                <h4 class="tp-blog-ai-title tp-ff-jakarta fs-24 fs-md-22 lh-140-per ls-m-4 tp-text-grey-5">
+                                                    <a href="{% url 'blog_details' blog.slug %}" class="underline-white">{{ blog.name }}</a>
+                                                </h4>
+                                            </div>
+                                            <div class="tp-blog-ai-btn d-flex justify-content-between mt-auto pt-3">
+                                                <a href="{% url 'blog_details' blog.slug %}" class="tp-btn-switch-2-animation p-relative hover-text-white d-inline-block text-uppercase tp-text-grey-5 lh-1 fs-16 fw-700 tp-ff-dm">
+                                                    <span class="d-flex align-items-center justify-content-center">
+                                                        <span class="btn-text">Read More</span>
+                                                        <span class="btn-icon">
+                                                            <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M20 6.00071C16.4166 4.67142 11.9705 2.40252 9.21414 0L11.1357 5.31243H0.688756C0.552576 5.31246 0.419232 5.35209 0.305998 5.42773C0.192725 5.50341 0.104852 5.61172 0.0527125 5.73756C0.00064999 5.86334 -0.0134432 6.0016 0.0130924 6.13511C0.0396547 6.26871 0.105682 6.39175 0.201995 6.48809C0.330914 6.61703 0.505697 6.68939 0.688048 6.6897H11.135L9.21414 12C11.9701 9.59697 16.4165 7.32913 20 6.00071Z" fill="currentColor"/>
+                                                            </svg>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
 
                                   </main>
                 <div class="tp-brand-area tp-brand-cst-spacing tp-bg-common-white z-index-1 p-relative">
