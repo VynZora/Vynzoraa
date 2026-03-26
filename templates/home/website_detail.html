@@ -47,6 +47,114 @@
 
         
         <link rel="canonical" href="https://vynzora.com/{{ category.slug }}/{{ website.slug }}" />
+
+        <style>
+            .tp-hero-2-impact-wrap .shape img {
+                width: 120px;
+                height: 120px;
+                object-fit: contain;
+                filter: brightness(2) contrast(1.2);
+            }
+
+            .tp-hero-2-customer,
+            .tp-hero-2-author > p,
+            .tp-hero-2-author > a {
+                background: transparent;
+                border: none;
+                border-radius: 0;
+                padding: 0;
+                backdrop-filter: none;
+            }
+
+            .tp-hero-2-author .tp-hero-2-combined-box {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 16px;
+                padding: 20px;
+                backdrop-filter: blur(10px);
+            }
+
+            @media (max-width: 991px) {
+                .tp-hero-area.tp-hero-2-spacing {
+                    min-height: 100svh;
+                    padding-top: calc(132px + env(safe-area-inset-top)) !important;
+                    padding-bottom: 20px !important;
+                }
+
+                .tp-hero-area.tp-hero-2-spacing .container-fluid.container-1800.containers > .row {
+                    min-height: calc(100svh - 152px - env(safe-area-inset-top));
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    gap: 10px;
+                }
+
+                .tp-hero-area.tp-hero-2-spacing .tp-hero-2-video-container,
+                .tp-hero-area.tp-hero-2-spacing .tp-hero-2-video-container video {
+                    height: 100%;
+                }
+
+                .tp-hero-area.tp-hero-2-spacing .tp-hero-2-video-container video {
+                    width: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                }
+
+                .tp-hero-area.tp-hero-2-spacing .tp-hero-2-title-wrap {
+                    padding-top: 26px !important;
+                    margin-bottom: 20px !important;
+                }
+
+                .tp-hero-area.tp-hero-2-spacing .tp-hero-2-title {
+                    font-size: clamp(42px, 12.5vw, 64px) !important;
+                    line-height: 1.02 !important;
+                    letter-spacing: -0.01em;
+                }
+
+                .tp-hero-area.tp-hero-2-spacing .hero-btn-wrapper {
+                    margin-top: 20px !important;
+                    gap: 10px !important;
+                    flex-wrap: wrap;
+                }
+
+                .tp-hero-area.tp-hero-2-spacing .hero-btn-wrapper .tp-btn-ai {
+                    padding: 11px 16px !important;
+                    font-size: 13px !important;
+                }
+
+                .tp-hero-area.tp-hero-2-spacing .tp-hero-2-impact-wrap {
+                    display: none !important;
+                }
+
+                .tp-hero-area.tp-hero-2-spacing .tp-hero-2-author {
+                    margin-top: 14px !important;
+                }
+
+                .tp-hero-area.tp-hero-2-spacing .vynzora-google-badge {
+                    margin-bottom: 12px !important;
+                    padding: 8px 14px 8px 8px;
+                }
+
+                .tp-hero-area.tp-hero-2-spacing .tp-hero-2-combined-box {
+                    padding: 14px !important;
+                    margin-bottom: 12px !important;
+                }
+
+                .tp-hero-area.tp-hero-2-spacing .tp-hero-2-customer p {
+                    font-size: 13px !important;
+                }
+
+                .tp-hero-area.tp-hero-2-spacing .tp-hero-2-combined-box > p {
+                    font-size: 14px !important;
+                    line-height: 1.45 !important;
+                    margin-bottom: 12px !important;
+                }
+
+                .tp-hero-area.tp-hero-2-spacing .tp-hero-2-bottom-shape {
+                    display: none !important;
+                }
+            }
+        </style>
        
     </head>
     <body class="tp-magic-cursor loaded">
@@ -1218,14 +1326,14 @@ function onPlayerError(event) {
                                         <div class="tp-about-pp-title-wrap mb-40">
                                             <span class="tp-section-pp-subtitle mb-15 tp-ff-heading fw-500 fs-18 tp-text-common-white d-inline-block">Website Services</span>
                                             <h2 class="tp-section-pp-title fw-500 fs-80 fs-xl-65 fs-md-40 fs-xs-30 text-uppercase tp-text-common-white lh-1 mb-0">
-                                                What’s Included
+                                                Working Process
                                             </h2>
                                         </div>
                                     </div>
                                     <div class="col-lg-7 col-12">
                                         <div class="tp-about-pp-title-wrap mb-20 text-lg-end text-start pt-lg-45">
                                             <h2 class="tp-section-pp-title fw-400 fs-50 fs-lg-42 fs-xs-30 lh-120-per tp_text_invert">
-                                                Services Included In <br>{{ website.name }}
+                                                Working Process <br>Included In This <br> Website
                                             </h2>
                                         </div>
                                     </div>
