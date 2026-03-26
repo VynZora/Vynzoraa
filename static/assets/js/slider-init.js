@@ -650,9 +650,8 @@
 		speed: 800,
 		slidesPerView: "1",
 		spaceBetween: 0,
-		mousewheel: {
-			releaseOnEdges: true,
-		},
+		mousewheel: false,
+		allowTouchMove: false,
 		navigation: {
 			nextEl: '.tp-portfolio-mix-button-next',
 			prevEl: '.tp-portfolio-mix-button-prev',

@@ -56,6 +56,95 @@
                 filter: brightness(2) contrast(1.2);
             }
 
+            .video-overlay {
+                position: absolute;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.3);
+                pointer-events: none;
+            }
+
+            /* Google Review Badge Styles */
+            .vynzora-google-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 12px;
+                background: rgba(255, 255, 255, 0.08);
+                padding: 10px 20px 10px 10px;
+                border-radius: 50px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                margin-bottom: 30px;
+            }
+
+            .g-icon-box {
+                width: 36px;
+                height: 36px;
+                background: #fff;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .g-rating-info {
+                display: flex;
+                flex-direction: column;
+                line-height: 1.2;
+            }
+
+            .g-top-row {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .g-score {
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                font-weight: 700;
+                color: #fff;
+                font-size: 16px;
+            }
+
+            .g-stars {
+                display: flex;
+                gap: 2px;
+            }
+
+            .g-reviews-text {
+                font-size: 12px;
+                color: #b0b0b0;
+                font-weight: 400;
+            }
+
+            @keyframes spin-globe {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+
+            .rotate-globe {
+                animation: spin-globe 15s linear infinite;
+            }
+
+            .hero-btn-wrapper .tp-btn-ai::before,
+            .hero-btn-wrapper .tp-btn-ai::after {
+                display: none !important;
+            }
+
+            .hero-btn-wrapper .tp-btn-ai {
+                background: rgba(255, 255, 255, 0.08) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                backdrop-filter: blur(10px) !important;
+                color: #ffffff !important;
+            }
+
+            .hero-btn-wrapper .tp-btn-ai:hover {
+                background: rgba(255, 255, 255, 0.18) !important;
+                border-color: rgba(255, 255, 255, 0.35) !important;
+                color: #ffffff !important;
+            }
+
             .tp-hero-2-customer,
             .tp-hero-2-author > p,
             .tp-hero-2-author > a {
@@ -603,355 +692,174 @@ Kochi, Kerala 683104, India</a>
                     
 
                 <div class="tp-hero-area pre-header tp-hero-2-spacing fix p-relative z-index-1">
-                    <!-- VIDEO SECTION USING YOUTUBE API -->
-{% comment %} {% if video_id %}
-<div class="tp-hero-2-video-container">
-    <div class="youtube-video-wrapper">
-        <div id="youtubePlayer"></div>
-    </div>
-</div>
+                    <div class="tp-hero-2-video-container">
+                        <video loop="" muted="" autoplay="" playsinline="">
+                            <source src="{% static 'new_one.mp4' %}" type="video/mp4">
+                        </video>
+                        <div class="video-overlay"></div>
+                    </div>
 
-<style>
-/* YouTube Video Responsive Styles - Match static video behavior */
-.tp-hero-2-video-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: -1;
-}
+                    <div class="container-fluid container-1800 containers">
+                        <div class="row">
 
-.tp-hero-2-video-container .youtube-video-wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-}
+                            <div class="col-lg-9">
+                                <div class="tp-hero-2-left">
+                                    <div class="row">
+                                        <div class="col-lg-9">
+                                            <div class="tp-hero-2-title-wrap pt-115 mb-40">
+                                                <h2 class="tp-hero-2-title tp-ff-funnel fw-600 fs-100 tp-text-common-white lh-1">
+                                                    {{ website.name }}
+                                                </h2>
 
-.tp-hero-2-video-container .youtube-video-wrapper iframe,
-.tp-hero-2-video-container .youtube-video-wrapper #youtubePlayer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100vw;
-    height: 56.25vw; /* 16:9 aspect ratio */
-    min-height: 100vh;
-    min-width: 177.78vh; /* 100 * 16/9 */
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-}
+                                                <div class="vynzora-google-badge hero-mobile-google-badge d-lg-none mb-20">
+                                                    <div class="g-icon-box">
+                                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                                                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                                                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                                                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="g-rating-info">
+                                                        <div class="g-top-row">
+                                                            <span class="g-score">5.0</span>
+                                                            <div class="g-stars">
+                                                                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 0L8.23491 4.35645L13 5.05573L9.75 8.18855L10.4698 13L6.5 10.8564L2.53015 13L3.25 8.18855L0 5.05573L4.76509 4.35645L6.5 0Z" fill="#fff"/></svg>
+                                                                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 0L8.23491 4.35645L13 5.05573L9.75 8.18855L10.4698 13L6.5 10.8564L2.53015 13L3.25 8.18855L0 5.05573L4.76509 4.35645L6.5 0Z" fill="#fff"/></svg>
+                                                                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 0L8.23491 4.35645L13 5.05573L9.75 8.18855L10.4698 13L6.5 10.8564L2.53015 13L3.25 8.18855L0 5.05573L4.76509 4.35645L6.5 0Z" fill="#fff"/></svg>
+                                                                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 0L8.23491 4.35645L13 5.05573L9.75 8.18855L10.4698 13L6.5 10.8564L2.53015 13L3.25 8.18855L0 5.05573L4.76509 4.35645L6.5 0Z" fill="#fff"/></svg>
+                                                                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 0L8.23491 4.35645L13 5.05573L9.75 8.18855L10.4698 13L6.5 10.8564L2.53015 13L3.25 8.18855L0 5.05573L4.76509 4.35645L6.5 0Z" fill="#fff"/></svg>
+                                                            </div>
+                                                        </div>
+                                                        <span class="g-reviews-text">Based on 25+ Reviews</span>
+                                                    </div>
+                                                </div>
 
-/* Ensure video covers on all screen sizes */
-@media (max-aspect-ratio: 16/9) {
-    .tp-hero-2-video-container .youtube-video-wrapper iframe,
-    .tp-hero-2-video-container .youtube-video-wrapper #youtubePlayer {
-        width: 177.78vh;
-        height: 100vh;
-    }
-}
+                                                <div class="hero-btn-wrapper d-flex align-items-center gap-3 mt-50 tp_fade_anim" data-delay=".5">
+                                                    <a href="{% url 'contact' %}" class="tp-btn-ai tp-btn-switch-2-animation p-relative hover-text-white d-inline-block text-uppercase lh-1 fs-16 fw-700 tp-ff-dm">
+                                                        <span class="d-flex align-items-center justify-content-center">
+                                                            <span class="btn-text">Get Started</span>
+                                                            <span class="btn-icon ml-10">
+                                                                <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M20 6.00071C16.4166 4.67142 11.9705 2.40252 9.21414 0L11.1357 5.31243H0.688756C0.552576 5.31246 0.419232 5.35209 0.305998 5.42773C0.192725 5.50341 0.104852 5.61172 0.0527125 5.73756C0.00064999 5.86334 -0.0134432 6.0016 0.0130924 6.13511C0.0396547 6.26871 0.105682 6.39175 0.201995 6.48809C0.330914 6.61703 0.505697 6.68939 0.688048 6.6897H11.135L9.21414 12C11.9701 9.59697 16.4165 7.32913 20 6.00071Z" fill="currentColor"/>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="btn-icon">
+                                                                <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M20 6.00071C16.4166 4.67142 11.9705 2.40252 9.21414 0L11.1357 5.31243H0.688756C0.552576 5.31246 0.419232 5.35209 0.305998 5.42773C0.192725 5.50341 0.104852 5.61172 0.0527125 5.73756C0.00064999 5.86334 -0.0134432 6.0016 0.0130924 6.13511C0.0396547 6.26871 0.105682 6.39175 0.201995 6.48809C0.330914 6.61703 0.505697 6.68939 0.688048 6.6897H11.135L9.21414 12C11.9701 9.59697 16.4165 7.32913 20 6.00071Z" fill="currentColor"/>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                    </a>
+                                                    <a href="{% url 'portfolio' %}" class="tp-btn-ai tp-btn-switch-2-animation p-relative hover-text-white d-inline-block text-uppercase lh-1 fs-16 fw-700 tp-ff-dm glass-btn">
+                                                        <span class="d-flex align-items-center justify-content-center">
+                                                            <span class="btn-text">View Works</span>
+                                                            <span class="btn-icon ml-10">
+                                                                <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M20 6.00071C16.4166 4.67142 11.9705 2.40252 9.21414 0L11.1357 5.31243H0.688756C0.552576 5.31246 0.419232 5.35209 0.305998 5.42773C0.192725 5.50341 0.104852 5.61172 0.0527125 5.73756C0.00064999 5.86334 -0.0134432 6.0016 0.0130924 6.13511C0.0396547 6.26871 0.105682 6.39175 0.201995 6.48809C0.330914 6.61703 0.505697 6.68939 0.688048 6.6897H11.135L9.21414 12C11.9701 9.59697 16.4165 7.32913 20 6.00071Z" fill="currentColor"/>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="btn-icon">
+                                                                <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M20 6.00071C16.4166 4.67142 11.9705 2.40252 9.21414 0L11.1357 5.31243H0.688756C0.552576 5.31246 0.419232 5.35209 0.305998 5.42773C0.192725 5.50341 0.104852 5.61172 0.0527125 5.73756C0.00064999 5.86334 -0.0134432 6.0016 0.0130924 6.13511C0.0396547 6.26871 0.105682 6.39175 0.201995 6.48809C0.330914 6.61703 0.505697 6.68939 0.688048 6.6897H11.135L9.21414 12C11.9701 9.59697 16.4165 7.32913 20 6.00071Z" fill="currentColor"/>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
 
-@media (min-aspect-ratio: 16/9) {
-    .tp-hero-2-video-container .youtube-video-wrapper iframe,
-    .tp-hero-2-video-container .youtube-video-wrapper #youtubePlayer {
-        width: 100vw;
-        height: 56.25vw;
-    }
-}
-
-/* Mobile responsiveness */
-@media (max-width: 991px) {
-    .tp-hero-2-video-container .youtube-video-wrapper iframe,
-    .tp-hero-2-video-container .youtube-video-wrapper #youtubePlayer {
-        min-width: 200vh;
-        min-height: 100vh;
-    }
-}
-
-@media (max-width: 767px) {
-    .tp-hero-2-video-container .youtube-video-wrapper iframe,
-    .tp-hero-2-video-container .youtube-video-wrapper #youtubePlayer {
-        min-width: 250vh;
-        min-height: 100vh;
-    }
-}
-
-@media (max-width: 575px) {
-    .tp-hero-2-video-container .youtube-video-wrapper iframe,
-    .tp-hero-2-video-container .youtube-video-wrapper #youtubePlayer {
-        min-width: 300vh;
-        min-height: 100vh;
-    }
-}
-</style>
-
-<!-- YouTube IFrame Player API -->
-<script>
-var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-var player;
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('youtubePlayer', {
-        videoId: '{{ video_id }}',
-        playerVars: {
-            'autoplay': 1,
-            'mute': 1,
-            'controls': 0,
-            'loop': 1,
-            'playlist': '{{ video_id }}',
-            'playsinline': 1,
-            'rel': 0,
-            'modestbranding': 1,
-            'showinfo': 0,
-            'iv_load_policy': 3,
-            'disablekb': 1,
-            'fs': 0,
-            'cc_load_policy': 0,
-            'origin': window.location.origin
-        },
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange,
-            'onError': onPlayerError
-        }
-    });
-}
-
-function onPlayerReady(event) {
-    event.target.playVideo();
-}
-
-function onPlayerStateChange(event) {
-    if (event.data === YT.PlayerState.ENDED) {
-        player.playVideo();
-    }
-}
-
-function onPlayerError(event) {
-    console.error('YouTube Player Error:', event.data);
-}
-</script>
-
-{% elif video_url %}
-<div class="tp-hero-2-video-container">
-    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #ccc; text-align: center;">
-        <p>Could not extract video ID from URL</p>
-    </div>
-</div>
-
-{% else %}
-<!-- Fallback to static video if no YouTube URL -->
-<div class="tp-hero-2-video-container">
-    <video loop muted autoplay playsinline>
-        <source src="{% static 'assets/videos/myvideo.mp4' %}" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-</div>
-{% endif %}
-{% endcomment %}
-
-<div class="tp-hero-2-video-container">
-    <div class="swiper static-hero-carousel h-100">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <img src="{% static 'assets/img/New/entrance.jpg' %}" alt="Slide 1" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div class="swiper-slide">
-                <img src="{% static 'assets/img/New/vynzora_tree.jpeg' %}" alt="Slide 2" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            </div>
-    </div>
-</div>
-
-<style>
-/* Style to ensure carousel behaves like a background */
-.static-hero-carousel {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-/* Optional: Add a dark overlay to make sure the white text is readable */
-.tp-hero-2-video-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.2); 
-    z-index: 0;
-}
-</style>
-               
-               <img class="tp-hero-2-shape-two d-none d-lg-block" data-speed="0.9"  src="{% static 'assets/img/hero/hero-2/shape.png' %}"  alt="">
-               <div class="container-fluid container-1800 containers">
-                  <div class="row">
-                     <div class="col-lg-9">
-                        <div class="tp-hero-2-left">
-                           <div class="row">
-                              <div class="col-lg-9">
-                                 <div class="tp-hero-2-title-wrap pt-115 mb-40">
-                                    
-                                   <h2 class="tp-hero-2-title tp-ff-funnel fw-600 fs-100 tp-text-common-white lh-1 ms-n3">
-    {{ website.name }}
-</h2>
-
-
-
-                                 </div>
-                              </div>
-                              <div class="col-lg-3">
-                                 <div class="tp-hero-2-impact-wrap p-relative d-flex align-items-center mb-40">
-                                    <div class="shape mr-25">
-                                       <img src="assets/img/hero/hero-2/shape-3.png" alt="">
+                                        <div class="col-lg-3">
+                                            <div class="tp-hero-2-impact-wrap p-relative d-flex align-items-center mb-40">
+                                                <div class="shape mr-10">
+                                                    <img src="{% static 'globe.png' %}" alt="Globe" class="rotate-globe">
+                                                </div>
+                                                <div class="tp-hero-2-impact-text lh-1">
+                                                    <span class="fw-500 fs-18 tp-text-grey-2 ls-0" style="color:#fff;">
+                                                        We Build Unique</span>
+                                                    <span class="tp-lines">
+                                                        <svg width="239" height="6" viewBox="0 0 239 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M5 2.5L0 0.113249V5.88675L5 3.5V2.5ZM234 3.5L239 5.88675V0.113249L234 2.5V3.5ZM4.5 3V3.5H234.5V3V2.5H4.5V3Z" fill="#999999" fill-opacity="0.3" />
+                                                        </svg>
+                                                    </span>
+                                                    <span class="fw-500 fs-18 mt-5 ls-0 d-inline-block tp-text-grey-2" style="color:#fff;">
+                                                        Strategy+Creativity = IMPACT
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="tp-hero-2-impact-text lh-1">
-                                       <span class="fw-500 fs-18 tp-text-grey-2 ls-0">We Build Unique</span>
-                                       <span class="tp-lines">
-                                          <svg width="239" height="6" viewBox="0 0 239 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                             <path d="M5 2.5L0 0.113249V5.88675L5 3.5V2.5ZM234 3.5L239 5.88675V0.113249L234 2.5V3.5ZM4.5 3V3.5H234.5V3V2.5H4.5V3Z" fill="#999999" fill-opacity="0.3" />
-                                          </svg>
-                                       </span>
-                                       <span class="fw-500 fs-18 mt-5 ls-0 d-inline-block tp-text-grey-2">Strategy + Creativity = Impact</span>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <div class="tp-hero-2-author mb-40">
+
+                                    <div class="vynzora-google-badge d-none d-lg-inline-flex mb-30 tp_fade_anim" data-delay=".3">
+                                        <div class="g-icon-box">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                                                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                                                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                                                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                                            </svg>
+                                        </div>
+                                        <div class="g-rating-info">
+                                            <div class="g-top-row">
+                                                <span class="g-score">5.0</span>
+                                                <div class="g-stars">
+                                                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 0L8.23491 4.35645L13 5.05573L9.75 8.18855L10.4698 13L6.5 10.8564L2.53015 13L3.25 8.18855L0 5.05573L4.76509 4.35645L6.5 0Z" fill="#fff"/></svg>
+                                                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 0L8.23491 4.35645L13 5.05573L9.75 8.18855L10.4698 13L6.5 10.8564L2.53015 13L3.25 8.18855L0 5.05573L4.76509 4.35645L6.5 0Z" fill="#fff"/></svg>
+                                                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 0L8.23491 4.35645L13 5.05573L9.75 8.18855L10.4698 13L6.5 10.8564L2.53015 13L3.25 8.18855L0 5.05573L4.76509 4.35645L6.5 0Z" fill="#fff"/></svg>
+                                                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 0L8.23491 4.35645L13 5.05573L9.75 8.18855L10.4698 13L6.5 10.8564L2.53015 13L3.25 8.18855L0 5.05573L4.76509 4.35645L6.5 0Z" fill="#fff"/></svg>
+                                                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 0L8.23491 4.35645L13 5.05573L9.75 8.18855L10.4698 13L6.5 10.8564L2.53015 13L3.25 8.18855L0 5.05573L4.76509 4.35645L6.5 0Z" fill="#fff"/></svg>
+                                                </div>
+                                            </div>
+                                            <span class="g-reviews-text">Based on 25+ Reviews</span>
+                                        </div>
                                     </div>
-                                 </div>
-                                 <img class="tp-hero-2-shape upslide" src="assets/img/hero/hero-2/shape-2.png" alt="">
-                              </div>
-                           </div>
+
+                                    <div class="tp-hero-2-combined-box mb-40">
+                                        <div class="tp-hero-2-customer d-flex align-items-center mb-20">
+                                            <img class="mr-20" src="{% static 'assets/img/hero/avatar-2.webp' %}" alt="">
+                                            <p class="fw-500 fs-16 tp-text-common-white lh-130-per mb-0 d-inline-block">We have <b>250+</b><br>
+                                                customers in world-wide.</p>
+                                        </div>
+                                        <p class="fw-400 fs-20 tp-text-common-white mb-20">Awe-inspiring, Responsive, and Easy To Use Websites built to Suit your Business objectives. Let's build a Digital experience your users will love.</p>
+                                        <a href="{% url 'portfolio' %}" class="tp-left-right fw-500 fs-15 tp-text-common-white text-uppercase hover-text-white">
+                                            <span class="mr10 td-text d-inline-block mr-5">See Our Work</span>
+                                            <span class="tp-arrow-angle">
+                                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.41379 3.30208C5.97452 3.05821 10.6092 1.55558 14 0C12.4438 3.39014 10.9406 8.02425 10.6973 11.585L8.35765 6.59331L1.14783 13.8037C1.02165 13.9295 0.850656 14.0001 0.672431 14C0.539461 14 0.409486 13.9605 0.298934 13.8866C0.188382 13.8128 0.102217 13.7077 0.0513353 13.5849C0.000453949 13.462 -0.0128613 13.3269 0.013072 13.1965C0.0390053 13.066 0.103024 12.9462 0.197034 12.8522L7.40683 5.64241L2.41379 3.30208Z" fill="currentColor" />
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.41379 3.30208C5.97452 3.05821 10.6092 1.55558 14 0C12.4438 3.39014 10.9406 8.02425 10.6973 11.585L8.35765 6.59331L1.14783 13.8037C1.02165 13.9295 0.850656 14.0001 0.672431 14C0.539461 14 0.409486 13.9605 0.298934 13.8866C0.188382 13.8128 0.102217 13.7077 0.0513353 13.5849C0.000453949 13.462 -0.0128613 13.3269 0.013072 13.1965C0.0390053 13.066 0.103024 12.9462 0.197034 12.8522L7.40683 5.64241L2.41379 3.30208Z" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+
                         </div>
-                     </div>
-                     <div class="col-lg-3">
-                        <div class="tp-hero-2-author mb-40">
-                           <div class="tp-hero-2-customer d-flex align-items-center mb-40">
-                              <img class="mr-20" src="assets/img/hero/avatar-2.png" alt="">
-                              <p class="fw-500 fs-16 tp-text-grey-2 lh-130-per mb-0 d-inline-block">We have <b class="tp-text-common-white">2K+</b><br> 
-                                 customers in world-wide.</p>
-                           </div>
-                           {% comment %} <p class="fw-400 fs-20 tp-text-grey-2 mb-30">We design stunning, <b class="tp-text-common-white fw-500">Responsive,</b> and <b class="tp-text-common-white fw-500">User-friendly websites</b> tailored to your business goals. Let’s create a <b class="tp-text-common-white fw-500">Digital experience</b> your audience will love.</p> {% endcomment %}
-                           <p class="fw-400 fs-20 tp-text-grey-2 mb-30">As the leading digital agency in Kochi, we combine deep local expertise with enterprise-grade capabilities giving Kerala businesses a genuine competitive advantage online.
-                        </p>
+                    </div>
 
-<!-- CTA Buttons -->
-<div class="tp-hero-cta-buttons d-flex align-items-center gap-3 flex-wrap">
-    <a href="{% url 'contact' %}" class="tp-btn-primary">
-        Get Started
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 13L13 1M13 1H4.77778M13 1V9.22222" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </a>
-    <a href="{% url 'portfolio' %}" class="tp-btn-secondary">
-        View Our Work
-    </a>
-</div>
-
-<style>
-/* Hero CTA Buttons */
-.tp-hero-cta-buttons {
-    margin-top: 10px;
-}
-
-.tp-btn-primary,
-.tp-btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 16px 32px;
-    font-size: 16px;
-    font-weight: 600;
-    text-transform: uppercase;
-    border-radius: 50px;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    letter-spacing: 0.5px;
-}
-
-.tp-btn-primary {
-    background: linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%);
-    color: #ffffff;
-    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
-}
-
-.tp-btn-primary:hover {
-    background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
-    box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
-    transform: translateY(-2px);
-    color: #ffffff;
-}
-
-.tp-btn-primary svg {
-    transition: transform 0.3s ease;
-}
-
-.tp-btn-primary:hover svg {
-    transform: translateX(4px);
-}
-
-.tp-btn-secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-}
-
-.tp-btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-2px);
-    color: #ffffff;
-}
-
-/* Mobile Responsive */
-@media (max-width: 767px) {
-    .tp-hero-cta-buttons {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .tp-btn-primary,
-    .tp-btn-secondary {
-        width: 100%;
-        justify-content: center;
-        padding: 14px 24px;
-        font-size: 14px;
-    }
-}
-</style>
-                           
-                           <a href="about-me-light.html" class="tp-left-right fw-500 fs-15 tp-text-common-white text-uppercase hover-text-white">
-                            
-                           </a>
+                    <div class="tp-hero-2-bottom-shape d-none d-sm-inline-block">
+                        <div class="p-relative">
+                            <img src="{% static 'assets/img/hero/hero-2/bottom-shape.webp' %}" alt="">
+                            <div class="tp-hero-2-bottom-scrool">
+                                <a href="#service" class="tp-smooth">
+                                    <svg width="22" height="30" viewBox="0 0 22 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="0.5" y="0.5" width="21" height="29" rx="10.5" stroke="black" />
+                                        <rect class="upslide-1" x="9" y="10" width="4" height="10" rx="2" fill="#030303" />
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="tp-hero-2-bottom-shape d-none d-sm-inline-block">
-                  <div class="p-relative">
-                     <img src="{% static 'assets/img/hero/hero-2/bottom-shape.webp' %}" alt="">
-                     <div class="tp-hero-2-bottom-scrool">
-                        <a href="#service" class="tp-smooth">
-                           <svg width="22" height="30" viewBox="0 0 22 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <rect x="0.5" y="0.5" width="21" height="29" rx="10.5" stroke="black" />
-                              <rect class="upslide-1" x="9" y="10" width="4" height="10" rx="2" fill="#030303" />
-                           </svg>
-                        </a>
-                     </div>
-                  </div>
-               </div>
-            </div> 
+                    </div>
+                </div>
 
-
-
-            <!-- hero area end -->
+                <!-- hero area end -->
 
             
 
@@ -1189,7 +1097,7 @@ function onPlayerError(event) {
                             fill: #fff !important;
                         }
                     </style>
-                    <div class="tp-portfolio-creative-wrap fix p-relative">
+                    <div id="services-section" class="tp-portfolio-creative-wrap fix p-relative">
                         <div class="tp-portfolio-creative-slider-main">
                             <div class="container-fluid container-1800">
                                 <div class="row">
@@ -2543,6 +2451,52 @@ document.addEventListener('DOMContentLoaded', function() {
     <script src="{% static 'assets/js/backtop.js' %}"></script>
     <script src="{% static 'assets/js/ajax-form.js' %}"></script>
     <script src="{% static 'assets/js/slider-init.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script>
+        (function () {
+            if (!window.gsap || !window.ScrollTrigger) return;
+            var section = document.getElementById('services-section');
+            var swiperEl = document.querySelector('.tp-portfolio-creative-slider-active');
+            if (!section || !swiperEl || !swiperEl.swiper) return;
+
+            var swiper = swiperEl.swiper;
+            var total = swiper.slides.length;
+            if (total <= 1) return;
+
+            gsap.registerPlugin(ScrollTrigger);
+            ScrollTrigger.create({
+                trigger: section,
+                start: "top top",
+                end: "+=" + (total * 100) + "%",
+                pin: true,
+                scrub: 0.5,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+                onUpdate: (function () {
+                    var lastIndex = -1;
+                    var ticking = false;
+                    var latestProgress = 0;
+                    function apply() {
+                        ticking = false;
+                        var index = Math.floor(latestProgress * total);
+                        if (index >= total) index = total - 1;
+                        if (index !== lastIndex) {
+                            lastIndex = index;
+                            swiper.slideTo(index, 600);
+                        }
+                    }
+                    return function (self) {
+                        latestProgress = self.progress;
+                        if (!ticking) {
+                            ticking = true;
+                            requestAnimationFrame(apply);
+                        }
+                    };
+                })()
+            });
+        })();
+    </script>
     <script src="{% static 'assets/js/main.js' %}"></script>
     <script src="{% static 'assets/js/tp-cursor.js' %}"></script>
     <script type="module" src="{% static 'assets/js/distortion-img.js' %}"></script>
