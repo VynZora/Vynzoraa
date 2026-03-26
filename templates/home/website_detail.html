@@ -2465,12 +2465,18 @@ document.addEventListener('DOMContentLoaded', function() {
             if (total <= 1) return;
 
             gsap.registerPlugin(ScrollTrigger);
+            ScrollTrigger.normalizeScroll(true);
             ScrollTrigger.create({
                 trigger: section,
                 start: "top top",
                 end: "+=" + (total * 100) + "%",
                 pin: true,
-                scrub: 0.5,
+                scrub: 0,
+                snap: {
+                    snapTo: 1 / (total - 1),
+                    duration: 0.1,
+                    ease: "none"
+                },
                 anticipatePin: 1,
                 invalidateOnRefresh: true,
                 onUpdate: (function () {
@@ -2479,11 +2485,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     var latestProgress = 0;
                     function apply() {
                         ticking = false;
-                        var index = Math.floor(latestProgress * total);
+                        var index = Math.round(latestProgress * (total - 1));
                         if (index >= total) index = total - 1;
                         if (index !== lastIndex) {
                             lastIndex = index;
-                            swiper.slideTo(index, 1200);
+                            swiper.slideTo(index, 800);
                         }
                     }
                     return function (self) {
