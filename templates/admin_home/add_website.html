@@ -756,6 +756,54 @@
 
         <div class="section-divider"></div>
 
+        <!-- Website Services Section -->
+        <div class="services-section">
+          <div class="services-header">
+            <h5>
+              <i class="mdi mdi-briefcase-outline"></i>
+              Website Services
+            </h5>
+          </div>
+
+          <div id="website-service-container">
+            <div class="service-group website-service-item">
+              <div class="service-header">
+                <span class="service-number">Service #1</span>
+                <button type="button" class="btn-remove-service remove-website-service-btn" style="display: none;">
+                  <i class="mdi mdi-delete"></i>
+                  Remove
+                </button>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Heading</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="service_heading[]"
+                  placeholder="Enter service heading"
+                  maxlength="200"
+                >
+              </div>
+              <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea
+                  class="form-control"
+                  name="service_description[]"
+                  rows="3"
+                  placeholder="Enter service description"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn-add-service" id="add-website-service">
+            <i class="mdi mdi-plus"></i>
+            Add Another Service
+          </button>
+        </div>
+
+        <div class="section-divider"></div>
+
         <!-- FAQ Section -->
         <div class="services-section">
           <div class="services-header">
@@ -1107,6 +1155,46 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
     });
+  }
+
+  // ========== WEBSITE SERVICES FUNCTIONALITY ==========
+  const websiteServiceContainer = document.getElementById('website-service-container');
+  const addWebsiteServiceButton = document.getElementById('add-website-service');
+
+  function updateWebsiteServiceNumbers() {
+    const items = websiteServiceContainer.querySelectorAll('.website-service-item');
+    items.forEach(function(item, index) {
+      item.querySelector('.service-number').textContent = 'Service #' + (index + 1);
+      const removeBtn = item.querySelector('.remove-website-service-btn');
+      removeBtn.style.display = items.length === 1 ? 'none' : 'inline-flex';
+    });
+  }
+
+  if (addWebsiteServiceButton) {
+    addWebsiteServiceButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      const firstItem = websiteServiceContainer.querySelector('.website-service-item');
+      const newItem = firstItem.cloneNode(true);
+      newItem.querySelectorAll('input, textarea').forEach(function(el) {
+        el.value = '';
+      });
+      websiteServiceContainer.appendChild(newItem);
+      updateWebsiteServiceNumbers();
+    });
+  }
+
+  if (websiteServiceContainer) {
+    websiteServiceContainer.addEventListener('click', function(e) {
+      if (e.target.closest('.remove-website-service-btn')) {
+        e.preventDefault();
+        const items = websiteServiceContainer.querySelectorAll('.website-service-item');
+        if (items.length > 1) {
+          e.target.closest('.website-service-item').remove();
+          updateWebsiteServiceNumbers();
+        }
+      }
+    });
+    updateWebsiteServiceNumbers();
   }
 
   // ========== IMAGE PREVIEW FUNCTIONALITY ==========

@@ -534,9 +534,7 @@
 		},
 		direction: 'vertical',
 		speed: 600,
-		mousewheel: {
-			releaseOnEdges: true,
-		},
+		mousewheel: false,
 		navigation: {
 			nextEl: '.tp-portfolio-slicer-button-next',
 			prevEl: '.tp-portfolio-slicer-button-prev',
@@ -546,6 +544,37 @@
 			clickable: true,
 		},
 	});
+	// Enable mousewheel only when pointer is over a slide (image/card)
+	(function () {
+		if (!SwiperSliderFourteen || !SwiperSliderFourteen.el) return;
+		var sliderEl = SwiperSliderFourteen.el;
+		var active = false;
+		var enable = function () {
+			active = true;
+			if (SwiperSliderFourteen.mousewheel) {
+				SwiperSliderFourteen.mousewheel.enable();
+			}
+		};
+		var disable = function () {
+			active = false;
+			if (SwiperSliderFourteen.mousewheel) {
+				SwiperSliderFourteen.mousewheel.disable();
+			}
+		};
+		sliderEl.addEventListener('mouseenter', function (e) {
+			if (e.target.closest('.tp-portfolio-creative-item, .slide__img, .slide__img-cont')) {
+				enable();
+			}
+		});
+		sliderEl.addEventListener('mousemove', function (e) {
+			if (e.target.closest('.tp-portfolio-creative-item, .slide__img, .slide__img-cont')) {
+				if (!active) enable();
+			} else if (active) {
+				disable();
+			}
+		});
+		sliderEl.addEventListener('mouseleave', disable);
+	})();
 
 	////////////////////////////////////////////////////
 	// 23. tp-portfolio-horizontal-active
@@ -607,10 +636,7 @@
 	////////////////////////////////////////////////////
 	// 25. tp-portfolio-creative-slider-active
 	var SwiperSliderFourteen = new Swiper('.tp-portfolio-creative-slider-active', {
-		loop: true,
-		autoplay: {
-			delay: 2000,
-		},
+		loop: false,
 		autoHeight: true,
 		effect: "creative",
 		creativeEffect: {
@@ -621,10 +647,12 @@
 				translate: ["100%", 0, 0],
 			},
 		},
-		speed: 1500,
+		speed: 800,
 		slidesPerView: "1",
 		spaceBetween: 0,
-		mousewheel: true,
+		mousewheel: {
+			releaseOnEdges: true,
+		},
 		navigation: {
 			nextEl: '.tp-portfolio-mix-button-next',
 			prevEl: '.tp-portfolio-mix-button-prev',
@@ -966,5 +994,3 @@
 	});
 
 })(jQuery);
-
-

@@ -7,7 +7,7 @@ from django.contrib import messages
 import random
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods
-from .models import ContactModel, ClientReview, Client_Logo, Technologies, Blog, Team, ProjectModel, Certificates, Category, Website, Career_Model, Candidate
+from .models import ContactModel, ClientReview, Client_Logo, Technologies, Blog, Team, ProjectModel, Certificates, Category, Website, Career_Model, Candidate, WebsiteService
 from .forms import ContactModelForm, ClientReviewForm, Client_Logo_Form, TechnologiesForm, BlogForm, TeamForm, ProjectModelForm, CertificatesForm, CategoryForm, WebsiteForm, CareerForm, CandidateForm
 from .models import Services,Partner
 from django.http import JsonResponse
@@ -1086,6 +1086,7 @@ def category_website_detail(request, category_slug, website_slug):
     
     # Retrieve all required data
     services = Services.objects.all()
+    website_services = website.services.all().order_by("id")
     faqs = website.faqs.all()
     technologies = Technologies.objects.all()
     blogs = Blog.objects.all()[:3]
@@ -1099,6 +1100,7 @@ def category_website_detail(request, category_slug, website_slug):
             'category': category, 
             'website': website, 
             'faqs': faqs, 
+            'website_services': website_services,
             'services': services, 
             'video_url': video_url,
             'client_logos':client_logos,
@@ -1301,6 +1303,13 @@ def add_website(request):
         for question, answer in zip(faq_questions, faq_answers):
             if question.strip() and answer.strip():
                 WebsiteFAQ.objects.create(website=website, question=question, answer=answer)
+
+        # Handle Website Services (optional)
+        service_headings = request.POST.getlist("service_heading[]")
+        service_descriptions = request.POST.getlist("service_description[]")
+        for heading, desc in zip(service_headings, service_descriptions):
+            if heading.strip() and desc.strip():
+                WebsiteService.objects.create(website=website, heading=heading, description=desc)
                 
         messages.success(request, "Website added successfully!")
 
@@ -1356,7 +1365,15 @@ def website_api_detail(request, pk):
                     'answer': faq.answer
                 }
                 for faq in website.faqs.all()
-            ]
+            ],
+            'services': [
+                {
+                    'id': s.id,
+                    'heading': s.heading,
+                    'description': s.description,
+                }
+                for s in website.services.all().order_by("id")
+            ],
         }
         
         return JsonResponse(data)
@@ -1485,6 +1502,50 @@ def update_website(request, website_id):
             WebsiteFAQ.objects.filter(website=website).exclude(id__in=faqs_to_keep).delete()
         else:
             WebsiteFAQ.objects.filter(website=website).delete()
+
+        # ===== PROCESS WEBSITE SERVICES (OPTIONAL) =====
+        service_count = int(request.POST.get('services-TOTAL_FORMS', 0))
+        services_to_keep = []
+
+        for i in range(1, service_count + 1):
+            service_id = request.POST.get(f'services-{i}-id', '').strip()
+            heading = request.POST.get(f'services-{i}-heading', '').strip()
+            description = request.POST.get(f'services-{i}-description', '').strip()
+            should_delete = request.POST.get(f'services-{i}-DELETE') == 'on'
+
+            if should_delete:
+                if service_id:
+                    try:
+                        WebsiteService.objects.filter(id=int(service_id), website=website).delete()
+                    except (ValueError, WebsiteService.DoesNotExist):
+                        pass
+                continue
+
+            if not heading or not description:
+                continue
+
+            if service_id:
+                try:
+                    s = WebsiteService.objects.get(id=int(service_id), website=website)
+                    s.heading = heading
+                    s.description = description
+                    s.save()
+                    services_to_keep.append(s.id)
+                except (ValueError, WebsiteService.DoesNotExist):
+                    s = WebsiteService.objects.create(
+                        website=website, heading=heading, description=description
+                    )
+                    services_to_keep.append(s.id)
+            else:
+                s = WebsiteService.objects.create(
+                    website=website, heading=heading, description=description
+                )
+                services_to_keep.append(s.id)
+
+        if services_to_keep:
+            WebsiteService.objects.filter(website=website).exclude(id__in=services_to_keep).delete()
+        else:
+            WebsiteService.objects.filter(website=website).delete()
             
         messages.success(request, 'Website updated successfully!')
 

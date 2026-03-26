@@ -473,3 +473,17 @@ class WebsiteFAQ(models.Model):
 
     def __str__(self):
         return f"FAQ for {self.website.website_name}: {self.question[:50]}"
+
+
+class WebsiteService(models.Model):
+    website = models.ForeignKey(Website, on_delete=models.CASCADE, related_name="services")
+    heading = models.CharField(max_length=200, verbose_name="Service Heading")
+    description = models.TextField(verbose_name="Service Description")
+    imported_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Website Service"
+        verbose_name_plural = "Website Services"
+
+    def __str__(self):
+        return f"{self.heading} - {self.website.name}"

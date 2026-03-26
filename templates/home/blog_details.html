@@ -92,8 +92,46 @@
                   </div>
                </div>
                <div class="tp-blog-details-content mb-70">
-                  <p class="fs-18 lh-150-per">{{blog.description|safe}}</p>
-                  
+                  <div class="blog-description">
+                     {{ blog.description|safe }}
+                   </div>
+                   <style>
+                     .blog-description {
+                        color: #555555 !important;
+                        line-height: 1.8 !important;
+                        font-size: 20px !important;   /* increased */
+                        text-align: justify !important;
+                      }
+                      
+                      /* paragraphs */
+                      .blog-description p {
+                        color: #555555 !important;
+                        line-height: 1.8 !important;
+                        font-size: 20px !important;   /* increased */
+                        margin-bottom: 20px;
+                        text-align: justify !important;
+                      }
+                      
+                      /* links */
+                      .blog-description a {
+                        color: #0752c5 !important;   /* your theme blue */
+                        text-decoration: underline;
+                        cursor: pointer;
+                      }
+                      
+                      .blog-description a:hover {
+                        opacity: 0.8;
+                      }
+                      .blog-description h3 {
+                        font-size: 30px !important;
+                        line-height: 1.4;
+                        margin-top: 20px;
+                        margin-bottom: 8px;
+                        font-weight: 600;
+                        color: #000000;
+                      }
+                      
+                   </style>             
                   {% comment %}
                   <div class="tp-service-details-content mt-55">
                      <h5 class="fs-25 mb-25">Why Marketing Funnel Analytics Matterss</h5>

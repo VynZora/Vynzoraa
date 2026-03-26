@@ -695,7 +695,7 @@ function onPlayerError(event) {
                                  <div class="tp-hero-2-title-wrap pt-115 mb-40">
                                     
                                    <h2 class="tp-hero-2-title tp-ff-funnel fw-600 fs-100 tp-text-common-white lh-1 ms-n3">
-    {{ website.main_title }}
+    {{ website.name }}
 </h2>
 
 
@@ -857,31 +857,16 @@ function onPlayerError(event) {
                     <div class="tp-about-area pt-150 pb-130 p-relative z-index-1">
                         <img class="tp-about-ai-ring p-absolute" src="{% static 'assets/img/about/ai/ring.webp' %}" alt="">
                         <div class="container-fluid container-1524">
-                           <div class="row">
-                                <div class="col-12">
-                                    <div class="tp-about-ai-text-wrap mb-80 text-center">
-                                        <h3 class="tp-about-ai-text tp-ff-jakarta fw-600 fs-72 fs-xl-60 fs-md-38 lh-120-per ls-m-4 tp-text-common-black-6">
-                                            
-    {{ website.description|safe|linebreaksbr }}
-    {% comment %} <span class="has-scale-image hide-ball" data-img="{% static 'assets/img/about/ai/shape-2.png' %}" data-bgcolor="#111112"></span>
-    <span class="has-scale-image hide-ball" data-img="{% static 'assets/img/about/ai/shape-3.png' %}" data-bgcolor="#111112"></span> {% endcomment %}
-</h3>
-
-                                       
-
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row align-items-center">
                                 <div class="col-lg-5">
                                     <div class="tp-about-ai-subtitle mb-30 text-lg-center tp_fade_anim" data-delay=".3">
-                                        <span class="tp-ff-inter fw-500 fs-18 ls-m-4 tp-text-common-black-5">/ Our About /</span>
+                                        <span class="tp-ff-inter fw-500 fs-18 ls-m-4 tp-text-common-black-5">/ Description /</span>
                                     </div>
                                 </div>
                                 <div class="col-lg-7">
                                     <div class="tp-about-ai-content mb-30">
                                         <h2 class="tp-about-ai-title fw-600 tp-ff-jakarta ls-m-4 d-flex align-items-start mb-35 tp_fade_anim" data-delay=".3">
-                                            <span class="title-slide-gradient">VYNZORA</span>
+                                            <span class="title-slide-gradient">{{ website.name }}</span>
 </h2>
     <style>
       
@@ -898,6 +883,7 @@ function onPlayerError(event) {
     padding-bottom: 6px !important;
     display: inline-block !important;
     padding-right: 8px; 
+    font-size: 60px;
 }
 
 /* Parent containers sometimes clip animated text */
@@ -938,8 +924,7 @@ function onPlayerError(event) {
     </style>
                                         <div class="tp_fade_anim" data-delay=".5">
                                             <p class="tp-about-ai-para tp-ff-dm mb-55 fw-400 fs-22 ls-m-2 lh-150-per tp-text-common-black-6">
-                                                Vynzora was founded in Kochi in 2018 with a single belief: that businesses in Kerala deserve the same quality of web development, software development, digital marketing, and branding as companies in any major city in India delivered by a team that actually understands the local market, culture, and competitive landscape.
-
+                                                {{ website.description|default:website.add_description|linebreaksbr }}
                                             </p>
                                         </div>
                                         <div class="tp_fade_anim" data-delay=".7" data-fade-from="bottom" data-ease="bounce">
@@ -979,7 +964,169 @@ function onPlayerError(event) {
                         </div>
                     </div>
                     <!-- tp-banner-area-end -->
+
+                    <!-- PERSPECTIVE SERVICES (commented out) -->
+                    {% comment %}
+                    <style>
+                        .tp-perspective-area {
+                            background: #000;
+                        }
+                        .tp-perspective-slider .tp-perspective-inner .tp-perspective-image {
+                            overflow: hidden;
+                        }
+                        .tp-perspective-slider .tp-perspective-inner .tp-perspective-image > img {
+                            position: absolute;
+                            inset: 0;
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            z-index: 1;
+                        }
+                        .tp-perspective-area .tp-service-pp-title-box {
+                            position: relative;
+                            z-index: 15;
+                            padding-top: 90px;
+                        }
+                        @media (max-width: 991px) {
+                            .tp-perspective-area .tp-service-pp-title-box {
+                                padding-top: 70px;
+                            }
+                        }
+                    </style>
+                    <div class="tp-perspective-area">
+                        <div class="container container-1646">
+                            <div class="tp-service-pp-title-box">
+                                <div class="row">
+                                    <div class="col-lg-5 col-12">
+                                        <div class="tp-about-pp-title-wrap mb-40">
+                                            <span class="tp-section-pp-subtitle mb-15 tp-ff-heading fw-500 fs-18 tp-text-common-white d-inline-block">What We Offer</span>
+                                            <h2 class="tp-section-pp-title fw-500 fs-80 fs-xl-65 fs-md-40 fs-xs-30 text-uppercase tp-text-common-white lh-1 mb-0">
+                                                Services
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 col-12">
+                                        <div class="tp-about-pp-title-wrap mb-20 text-lg-end text-start pt-lg-45">
+                                            <h2 class="tp-section-pp-title fw-400 fs-50 fs-lg-42 fs-xs-30 lh-120-per tp_text_invert">
+                                                Everything Your Brand <br>Needs to Win Online
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="tp-perspective-slider">
+                                        {% for s in services %}
+                                        <div class="tp-perspective-main">
+                                            <div class="tp-perspective-inner">
+                                                <div class="tp-perspective-image">
+                                                    {% if s.image %}
+                                                        <img src="{{ s.image.url }}" alt="{{ s.name }}">
+                                                    {% else %}
+                                                        <img src="{% static 'assets/img/service/ai/thumb.webp' %}" alt="{{ s.name }}">
+                                                    {% endif %}
+                                                    <div class="tp-perspective-content">
+                                                        <span class="tp-perspective-category tp_reveal_anim">{{ s.name }}</span>
+                                                        <h1 class="tp-perspective-title tp_reveal_anim not-hide-cursor" data-cursor="View<br>Service">
+                                                            <a class="cursor-hide" href="{% url 'service_detail' s.slug %}">{{ s.name }}</a>
+                                                        </h1>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  PERSPECTIVE SERVICES -->
+                    {% endcomment %}
+
+                    <!-- PORTFOLIO CREATIVE SLIDER -->
+                    <style>
+                        .tp-portfolio-creative-wrap .tp-portfolio-creative-item {
+                            min-height: 280px;
+                            position: relative;
+                        }
+                        .tp-portfolio-creative-wrap .tp-portfolio-creative-link {
+                            position: absolute;
+                            inset: 0;
+                            z-index: 2;
+                        }
+                        .tp-portfolio-creative-wrap .tp-portfolio-creative-content {
+                            position: relative;
+                            z-index: 3;
+                        }
+                        @media (max-width: 991px) {
+                            .tp-portfolio-creative-wrap .tp-portfolio-creative-item {
+                                min-height: 350px;
+                            }
+                        }
+                        .tp-portfolio-creative-wrap {
+                            background: #000;
+                        }
+                        .tp-portfolio-mix-button-prev,
+                        .tp-portfolio-mix-button-next {
+                            color: #fff;
+                        }
+                        .tp-portfolio-creative-wrap .swiper-pagination-bullet .fp-arc-loader .path,
+                        .tp-portfolio-creative-wrap .swiper-pagination-bullet .fp-arc-loader circle {
+                            stroke: #fff !important;
+                            fill: #fff !important;
+                        }
+                        .tp-portfolio-creative-slider-main .swiper-pagination span svg circle {
+                            stroke: #fff !important;
+                            fill: #fff !important;
+                        }
+                    </style>
+                    <div class="tp-portfolio-creative-wrap fix p-relative">
+                        <div class="tp-portfolio-creative-slider-main">
+                            <div class="container-fluid container-1800">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="swiper tp-portfolio-creative-slider-active">
+                                            <div class="swiper-wrapper">
+                                                {% for s in services %}
+                                                <div class="swiper-slide">
+                                                    <div class="tp-portfolio-creative-item bg-position"
+                                                         data-background="{% if s.image %}{{ s.image.url }}{% else %}{% static 'assets/img/portfolio/mix/thumb.jpg' %}{% endif %}">
+                                                        <a class="tp-portfolio-creative-link" href="{% url 'service_detail' s.slug %}" aria-label="{{ s.name }}"></a>
+                                                        <div class="tp-portfolio-creative-content">
+                                                            <span class="tp-portfolio-slicer-category">Service</span>
+                                                            <h2 class="tp-portfolio-slicer-title">
+                                                                <a href="{% url 'service_detail' s.slug %}">{{ s.name }}</a>
+                                                            </h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tp-portfolio-mix-slider-navigation navigation-white overflow-hidden">
+                                <div class="container-fluid container-1800">
+                                    <div class="slider-nav">
+                                        <div class="tp-portfolio-mix-button-prev nav-icon">
+                                            <i class="fa-solid fa-angle-left"></i>Prev
+                                        </div>
+                                        <div class="tp-portfolio-mix-button-next nav-icon">
+                                            Next<i class="fa-solid fa-angle-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-pagination"></div>
+                            
+                        </div>
+                    </div>
+                    <!-- /PORTFOLIO CREATIVE SLIDER -->
                     
+                    {% comment %} What We Offer section (hidden) {% endcomment %}
+                    {% comment %}
                     <div class="tp-website-offer-area pt-120 pb-120">
                         <div class="container-fluid container-1524">
                             <div class="row">
@@ -1060,6 +1207,7 @@ function onPlayerError(event) {
                             }
                         }
                     </style>
+                    {% endcomment %}
                     
                     <!-- tp-service-area-start -->
                     <div class="tp-service-area tp-bg-common-black pt-90 pb-250">
@@ -1068,23 +1216,23 @@ function onPlayerError(event) {
                                 <div class="row">
                                     <div class="col-lg-5 col-12">
                                         <div class="tp-about-pp-title-wrap mb-40">
-                                            <span class="tp-section-pp-subtitle mb-15 tp-ff-heading fw-500 fs-18 tp-text-common-white d-inline-block">What We Offer</span>
+                                            <span class="tp-section-pp-subtitle mb-15 tp-ff-heading fw-500 fs-18 tp-text-common-white d-inline-block">Website Services</span>
                                             <h2 class="tp-section-pp-title fw-500 fs-80 fs-xl-65 fs-md-40 fs-xs-30 text-uppercase tp-text-common-white lh-1 mb-0">
-                                                Services
+                                                What’s Included
                                             </h2>
                                         </div>
                                     </div>
                                     <div class="col-lg-7 col-12">
                                         <div class="tp-about-pp-title-wrap mb-20 text-lg-end text-start pt-lg-45">
                                             <h2 class="tp-section-pp-title fw-400 fs-50 fs-lg-42 fs-xs-30 lh-120-per tp_text_invert">
-                                                Everything Your Brand <br>Needs to Win Online
+                                                Services Included In <br>{{ website.name }}
                                             </h2>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="tp-service-pp-pin">
-                                {% for s in services %}
+                                {% for s in website_services %}
                                 <div class="tp-service-pp-item tp-service-pp-panel">
                                     <div class="row">
                                         <div class="col-xxl-3 col-xl-2 col-lg-1 col-md-1 service-col-number">
@@ -1094,51 +1242,14 @@ function onPlayerError(event) {
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-7 service-col-content">
+                                        <div class="col-xxl-9 col-xl-10 col-lg-11 col-md-11 service-col-content">
                                             <div class="tp-service-pp-content">
                                                 <h4 class="tp-section-title text-uppercase tp-text-common-white fs-80 fs-xl-65 fs-md-40 fw-500 mb-55">
-                                                    <a class="tp_text_invert" href="{% url 'service_detail' s.slug %}">{{ s.name }}</a>
+                                                    <span class="tp_text_invert">{{ s.heading }}</span>
                                                 </h4>
                                                 <p class="fs-18 tp-text-grey-2 mb-55">
-                                                    {{ s.description|striptags|truncatewords:25 }}
+                                                    {{ s.description|striptags }}
                                                 </p>
-                                                <div class="tp-service-pp-btn pb-90 d-flex align-items-center gap-3">
-                                                    <a href="{% url 'service_detail' s.slug %}" class="tp-btn-lg tp-btn-white d-inline-block lh-0 tp-round-26 fs-15 tp-bg-common-black text-uppercase ls-0 tp-btn-switch-animation tp-text-common-white hover-text-white tp-ff-heading fw-500">
-                                                        <span class="d-flex align-items-center justify-content-center">
-                                                            <span class="btn-text">More Info</span>
-                                                            <span class="btn-icon">
-                                                                <svg width="25" height="10" viewBox="0 0 25 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.675 9.91054L24.72 5.63362C24.806 5.56483 24.8766 5.47086 24.9255 5.36023C24.9744 5.2496 25 5.12579 25 5C25 4.87421 24.9744 4.7504 24.9255 4.63977C24.8766 4.52914 24.806 4.43518 24.72 4.36638L18.675 0.0894619C18.5572 0.0111909 18.4215 -0.0168364 18.2892 0.00979851C18.157 0.0364334 18.0358 0.116215 17.9446 0.236567C17.8535 0.356918 17.7977 0.510993 17.7859 0.674501C17.7742 0.838009 17.8072 1.00165 17.8798 1.13963L19.633 4.26665L0.598757 4.26665C0.439957 4.26665 0.287661 4.34391 0.175371 4.48144C0.0630817 4.61897 0 4.8055 0 5C0 5.1945 0.0630817 5.38103 0.175371 5.51856C0.287661 5.65609 0.439957 5.73335 0.598757 5.73335L19.633 5.73335L17.8798 8.86038C17.8072 8.99835 17.7742 9.16199 17.7859 9.3255C17.7977 9.48901 17.8535 9.64308 17.9446 9.76343C18.0358 9.88378 18.157 9.96357 18.2892 9.9902C18.4215 10.0168 18.5572 9.98881 18.675 9.91054Z" fill="currentColor"/></svg>
-                                                            </span>
-                                                            <span class="btn-icon">
-                                                                <svg width="25" height="10" viewBox="0 0 25 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.675 9.91054L24.72 5.63362C24.806 5.56483 24.8766 5.47086 24.9255 5.36023C24.9744 5.2496 25 5.12579 25 5C25 4.87421 24.9744 4.7504 24.9255 4.63977C24.8766 4.52914 24.806 4.43518 24.72 4.36638L18.675 0.0894619C18.5572 0.0111909 18.4215 -0.0168364 18.2892 0.00979851C18.157 0.0364334 18.0358 0.116215 17.9446 0.236567C17.8535 0.356918 17.7977 0.510993 17.7859 0.674501C17.7742 0.838009 17.8072 1.00165 17.8798 1.13963L19.633 4.26665L0.598757 4.26665C0.439957 4.26665 0.287661 4.34391 0.175371 4.48144C0.0630817 4.61897 0 4.8055 0 5C0 5.1945 0.0630817 5.38103 0.175371 5.51856C0.287661 5.65609 0.439957 5.73335 0.598757 5.73335L19.633 5.73335L17.8798 8.86038C17.8072 8.99835 17.7742 9.16199 17.7859 9.3255C17.7977 9.48901 17.8535 9.64308 17.9446 9.76343C18.0358 9.88378 18.157 9.96357 18.2892 9.9902C18.4215 10.0168 18.5572 9.98881 18.675 9.91054Z" fill="currentColor"/></svg>
-                                                            </span>
-                                                        </span>
-                                                    </a>
-                                                    <a href="{% url 'contact' %}" class="tp-btn-lg tp-btn-white d-inline-block lh-0 tp-round-26 fs-15 tp-bg-common-black text-uppercase ls-0 tp-btn-switch-animation tp-text-common-white hover-text-white tp-ff-heading fw-500">
-                                                        <span class="d-flex align-items-center justify-content-center">
-                                                            <span class="btn-text">Contact Us</span>
-                                                            <span class="btn-icon">
-                                                                <svg width="25" height="10" viewBox="0 0 25 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.675 9.91054L24.72 5.63362C24.806 5.56483 24.8766 5.47086 24.9255 5.36023C24.9744 5.2496 25 5.12579 25 5C25 4.87421 24.9744 4.7504 24.9255 4.63977C24.8766 4.52914 24.806 4.43518 24.72 4.36638L18.675 0.0894619C18.5572 0.0111909 18.4215 -0.0168364 18.2892 0.00979851C18.157 0.0364334 18.0358 0.116215 17.9446 0.236567C17.8535 0.356918 17.7977 0.510993 17.7859 0.674501C17.7742 0.838009 17.8072 1.00165 17.8798 1.13963L19.633 4.26665L0.598757 4.26665C0.439957 4.26665 0.287661 4.34391 0.175371 4.48144C0.0630817 4.61897 0 4.8055 0 5C0 5.1945 0.0630817 5.38103 0.175371 5.51856C0.287661 5.65609 0.439957 5.73335 0.598757 5.73335L19.633 5.73335L17.8798 8.86038C17.8072 8.99835 17.7742 9.16199 17.7859 9.3255C17.7977 9.48901 17.8535 9.64308 17.9446 9.76343C18.0358 9.88378 18.157 9.96357 18.2892 9.9902C18.4215 10.0168 18.5572 9.98881 18.675 9.91054Z" fill="currentColor"/></svg>
-                                                            </span>
-                                                            <span class="btn-icon">
-                                                                <svg width="25" height="10" viewBox="0 0 25 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.675 9.91054L24.72 5.63362C24.806 5.56483 24.8766 5.47086 24.9255 5.36023C24.9744 5.2496 25 5.12579 25 5C25 4.87421 24.9744 4.7504 24.9255 4.63977C24.8766 4.52914 24.806 4.43518 24.72 4.36638L18.675 0.0894619C18.5572 0.0111909 18.4215 -0.0168364 18.2892 0.00979851C18.157 0.0364334 18.0358 0.116215 17.9446 0.236567C17.8535 0.356918 17.7977 0.510993 17.7859 0.674501C17.7742 0.838009 17.8072 1.00165 17.8798 1.13963L19.633 4.26665L0.598757 4.26665C0.439957 4.26665 0.287661 4.34391 0.175371 4.48144C0.0630817 4.61897 0 4.8055 0 5C0 5.1945 0.0630817 5.38103 0.175371 5.51856C0.287661 5.65609 0.439957 5.73335 0.598757 5.73335L19.633 5.73335L17.8798 8.86038C17.8072 8.99835 17.7742 9.16199 17.7859 9.3255C17.7977 9.48901 17.8535 9.64308 17.9446 9.76343C18.0358 9.88378 18.157 9.96357 18.2892 9.9902C18.4215 10.0168 18.5572 9.98881 18.675 9.91054Z" fill="currentColor"/></svg>
-                                                            </span>
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 service-col-media">
-                                            <div class="tp-service-pp-thumb text-end">
-                                                {% if s.image %}
-                                                    <img class="tp_fade_anim service-pp-thumb-img" data-fade-from="right" data-delay=".2" src="{{ s.image.url }}" alt="{{ s.name }}">
-                                                {% else %}
-                                                    <img class="tp_fade_anim service-pp-thumb-img" data-fade-from="right" data-delay=".2" src="{% static 'assets/img/service/ai/thumb.webp' %}" alt="{{ s.name }}">
-                                                {% endif %}
-                                                <div class="tp-service-pp-btn-mobile">
-                                                    <a href="{% url 'service_detail' s.slug %}" class="tp-service-mobile-btn">More Info</a>
-                                                    <a href="{% url 'contact' %}" class="tp-service-mobile-btn">Contact Us</a>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -2059,16 +2170,27 @@ function onPlayerError(event) {
         <div class="tp-footer-ai-copyright-border">
             <div class="container">
                 <div class="row">
-                    <div class="col-12">
-                        <div class="tp-footer-ai-copyright text-center">
+                    <div class="col-md-6">
+                        <div class="tp-footer-ai-copyright text-start">
                             <p class="tp-ff-dm fw-500 tp-text-common-black-5">
                                 <span>
                                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M0.875 7C0.875 8.62445 1.52031 10.1824 2.66897 11.331C3.81763 12.4797 5.37555 13.125 7 13.125C8.62445 13.125 10.1824 12.4797 11.331 11.331C12.4797 10.1824 13.125 8.62445 13.125 7C13.125 5.37555 12.4797 3.81763 11.331 2.66897C10.1824 1.52031 8.62445 0.875 7 0.875C5.37555 0.875 3.81763 1.52031 2.66897 2.66897C1.52031 3.81763 0.875 5.37555 0.875 7ZM14 7C14 8.85652 13.2625 10.637 11.9497 11.9497C10.637 13.2625 8.85652 14 7 14C5.14348 14 3.36301 13.2625 2.05025 11.9497C0.737498 10.637 0 8.85652 0 7C0 5.14348 0.737498 3.36301 2.05025 2.05025C3.36301 0.737498 5.14348 0 7 0C8.85652 0 10.637 0.737498 11.9497 2.05025C13.2625 3.36301 14 5.14348 14 7ZM7.12775 4.368C6.06725 4.368 5.44162 5.173 5.44162 6.55725V7.48475C5.44162 8.85938 6.05675 9.639 7.12775 9.639C7.98438 9.639 8.56363 9.12625 8.64062 8.39825H9.77375V8.47962C9.68625 9.74662 8.589 10.6383 7.1225 10.6383C5.29288 10.6383 4.26213 9.46925 4.26213 7.48563V6.54675C4.26213 4.56838 5.313 3.3635 7.12337 3.3635C8.59425 3.3635 9.6915 4.28575 9.77375 5.614V5.691H8.64062C8.56363 4.92188 7.96863 4.368 7.12775 4.368Z" fill="#111112"/>
                                     </svg>
                                 </span>
-                                © 2025 Vynzora. All Rights Reserved.
+                                <span id="currentYear"></span> Vynzora. All Rights Reserved.
                             </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-md-end text-start">
+                            <a href="{% url 'terms_and_conditions' %}" class="tp-ff-dm fw-500 tp-text-common-black-5 me-3">
+                                Terms & Conditions
+                            </a>
+                            <span class="tp-text-common-black-5">|</span>
+                            <a href="{% url 'privacy_and_policy' %}" class="tp-ff-dm fw-500 tp-text-common-black-5 ms-3">
+                                Privacy Policy
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -2291,6 +2413,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         </script>
         
+        <script>
+            document.getElementById("currentYear").textContent = new Date().getFullYear();
+        </script>
+
         <!-- JS here -->
     <script src="{% static 'assets/js/vendor/jquery.js' %}"></script>
     <script src="{% static 'assets/js/bootstrap-bundle.js' %}"></script>

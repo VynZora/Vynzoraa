@@ -100,8 +100,9 @@ WSGI_APPLICATION = 'vynzora_pro.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        # Main project DB (new schema/data)
+        'NAME': BASE_DIR / 'db_current.sqlite3',
+    },
 }
 
 

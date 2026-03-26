@@ -19284,9 +19284,6 @@ only screen and (min-width: 576px) and (max-width: 767px),
   width: 100%;
 }
 
-.tp-portfolio-mix-slider-navigation.navigation-white .nav-icon {
-  color: var(--tp-common-black);
-}
 
 .tp-portfolio-mix-slider-image .popup-image {
   position: absolute;
