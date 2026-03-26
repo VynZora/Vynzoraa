@@ -16,8 +16,7 @@
         <link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.css' %}">
         <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
         <link rel="stylesheet" href="{% static 'assets/css/font-awesome-pro.css' %}">
-        <link rel="stylesheet" href="{% static 'assets/css/effect-slicer.css' %}">
-        {% comment %} <link rel="stylesheet" href="{% static 'assets/css/effect-slicer.css' %}?v=2"> {% endcomment %}
+        <!-- effect-slicer.css removed to fix 404 -->
         <link rel="stylesheet" href="{% static 'assets/css/spacing.css' %}">
         <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
 
@@ -3864,10 +3863,10 @@ Smart Branding & Growth Partner
             observeParents: true,
             on: {
                 init: function() {
-                    console.log('Testimonial slider initialized with ' + totalSlides + ' slides');
+                    // console.log removed
                 },
                 slideChange: function() {
-                    console.log('Current slide: ' + (this.activeIndex + 1) + ' of ' + totalSlides);
+                    // console.log removed
                 },
                 reachEnd: function() {
                     var swiper = this;
@@ -5958,7 +5957,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <script src="{% static 'assets/js/main.js' %}"></script>
     <script src="{% static 'assets/js/tp-cursor.js' %}"></script>
     <script type="module" src="{% static 'assets/js/distortion-img.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <!-- gsap script removed as it is already included in plugin.js -->
 
 
     </body>
