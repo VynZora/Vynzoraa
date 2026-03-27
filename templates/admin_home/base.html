@@ -1400,6 +1400,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   <!-- Bootstrap Bundle JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
   
   <script>
     // Initialize all toasts
@@ -1450,6 +1451,82 @@ document.addEventListener('DOMContentLoaded', function() {
     logoutBtn.addEventListener('click', function(e) {
       e.preventDefault();
       logoutModal.show();
+    });
+  </script>
+  <script>
+    // Auto-enable CKEditor for all non-meta description textareas across admin pages
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof ClassicEditor === 'undefined') return;
+
+      const editors = new Map();
+      const descriptionNameRegex = /(^|_|-)description(\[\])?$/i;
+
+      function isDescriptionTextarea(textarea) {
+        if (!textarea || textarea.tagName !== 'TEXTAREA') return false;
+        const name = (textarea.getAttribute('name') || '').trim();
+        const id = (textarea.getAttribute('id') || '').trim();
+        const placeholder = (textarea.getAttribute('placeholder') || '').toLowerCase();
+
+        const byName = descriptionNameRegex.test(name);
+        const byId = /(^|_|-)description$/i.test(id);
+        const byPlaceholder = placeholder.includes('description') && !placeholder.includes('meta');
+        const isMeta = name.toLowerCase().includes('meta_description') || id.toLowerCase().includes('meta_description');
+
+        return (byName || byId || byPlaceholder) && !isMeta;
+      }
+
+      function isEligible(textarea) {
+        if (!isDescriptionTextarea(textarea)) return false;
+        if (textarea.dataset.ckReady === '1') return false;
+        if (textarea.closest('.ck-editor')) return false;
+        if (textarea.classList.contains('ck-editor__editable')) return false;
+        if (textarea.offsetParent === null) return false; // skip hidden fields; modal hooks will handle later
+        return true;
+      }
+
+      function initEditor(textarea) {
+        if (!isEligible(textarea)) return;
+        ClassicEditor.create(textarea, {
+          toolbar: [
+            'heading', '|',
+            'bold', 'italic', 'link', '|',
+            'bulletedList', 'numberedList', '|',
+            'undo', 'redo'
+          ]
+        })
+          .then(function (editor) {
+            textarea.dataset.ckReady = '1';
+            editors.set(textarea, editor);
+          })
+          .catch(function () {
+            // Keep the plain textarea if editor init fails.
+          });
+      }
+
+      function initWithin(root) {
+        const scope = root || document;
+        scope.querySelectorAll('textarea').forEach(initEditor);
+      }
+
+      // Initial pass
+      initWithin(document);
+
+      // Handle Bootstrap modals that reveal hidden textareas
+      document.addEventListener('shown.bs.modal', function (event) {
+        initWithin(event.target);
+      });
+
+      // Handle dynamically-added form rows (offers/services etc.)
+      const observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+          mutation.addedNodes.forEach(function (node) {
+            if (node.nodeType !== 1) return;
+            if (node.tagName === 'TEXTAREA') initEditor(node);
+            if (node.querySelectorAll) initWithin(node);
+          });
+        });
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
     });
   </script>
 </body>
