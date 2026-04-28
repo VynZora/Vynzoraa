@@ -378,7 +378,7 @@ def career_submit_application(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Your application has been successfully submitted.')
-            return redirect('submit_application')  # Make sure 'careers' is a valid URL name
+            return redirect('careers')  # Make sure 'careers' is a valid URL name
         else:
             messages.error(request, 'Please correct the errors below.')
     else:
