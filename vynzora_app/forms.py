@@ -97,13 +97,6 @@ class TeamForm(forms.ModelForm):
         fields = '__all__'
 
 
-# Portfolio 
-
-# class ProjectModelForm(forms.ModelForm):
-#     class Meta:
-#         model = ProjectModel
-#         fields = '__all__'
-
 class ProjectModelForm(forms.ModelForm):
     class Meta:
         model = ProjectModel

@@ -572,8 +572,7 @@
     </style>
 </head>
 <body>
-    
-  <!-- Toast Container - Professional Top Right Position -->
+
 <div class="toast-container" id="toastContainer">
   {% if messages %}
     {% for message in messages %}
@@ -595,7 +594,6 @@
   {% endif %}
 </div>
 
-<!-- Auto-show Toasts -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const toastElements = document.querySelectorAll('.toast');
@@ -609,7 +607,6 @@
   });
 </script>
 
-    <!-- Loading Screen -->
     <div class="loader">
         <div class="loader-text">
             <span>V</span>
@@ -622,21 +619,18 @@
         </div>
     </div>
 
-    <!-- 3D Canvas Background -->
     <canvas id="canvas3d"></canvas>
 
-    <!-- Login Container -->
     <div class="login-container">
         <div class="login-card">
             <div class="logo-container">
                 <div class="logo-text">VYNZORA</div>
             </div>
 
-            {% comment %} <h3 class="login-title">Login to Vynzora</h3> {% endcomment %}
             <p class="login-subtitle">Welcome back, Admin</p>
 
             <form method="POST">
-                <!-- Add your {% csrf_token %} here -->
+                
                   {% csrf_token %}
                 
                 <div class="input-group">

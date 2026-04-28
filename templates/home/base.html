@@ -10,12 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Place favicon.ico in the root directory -->
-   
 
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
 
-    <!-- CSS here -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
@@ -23,9 +20,6 @@
     <link rel="stylesheet" href="{% static 'assets/css/spacing.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/footer-override.css' %}">
-
-    <!-- Toast Container -->
-
 
 <style>
 .toast-container {
@@ -55,8 +49,6 @@
     opacity: 1;
     transform: translateX(0);
 }
-
-{% comment %} #10b981 {% endcomment %}
 
 .toast.success {
     background: #025e05ff;
@@ -88,7 +80,6 @@
         font-size: 14px;
     }
 }
-
 
 </style>
 
@@ -132,49 +123,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-  
-
-    
-
     {% block extra_css %}{% endblock %}
 
-    {% comment %} <style>
-        
-        .tp-text-slider-area {
-        background-color: #001f3f !important; /* dark navy blue */
-        }
-
-        .tp-text-slider-item span {
-        color: #ffffff !important; /* make all span text white */
-        }
-
-        .tp-text-slider-item .icons svg path {
-        fill: #ffffff !important; /* make arrow white */
-        }
-
-        .tp-text-slider-item .borders::before,
-        .tp-text-slider-item .borders::after {
-        background-color: #ffffff !important; /* if dots or borders exist */
-        }
-
-        .swiper-pagination-bullet {
-        background-color: #ffffff !important; /* make swiper dots white */
-        }
-
-        .swiper-button-prev::after,
-        .swiper-button-next::after {
-        color: #ffffff !important; /* if navigation arrows exist */
-        }
-
-        ul {
-        list-style-type: disc; /* keeps the dot */
-        color: white; /* makes text white */
-        }
-
-        ul li::marker {
-        color: white; /* makes the bullet (dot) white */
-        }
-    </style> {% endcomment %}
 </head>
 
 <body class="tp-magic-cursor loaded">
@@ -187,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function() {
         </p>
     <![endif]-->
 
-    <!-- Loader -->
     <div class="loader-wrap">
         <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
             <path id="svg" d="M0,1005S175,995,500,995s500,5,500,5V0H0Z"></path>
@@ -199,12 +148,10 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 
-    <!-- Magic Cursor -->
     <div id="magic-cursor" class="cursor-black-bg">
         <div id="ball"></div>
     </div>
 
-    <!-- Back to Top -->
     <div class="scrollToTop">
         <div class="arrowUp">
             <i class="fa-light fa-arrow-up"></i>
@@ -225,7 +172,6 @@ document.addEventListener('DOMContentLoaded', function() {
 }
     </style>
 
-    <!-- Search Form -->
     <div class="tp-search-body-overlay"></div>
     <div class="tp-search-form-toggle">
         <div class="container">
@@ -259,7 +205,6 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 
-    <!-- Offcanvas Area -->
     <div class="tp-offcanvas-area">
         <div class="tp-offcanvas">
             <div class="tp-offcanvas-top d-flex align-items-center justify-content-between">
@@ -288,20 +233,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <nav></nav>
             </div>
 
-            {% comment %} <div class="tp-offcanvas-gallery d-none d-xl-block">
-                    <div class="row gx-2">
-                         {% for project in projects %}
-                        <div class="col-md-3 col-3">
-                            <div class="tp-offcanvas-gallery-img fix">
-                                <a class="popup-image" href="{{ project.project_image.url }}" target="_blank">
-                                    <img src="{{ project.project_image.url }}" alt="{{ project.project_name }}" style="height: 70px;">
-                                </a>
-                            </div>
-                        </div>
-                       {% endfor %}
-                    </div>
-                </div> {% endcomment %}
-
             <div class="tp-offcanvas-contact">
                     <h3 class="tp-offcanvas-title sm">Information</h3>
                     <ul>
@@ -317,11 +248,10 @@ Kochi, Kerala 683104, India</a>
                         </li>
                     </ul>
 
-                    
                 </div>
 
             <div class="tp-offcanvas-social">
-                {% comment %} <h3 class="tp-offcanvas-title sm">Follow Us</h3> {% endcomment %}
+                
                 <ul>
                         <li>
                             <a href="https://www.instagram.com/vynzora/?hl=en">
@@ -364,16 +294,14 @@ Kochi, Kerala 683104, India</a>
                                 </a>
                             <li>
 
-                       
                     </ul>
             </div>
         </div>
     </div>
     <div class="body-overlay"></div>
 
-    <!-- Header -->
     <header>
-            <!-- tp-header-area-start -->
+            
             <div id="header-sticky" class="tp-header-area pre-header sticky-white-bg tp-header-ai-wrap header-transparent">
                 <div class="container-fluid container-1824">
                     <div class="tp-header-ai-bg">
@@ -392,12 +320,7 @@ Kochi, Kerala 683104, India</a>
                                             <li class="has-dropdown p-inherit">
                                                 <a href="{% url "index" %}">
                                                     Home
-                                    
-                                                    <!-- <span>
-                                                        <svg width="7" height="6" viewBox="0 0 7 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M2.7 4.93333L0.2 1.6C-0.294427 0.940764 0.175955 0 1 0H6C6.82405 0 7.29443 0.940764 6.8 1.6L4.3 4.93333C3.9 5.46667 3.1 5.46667 2.7 4.93333Z" fill="currentColor"/>
-                                                        </svg>
-                                                    </span> -->
+
                                                 </a>
                                                 
                                             <li class="has-dropdown">
@@ -420,8 +343,7 @@ Kochi, Kerala 683104, India</a>
                                                     <li>
                                                         <a href="{% url 'team' %}">Team</a>
                                                     </li>
-                                                   
-                                                    
+
                                                 </ul>
                                             </li>
                                             <li class="has-dropdown">
@@ -447,12 +369,7 @@ Kochi, Kerala 683104, India</a>
                                             <li class="has-dropdown p-inherit">
                                                 <a href="{% url 'portfolio' %}">
                                                     Works
-                                    
-                                                    <!-- <span>
-                                                        <svg width="7" height="6" viewBox="0 0 7 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M2.7 4.93333L0.2 1.6C-0.294427 0.940764 0.175955 0 1 0H6C6.82405 0 7.29443 0.940764 6.8 1.6L4.3 4.93333C3.9 5.46667 3.1 5.46667 2.7 4.93333Z" fill="currentColor"/>
-                                                        </svg>
-                                                    </span> -->
+
                                                 </a>
                                                 
                                             </li>
@@ -464,17 +381,6 @@ Kochi, Kerala 683104, India</a>
                                                 </a>
                                                
                                             </li>
-                                            
-                                            {% comment %} <li class="has-dropdown">
-                                                <a href="{% url 'submit_application' %}">
-                                                    Career
-                                    
-                                                </a>
-                                               
-                                            </li> {% endcomment %}
-                                            
-
-
 
 <li class="has-dropdown">
      {% if career_job_count > 0 %}
@@ -509,9 +415,7 @@ Kochi, Kerala 683104, India</a>
 }
 
 </style>
-                               
 
-<!-- Add this CSS in your <style> section or in your main.css file -->
 <style>
 
 /* Make parent control absolute children */
@@ -606,9 +510,6 @@ Kochi, Kerala 683104, India</a>
 
 </style>
 
-
-
-
                                         </ul>
                                     </nav>
                                 </div>
@@ -629,8 +530,7 @@ Kochi, Kerala 683104, India</a>
                                     </button>
                                     
                                 </div>
-                                
-                                
+
                             </div>
                             <style>
                                 .tp-text-common-black-6 {
@@ -641,22 +541,21 @@ Kochi, Kerala 683104, India</a>
                     </div>
                 </div>
             </div>
-            <!-- tp-header-area-end -->
+            
         </header>
 
-    <!-- Main Content -->
     <div id="smooth-wrapper">
         <div id="smooth-content">
             <main>
             {% block content %} {% endblock %}
             </main>
              <footer>
-   <!-- tp-footer area start -->
+   
     <div class="tp-footer-area tp-bg-common-black-1 p-relative z-index-1 pt-100">
         <div class="tp-footer-wd-main">
             <div class="container-fluid container-1524">
                 <div class="row mb-35">
-                <!-- Footer Logo & Description -->
+                
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="tp-footer-widget tp-footer-cst-widget mb-45 tp_fade_anim" data-delay=".3">
                         <div class="tp-footer-logo mb-25">
@@ -707,295 +606,6 @@ Kochi, Kerala 683104, India</a>
     </div>
 </form>
 
-{% comment %} <style>
-    /* Fix footer link hover issue */
-footer a,
-.tp-offcanvas-social a {
-    color: #ffffffff !important; /* normal white */
-    transition: 0.3s ease;
-}
-
-footer a:hover,
-.tp-offcanvas-social a:hover {
-    color: #00c8ff !important; /* light blue that doesn't hide icons */
-}
-
-/* Ensure SVG icons follow the new hover color */
-footer a svg path,
-.tp-offcanvas-social a svg path {
-    fill: currentColor !important;
-    stroke: currentColor !important;
-}
-
-</style> {% endcomment %}
-
-{% comment %} <style>
-    /* Base styling */
-footer a,
-.tp-offcanvas-social a {
-    color: inherit;
-    transition: 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-}
-
-/* Icons follow text color */
-footer a svg path,
-.tp-offcanvas-social a svg path {
-    stroke: currentColor !important;
-    fill: currentColor !important;
-}
-
-/* -------------------------------
-   DARK MODE
--------------------------------- */
-footer.dark,
-.tp-offcanvas.dark {
-    color: #ffffff;   /* default */
-}
-
-footer.dark a:hover,
-.tp-offcanvas.dark a:hover {
-    color: #00c8ff; /* visible bright hover on dark background */
-}
-
-/* -------------------------------
-   LIGHT MODE
--------------------------------- */
-footer.light,
-.tp-offcanvas.light {
-    color: #000000;  /* default */
-}
-
-footer.light a:hover,
-.tp-offcanvas.light a:hover {
-    color: #0077b6; /* darker hover shade so visible on white */
-}
-
-</style> {% endcomment %}
-{% comment %} <style>
-    /* =====================================================
-   FOOTER & OFFCANVAS (SIDEBAR) ICON FIX
-   ===================================================== */
-
-/* Base styling for all links */
-footer a,
-.tp-offcanvas-social a {
-    color: inherit;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    gap: 0;
-}
-
-/* SVG inheritance */
-footer a svg,
-.tp-offcanvas-social a svg {
-    color: inherit;
-    transition: all 0.3s ease;
-}
-
-/* SVG path & stroke inheritance */
-footer a svg path,
-footer a svg circle,
-footer a svg rect,
-footer a svg line,
-.tp-offcanvas-social a svg path,
-.tp-offcanvas-social a svg circle,
-.tp-offcanvas-social a svg rect,
-.tp-offcanvas-social a svg line {
-    stroke: currentColor !important;
-    fill: currentColor !important;
-    transition: all 0.3s ease;
-}
-
-/* Icon sizing */
-footer a svg,
-.tp-offcanvas-social a svg {
-    width: 1.1em;
-    height: 1.1em;
-}
-
-/* =====================================================
-   FOOTER (Dark Background - Black)
-   ===================================================== */
-
-footer a {
-    color: #ffffff;
-}
-
-footer a:hover {
-    color: #00c8ff;
-}
-
-footer a:hover svg path,
-footer a:hover svg circle,
-footer a:hover svg rect,
-footer a:hover svg line {
-    stroke: #00c8ff !important;
-    fill: #00c8ff !important;
-}
-
-/* Footer social links list */
-.tp-footer-wd-social {
-    display: flex;
-    gap: 0.8rem;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-top: 0.5rem;
-}
-
-.tp-footer-wd-social a {
-    color: #ffffff;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.tp-footer-wd-social a:hover {
-    color: #00c8ff;
-    transform: translateY(-2px);
-}
-
-.tp-footer-wd-social a svg {
-    stroke: currentColor !important;
-    fill: currentColor !important;
-}
-
-.tp-footer-wd-social a i {
-    color: currentColor;
-}
-
-/* =====================================================
-   OFFCANVAS / SIDEBAR (Light/White Background)
-   ===================================================== */
-
-.tp-offcanvas-social {
-    background-color: #ffffff;
-}
-
-.tp-offcanvas-social a {
-    color: #000000;
-}
-
-.tp-offcanvas-social a:hover {
-    color: #0077b6;
-}
-
-.tp-offcanvas-social a:hover svg path,
-.tp-offcanvas-social a:hover svg circle,
-.tp-offcanvas-social a:hover svg rect,
-.tp-offcanvas-social a:hover svg line {
-    stroke: #0077b6 !important;
-    fill: #0077b6 !important;
-}
-
-/* Offcanvas contact links */
-.tp-offcanvas-contact a {
-    color: #000000;
-}
-
-.tp-offcanvas-contact a:hover {
-    color: #0077b6;
-}
-
-/* =====================================================
-   ICON LIST STYLING (for <i> tags with Font Awesome)
-   ===================================================== */
-
-/* Footer FA icons */
-footer .fa-brands,
-footer .fa-light,
-footer .fa-sharp {
-    color: currentColor;
-    transition: all 0.3s ease;
-}
-
-footer a:hover .fa-brands,
-footer a:hover .fa-light,
-footer a:hover .fa-sharp {
-    color: #00c8ff;
-}
-
-/* Offcanvas FA icons */
-.tp-offcanvas-social .fa-brands,
-.tp-offcanvas-social .fa-light,
-.tp-offcanvas-social .fa-sharp {
-    color: currentColor !important;
-    transition: all 0.3s ease;
-}
-
-.tp-offcanvas-social a:hover .fa-brands,
-.tp-offcanvas-social a:hover .fa-light,
-.tp-offcanvas-social a:hover .fa-sharp {
-    color: #0077b6 !important;
-}
-
-/* =====================================================
-   OFFCANVAS SOCIAL LIST (Compact layout)
-   ===================================================== */
-
-.tp-offcanvas-social ul {
-    list-style: none;
-    padding: 0;
-    margin: 0.8rem 0 0 0;
-    display: flex;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-}
-
-.tp-offcanvas-social ul li {
-    margin: 0;
-    padding: 0;
-}
-
-.tp-offcanvas-social ul li a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: #0b2143ff;
-    transition: all 0.3s ease;
-}
-
-.tp-offcanvas-social ul li a:hover {
-    color: #0077b6;
-    transform: translateY(-2px);
-}
-
-.tp-offcanvas-social ul li a svg {
-    stroke: currentColor !important;
-    fill: currentColor !important;
-}
-
-.tp-offcanvas-social ul li a i {
-    color: currentColor !important;
-    font-size: 1.1rem;
-}
-
-/* =====================================================
-   RESPONSIVE ADJUSTMENTS
-   ===================================================== */
-
-@media (max-width: 768px) {
-    .tp-footer-wd-social {
-        gap: 0.6rem;
-    }
-
-    .tp-offcanvas-social ul {
-        gap: 0.5rem;
-    }
-
-    footer a svg,
-    .tp-offcanvas-social a svg {
-        width: 1rem;
-        height: 1rem;
-    }
-}
-</style> {% endcomment %}
-
-
             <p class="verify-note">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
@@ -1006,12 +616,11 @@ footer a:hover .fa-sharp {
         </div>                                                                                      
                     </div>
                 </div>
-                {% comment %} <div id="toastContainer" class="toast-container"></div> {% endcomment %}
+                
                 <style>
                     .tp-footer-wd-desk svg path {
   fill: #fff !important;
 }
-
 
                 </style>
                <style>
@@ -1247,18 +856,14 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 </script>
-               
-               
 
-                <!-- Company Links -->
                 <div class="col-lg-2 col-md-6 col-sm-6">
                     <div class="tp-footer-wd-widget tp-footer-cst-widget mb-40 ml-45 tp_fade_anim" data-delay=".5">
                         <h3 class="tp-footer-widget-title tp-ff-dm fs-27 fw-600 mb-30 tp-text-grey-5">Company</h3>
                         <ul>
                             <li><a href="{% url 'about' %}">About Us</a></li>
                             <li><a href="{% url 'portfolio' %}">Our Work</a></li>
-                            {% comment %} <li><a href="{% url 'submit_application' %}">Career</a></li>
-                            <span class="hiring-badge">Hiring</span> {% endcomment %}
+                            
                             <li >
     <a href="{% url 'careers' %}">Careers</a>
     {% if career_job_count > 0 %}
@@ -1275,18 +880,6 @@ document.head.appendChild(style);
                     
                 </style>
 
-                <!-- Solutions Links -->
-                {% comment %} <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="tp-footer-wd-widget tp-footer-cst-widget ml-60 mb-40 tp_fade_anim" data-delay=".7">
-                        <h3 class="tp-footer-widget-title tp-ff-dm fs-27 fw-600 mb-30 tp-text-grey-5">Solutions</h3>
-                        <ul>
-                            <li><a href="#">Branding Design</a></li>
-                            <li><a href="#">E-commerce</a></li>
-                            <li><a href="#">Web Development</a></li>
-                            <li><a href="#">Web Design</a></li>
-                        </ul>
-                    </div>
-                </div> {% endcomment %}
                 <div class="col-lg-3 col-md-6 col-sm-6">
     <div class="tp-footer-wd-widget tp-footer-cst-widget ml-60 mb-40 tp_fade_anim" data-delay=".7">
         <h3 class="tp-footer-widget-title tp-ff-dm fs-27 fw-600 mb-30 tp-text-grey-5">Solutions</h3>
@@ -1298,8 +891,6 @@ document.head.appendChild(style);
     </div>
 </div>
 
-
-                <!-- Newsletter & Social -->
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="tp-footer-widget-form tp-footer-cst-widget-form tp-footer-wd-widget-form mb-40">
                         <h3 class="tp-footer-widget-title tp-ff-dm fs-27 fw-600 mb-35 tp_fade_anim" data-delay=".9" style="color: #fff;">Newsletter</h3>
@@ -1355,24 +946,7 @@ document.head.appendChild(style);
 }
 
 </style>
-                        {% comment %} <div class="tp-footer-wd-social">
-                            <div class="tp_fade_anim d-inline-block" data-delay=".3" data-fade-from="top" data-ease="bounce">
-                            <a href="#" aria-label="Dribbble"><i class="fa-brands fa-dribbble"></i></a>
-                            </div>
-                            <div class="tp_fade_anim d-inline-block" data-delay=".5" data-fade-from="top" data-ease="bounce">
-                            <a href="#" aria-label="Behance"><i class="fa-brands fa-behance"></i></a>
-                            </div>
-                            <div class="tp_fade_anim d-inline-block" data-delay=".7" data-fade-from="top" data-ease="bounce">
-                            <a href="#" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
-                            </div> 
-                                <a href="https://www.instagram.com/vynzora/?hl=en" target="_blank" aria-label="Instagram">
-        <i class="fa-brands fa-instagram"></i>
-    </a>
-
-                            <div class="tp_fade_anim d-inline-block" data-delay=".9" data-fade-from="top" data-ease="bounce">
-                            <a href="https://www.linkedin.com/company/vynzora/posts/?feedView=all" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-                            </div>
-                        </div> {% endcomment %}
+                        
                         <div class="tp-footer-wd-social">
     <div class="tp_fade_anim d-inline-block" data-delay=".3" data-fade-from="top" data-ease="bounce">
         <a href="https://www.linkedin.com/company/vynzora/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
@@ -1404,23 +978,8 @@ document.head.appendChild(style);
             </div>
         </div>
 
-        <!-- Footer Menu -->
         <div class="tp-footer-cst-menu-wrap">
-            {% comment %} <div class="container">
-                <div class="row">
-                <div class="col-12">
-                    <div class="tp-footer-cst-menu">
-                        <ul>
-                            <li><a href="{% url 'index' %}">Home</a></li>
-                            <li><a href="{% url 'portfolio' %}">Portfolio</a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#">Pages</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                </div>
-            </div> {% endcomment %}
+            
         </div> 
         <style>
             .tp-footer-cst-menu-wrap {
@@ -1444,12 +1003,11 @@ document.head.appendChild(style);
 }
 
         </style>
-        <!-- Footer Bottom -->
+        
         <div class="tp-footer-cst-bottom">
     <div class="container-fluid container-1524">
         <div class="row align-items-center">
-        
-            <!-- Left Side -->
+
             <div class="col-lg-6 col-md-7">
                 <div class="tp-footer-copyright">
                     <p class="mb-10 tp-text-grey-5 tp-ff-dm">
@@ -1459,7 +1017,6 @@ document.head.appendChild(style);
                 </div>
             </div>
 
-            <!-- Right Side -->
             <div class="col-lg-6 col-md-5">
                 <div class="tp-footer-payment text-end">
                     <a href="{% url 'terms_and_conditions' %}" class="tp-text-grey-5 tp-ff-dm me-3">Terms & Conditions</a>
@@ -1474,7 +1031,6 @@ document.head.appendChild(style);
 
     </div>
     </footer>
-
 
     </div>
 </div>
@@ -1538,12 +1094,6 @@ document.addEventListener('DOMContentLoaded', function() {
     <script>
         document.getElementById("currentYear").textContent = new Date().getFullYear();
     </script>
-    
-
-    <!-- Footer -->
-   
-
-    <!-- JS -->
 
    <script src="{% static 'assets/js/vendor/jquery.js' %}"></script>
    <script src="{% static 'assets/js/bootstrap-bundle.js' %}"></script>

@@ -166,17 +166,6 @@ class Website(models.Model):
         protocol = "https://" if request.is_secure() else "http://"
         return f"{protocol}{host}/{self.category.slug}/{self.slug}/"
 
-# class Service(models.Model):
-#     website = models.ForeignKey(Website, on_delete=models.CASCADE, related_name="services")
-#     heading = models.CharField(max_length=200, verbose_name="Service Heading")
-#     description = models.TextField(verbose_name="Service Description")
-
-#     class Meta:
-#         constraints = []  # ❌ Removed uniqueness constraint on (website, heading)
-
-#     def __str__(self):
-#         return f"{self.heading} - {self.website.name}"
-
     
 class Services(models.Model):
     name = models.CharField(max_length=200)
@@ -198,20 +187,6 @@ class Services(models.Model):
         return self.name
 
 
-# Careeers
-# class Career_Model(models.Model):    
-#     job_position = models.CharField(max_length=100)
-#     job_type = models.CharField(max_length=100)
-#     company_name = models.CharField(max_length=100)
-#     place = models.CharField(max_length=100)
-#     salary = models.IntegerField()
-#     job_details = RichTextField(max_length=20000)
-#     posted_date = models.DateField()
-#     end_date = models.DateField()
-#     post_end_date = models.DateTimeField()
-    
-#     def is_active(self):
-#         return self.post_end_date >= timezone.now()
 
 #careers
 class Career_Model(models.Model): 
@@ -242,16 +217,6 @@ class Career_Model(models.Model):
     def active(self):
         return self.post_end_date and self.post_end_date >= timezone.now()
 
-# # Cadidate
-# class Candidate(models.Model):
-#     name = models.CharField(max_length=100)
-#     email = models.EmailField(max_length=100, null=True, blank=True)
-#     phone = models.CharField(max_length=20, blank=True, null=True)
-#     pdf_file = models.FileField(upload_to='pdfs/')
-#     job_position = models.ForeignKey(Career_Model, on_delete=models.CASCADE, related_name='candidates', null=True)
-    
-#     def __str__(self):
-#         return self.name
 
 #candidate
 class Candidate(models.Model):
