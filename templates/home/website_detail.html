@@ -869,7 +869,7 @@ Kochi, Kerala 683104, India</a>
     </style>
                                         <div class="tp_fade_anim" data-delay=".5">
                                             <p class="tp-about-ai-para tp-ff-dm mb-55 fw-400 fs-22 ls-m-2 lh-150-per tp-text-common-black-6">
-                                                {{ website.description|default:website.add_description|linebreaksbr }}
+                                                {{ website.description|default:website.add_description|safe }}
                                             </p>
                                         </div>
                                         <div class="tp_fade_anim" data-delay=".7" data-fade-from="bottom" data-ease="bounce">
@@ -1023,7 +1023,7 @@ Kochi, Kerala 683104, India</a>
                                                     <span class="tp_text_invert">{{ s.heading }}</span>
                                                 </h4>
                                                 <p class="fs-18 tp-text-grey-2 mb-55">
-                                                    {{ s.description|striptags }}
+                                                    {{ s.description|safe }}
                                                 </p>
                                             </div>
                                         </div>
@@ -1551,7 +1551,7 @@ Kochi, Kerala 683104, India</a>
                                                 </h2>
                                                 <div id="order__collapse_{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" aria-labelledby="order_{{ forloop.counter }}" data-bs-parent="#general_faqaccordion">
                                                     <div class="accordion-body tp-faq-details-para">
-                                                        <p>{{ faq.answer|linebreaks }}</p>
+                                                        <p>{{ faq.answer|safe }}</p>
                                                     </div>
                                                 </div>
                                             </div>

@@ -386,8 +386,8 @@
             <textarea 
               class="form-control" 
               name="description" 
+              id="partnerDescription"
               placeholder="Describe the partner and their services..."
-              maxlength="300"
               required
             ></textarea>
             <div class="help-text">
@@ -547,7 +547,24 @@
   </div>
 </div>
 
+
 <script>
+  let descriptionEditor;
+
+  ClassicEditor
+    .create(document.querySelector('#partnerDescription'), {
+      toolbar: [
+        'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList',
+        '|', 'insertTable', 'blockQuote', 'undo', 'redo'
+      ]
+    })
+    .then(editor => {
+      descriptionEditor = editor;
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
   const fileUploadBox = document.getElementById('fileUploadBox');
   const fileInput = document.getElementById('logoFile');
   const imagePreview = document.getElementById('imagePreview');
@@ -618,11 +635,21 @@
 
   const form = document.getElementById('addPartnerForm');
   form.addEventListener('submit', function(e) {
+    // Sync CKEditor
+    if (descriptionEditor) {
+      document.getElementById('partnerDescription').value = descriptionEditor.getData();
+    }
+
     const name = form.querySelector('[name="name"]').value.trim();
-    const description = form.querySelector('[name="description"]').value.trim();
+    const description = document.getElementById('partnerDescription').value.trim();
     const logo = fileInput.files[0];
-    const points = [];
     
+    if (!name || !description || !logo) {
+      e.preventDefault();
+      alert('Please fill in all required fields');
+      return false;
+    }
+
     for (let i = 1; i <= 6; i++) {
       const point = form.querySelector(`[name="point${i}"]`).value.trim();
       if (!point) {
@@ -630,13 +657,6 @@
         alert(`Please fill in Point ${i}`);
         return false;
       }
-      points.push(point);
-    }
-
-    if (!name || !description || !logo) {
-      e.preventDefault();
-      alert('Please fill in all required fields');
-      return false;
     }
 
     const submitBtn = form.querySelector('[type="submit"]');

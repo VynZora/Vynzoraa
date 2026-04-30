@@ -569,7 +569,7 @@
   </div>
 </div>
 
-<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -627,8 +627,8 @@
     // Form validation and CKEditor sync
     jobForm.addEventListener('submit', function(e) {
       // CRITICAL: Sync CKEditor content to textarea before validation
-      if (editorInstance) {
-        const editorData = editorInstance.getData();
+      if (descriptionEditor) {
+        const editorData = descriptionEditor.getData();
         document.getElementById('jobDetails').value = editorData;
       }
 

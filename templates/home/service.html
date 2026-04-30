@@ -191,7 +191,7 @@
                            </div>
                            <div class="tp-service-cst-content tp-bg-common-white">
                               <h5 class="fw-600 fs-28 tp-ff-dm tp-text-common-black-1 mb-15"><a class="underline-black" href="#">{{ offer.title }}</a></h5>
-                              <p class="tp-service-cst-item-border tp-ff-dm fs-18 lh-140-per tp-text-common-black-1"> {{ offer.description|truncatechars:150}}</p>
+                              <p class="tp-service-cst-item-border tp-ff-dm fs-18 lh-140-per tp-text-common-black-1"> {{ offer.description|safe|truncatechars_html:150}}</p>
                               
                            </div>
                         </div>

@@ -1662,68 +1662,62 @@ document.addEventListener('DOMContentLoaded', function() {
 let currentServiceId = null;
 let offerCounter = 0;
 let faqCounter = 0;
-let descriptionEditor = null;
+const editors = new Map();
 
 // Initialize CKEditor
-function initCKEditor() {
-    const descriptionField = document.getElementById('updateDescription');
+function initCKEditor(element) {
+    if (!element || editors.has(element)) return;
+
+    // Remove required attribute to prevent browser validation issues
+    element.removeAttribute('required');
     
-    // First, destroy any existing editor
-    if (descriptionEditor) {
-        descriptionEditor.destroy().catch(error => {
-            console.error('Error destroying previous CKEditor:', error);
-        });
-        descriptionEditor = null;
-    }
-    
-    if (descriptionField) {
-        // Remove required attribute to prevent browser validation issues
-        descriptionField.removeAttribute('required');
-        
-        // Make sure the textarea is visible for CKEditor
-        descriptionField.style.display = 'block';
-        descriptionField.style.visibility = 'visible';
-        
-        ClassicEditor
-            .create(descriptionField, {
-                toolbar: [
-                    'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList',
-                    '|', 'insertTable', 'blockQuote', 'undo', 'redo'
-                ],
-                // Add these configurations for better modal integration
-                ui: {
-                    viewportOffset: { top: 50 }
-                }
-            })
-            .then(editor => {
-                descriptionEditor = editor;
-                console.log('CKEditor initialized successfully');
-                
-                // Force the editor to update its UI
-                setTimeout(() => {
-                    editor.ui.view.element.style.display = 'block';
-                    editor.ui.view.element.style.visibility = 'visible';
-                }, 100);
-            })
-            .catch(error => {
-                console.error('CKEditor initialization error:', error);
-                // Fallback: ensure textarea is usable
-                descriptionField.style.display = 'block';
-                descriptionField.style.visibility = 'visible';
+    ClassicEditor
+        .create(element, {
+            toolbar: [
+                'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList',
+                '|', 'insertTable', 'blockQuote', 'undo', 'redo'
+            ],
+            ui: {
+                viewportOffset: { top: 50 }
+            }
+        })
+        .then(editor => {
+            editors.set(element, editor);
+            
+            // Sync data to textarea on change
+            editor.model.document.on('change:data', () => {
+                element.value = editor.getData();
             });
-    }
+
+            // Base64 image upload adapter
+            editor.plugins.get('FileRepository').createUploadAdapter = loader => {
+                return {
+                    upload: () => loader.file.then(file => new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = () => resolve({ default: reader.result });
+                        reader.onerror = error => reject(error);
+                        reader.readAsDataURL(file);
+                    })),
+                    abort: () => {}
+                };
+            };
+        })
+        .catch(error => {
+            console.error('CKEditor initialization error:', error);
+        });
+}
+
+// Destroy all CKEditor instances
+function destroyAllEditors() {
+    editors.forEach((editor, element) => {
+        editor.destroy().catch(err => console.error('Error destroying editor:', err));
+    });
+    editors.clear();
 }
 
 // Destroy CKEditor when modal closes
 function destroyCKEditor() {
-    if (descriptionEditor) {
-        descriptionEditor.destroy().then(() => {
-            descriptionEditor = null;
-            console.log('CKEditor destroyed successfully');
-        }).catch(error => {
-            console.error('Error destroying CKEditor:', error);
-        });
-    }
+    destroyAllEditors();
 }
 
 // Escape HTML
@@ -1797,6 +1791,8 @@ function addOffer(data = {}) {
         </div>
     `;
     document.getElementById('offerFormset').insertAdjacentHTML('beforeend', html);
+    const textarea = document.querySelector(`#offer-${offerCounter} textarea`);
+    initCKEditor(textarea);
 }
 
 // Remove Offer
@@ -1841,6 +1837,8 @@ function addFaq(data = {}) {
         </div>
     `;
     document.getElementById('faqFormset').insertAdjacentHTML('beforeend', html);
+    const textarea = document.querySelector(`#faq-${faqCounter} textarea`);
+    initCKEditor(textarea);
     
     const addBtn = document.getElementById('addFaqBtn');
     if (currentFaqs + 1 >= 10) {
@@ -1971,7 +1969,8 @@ function openUpdateModal(serviceId) {
             
             // Initialize CKEditor AFTER modal is shown and content is loaded
             setTimeout(() => {
-                initCKEditor();
+                initCKEditor(document.getElementById('updateDescription'));
+                // Offers and FAQs are initialized inside addOffer/addFaq
             }, 100);
         })
         .catch(err => {
@@ -1992,25 +1991,17 @@ function closeUpdateModal() {
 document.getElementById('updateForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    // Validate CKEditor content
-    if (descriptionEditor) {
-        const descriptionContent = descriptionEditor.getData().trim();
-        if (!descriptionContent) {
-            showAlert('Please fill in the description field', 'error');
-            // Focus on the editor
-            descriptionEditor.editing.view.focus();
-            return false;
-        }
-        // Update the hidden textarea with CKEditor content
-        document.getElementById('updateDescription').value = descriptionContent;
-    } else {
-        // Fallback validation for textarea
-        const descriptionContent = document.getElementById('updateDescription').value.trim();
-        if (!descriptionContent) {
-            showAlert('Please fill in the description field', 'error');
-            document.getElementById('updateDescription').focus();
-            return false;
-        }
+    // Sync all editors
+    editors.forEach((editor, element) => {
+        element.value = editor.getData();
+    });
+
+    const descriptionContent = document.getElementById('updateDescription').value.trim();
+    if (!descriptionContent) {
+        showAlert('Please fill in the description field', 'error');
+        const editor = editors.get(document.getElementById('updateDescription'));
+        if (editor) editor.editing.view.focus();
+        return false;
     }
     
     const formData = new FormData(this);

@@ -639,7 +639,7 @@
 
 
 <!-- Add this script at the bottom of your page, before closing </script> tag -->
-<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -683,10 +683,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const editorContent = descriptionEditor ? descriptionEditor.getData().trim() : '';
         const plainText = editorContent.replace(/<[^>]*>/g, '').trim();
 
+        // CRITICAL: Sync CKEditor content to textarea
+        if (descriptionEditor) {
+            document.getElementById('blogDescription').value = descriptionEditor.getData();
+        }
+
         if (!plainText) {
             e.preventDefault();
             alert('Please enter blog description content.');
-            document.getElementById('blogDescription').style.borderColor = '#e74c3c';
             return false;
         }
 

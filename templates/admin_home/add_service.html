@@ -975,6 +975,13 @@
     container.appendChild(template);
     totalForms.value = currentCount + 1;
     
+    // Initialize CKEditor for new textareas if they have specific classes
+    template.querySelectorAll('textarea').forEach(textarea => {
+      if (textarea.classList.contains('offer-description') || textarea.classList.contains('faq-answer')) {
+        initCKEditor(textarea);
+      }
+    });
+
     updateFormsetNumbers(formsetType);
     updateAddButton(formsetType);
   }
@@ -1038,6 +1045,12 @@
     updateFormsetNumbers('offer');
     updateFormsetNumbers('step');
     updateFormsetNumbers('faq');
+
+    // Initialize CKEditor for all existing textareas
+    initCKEditor(document.querySelector('#description'));
+    document.querySelectorAll('.offer-description, .faq-answer').forEach(el => {
+      initCKEditor(el);
+    });
   });
 
   // Form validation
@@ -1163,38 +1176,46 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 
 <script>
-  // Initialize CKEditor and store the instance
-    let descriptionEditor;
+  // Store CKEditor instances
+  const editors = new Map();
 
-    // Initialize CKEditor
+  // Initialize CKEditor
+  function initCKEditor(element) {
+    if (!element || editors.has(element)) return;
+
     ClassicEditor
-        .create(document.querySelector('#description'), {
-            toolbar: [
-                'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList',
-                '|', 'insertTable', 'blockQuote', 'undo', 'redo', 'imageUpload'
-            ]
-        })
-        .then(editor => {
-            descriptionEditor = editor;
+      .create(element, {
+        toolbar: [
+          'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList',
+          '|', 'insertTable', 'blockQuote', 'undo', 'redo'
+        ]
+      })
+      .then(editor => {
+        editors.set(element, editor);
 
-            // Base64 image upload adapter
-            editor.plugins.get('FileRepository').createUploadAdapter = loader => {
-                return {
-                    upload: () => loader.file.then(file => new Promise((resolve, reject) => {
-                        const reader = new FileReader();
-                        reader.onload = () => resolve({ default: reader.result });
-                        reader.onerror = error => reject(error);
-                        reader.readAsDataURL(file);
-                    })),
-                    abort: () => {}
-                };
-            };
-
-            console.log('CKEditor initialized successfully');
-        })
-        .catch(error => {
-            console.error('CKEditor initialization error:', error);
+        // Update original textarea on change
+        editor.model.document.on('change:data', () => {
+          element.value = editor.getData();
         });
+
+        // Base64 image upload adapter
+        editor.plugins.get('FileRepository').createUploadAdapter = loader => {
+          return {
+            upload: () => loader.file.then(file => new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => resolve({ default: reader.result });
+              reader.onerror = error => reject(error);
+              reader.readAsDataURL(file);
+            })),
+            abort: () => {}
+          };
+        };
+      })
+      .catch(error => {
+        console.error('CKEditor initialization error:', error);
+      });
+  }
+</script>
 </script>
 
 

@@ -656,12 +656,11 @@
             Website Description
           </label>
           <textarea 
-            class="form-control" 
+            class="form-control rich-editor" 
             id="description" 
             name="description" 
             rows="5" 
             placeholder="Enter detailed website description"
-            maxlength="1000"
           ></textarea>
           <div class="character-count" id="descriptionCount">0/1000 characters</div>
         </div>
@@ -689,12 +688,11 @@
             Additional Description
           </label>
           <textarea 
-            class="form-control" 
+            class="form-control rich-editor" 
             id="add_description" 
             name="add_description" 
             rows="5" 
             placeholder="Enter additional details"
-            maxlength="2000"
           ></textarea>
           <div class="character-count" id="addDescriptionCount">0/2000 characters</div>
         </div>
@@ -787,7 +785,7 @@
               <div class="form-group">
                 <label class="form-label">Description</label>
                 <textarea
-                  class="form-control"
+                  class="form-control rich-editor"
                   name="service_description[]"
                   rows="3"
                   placeholder="Enter service description"
@@ -835,11 +833,10 @@
               <div class="form-group">
                 <label class="form-label">Answer</label>
                 <textarea 
-                  class="form-control" 
+                  class="form-control rich-editor" 
                   name="faq_answer[]" 
                   rows="3" 
                   placeholder="Enter FAQ answer"
-                  maxlength="1000"
                 ></textarea>
               </div>
             </div>
@@ -1107,9 +1104,54 @@ if (videosInput) {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-  updateVideoPreview();
-});
+  if (typeof updateVideoPreview === 'function') {
+    updateVideoPreview();
+  }
 
+  // Store CKEditor instances
+  const editors = new Map();
+
+  // Initialize CKEditor
+  function initCKEditor(element) {
+    if (!element || editors.has(element)) return;
+
+    ClassicEditor
+      .create(element, {
+        toolbar: [
+          'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList',
+          '|', 'insertTable', 'blockQuote', 'undo', 'redo'
+        ]
+      })
+      .then(editor => {
+        editors.set(element, editor);
+
+        // Update original textarea on change
+        editor.model.document.on('change:data', () => {
+          element.value = editor.getData();
+        });
+
+        // Base64 image upload adapter
+        editor.plugins.get('FileRepository').createUploadAdapter = loader => {
+          return {
+            upload: () => loader.file.then(file => new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => resolve({ default: reader.result });
+              reader.onerror = error => reject(error);
+              reader.readAsDataURL(file);
+            })),
+            abort: () => {}
+          };
+        };
+      })
+      .catch(error => {
+        console.error('CKEditor initialization error:', error);
+      });
+  }
+
+  // Initialize all existing rich editors
+  document.querySelectorAll('.rich-editor').forEach(el => {
+    initCKEditor(el);
+  });
 
   // ========== FAQ FUNCTIONALITY ==========
   const faqContainer = document.getElementById('faq-container');
@@ -1131,12 +1173,23 @@ document.addEventListener('DOMContentLoaded', function() {
   if (addFAQButton) {
     addFAQButton.addEventListener('click', function(e) {
       e.preventDefault();
-      
       const firstFAQ = faqContainer.querySelector('.faq-item');
       const newFAQ = firstFAQ.cloneNode(true);
       
-      newFAQ.querySelectorAll('input, textarea').forEach(function(input) {
-        input.value = '';
+      newFAQ.querySelectorAll('textarea').forEach(function(el) {
+        el.value = '';
+        const ckEditorUI = el.nextSibling;
+        if (ckEditorUI && ckEditorUI.classList && ckEditorUI.classList.contains('ck-editor')) {
+          ckEditorUI.remove();
+        }
+        el.style.display = 'block';
+        if (el.classList.contains('rich-editor')) {
+          setTimeout(() => initCKEditor(el), 100);
+        }
+      });
+
+      newFAQ.querySelectorAll('input').forEach(function(el) {
+        el.value = '';
       });
       
       faqContainer.appendChild(newFAQ);
@@ -1175,9 +1228,23 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
       const firstItem = websiteServiceContainer.querySelector('.website-service-item');
       const newItem = firstItem.cloneNode(true);
-      newItem.querySelectorAll('input, textarea').forEach(function(el) {
+      
+      newItem.querySelectorAll('textarea').forEach(function(el) {
+        el.value = '';
+        const ckEditorUI = el.nextSibling;
+        if (ckEditorUI && ckEditorUI.classList && ckEditorUI.classList.contains('ck-editor')) {
+          ckEditorUI.remove();
+        }
+        el.style.display = 'block';
+        if (el.classList.contains('rich-editor')) {
+          setTimeout(() => initCKEditor(el), 100);
+        }
+      });
+
+      newItem.querySelectorAll('input').forEach(function(el) {
         el.value = '';
       });
+      
       websiteServiceContainer.appendChild(newItem);
       updateWebsiteServiceNumbers();
     });
@@ -1287,8 +1354,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const websiteForm = document.getElementById('websiteForm');
   if (websiteForm) {
     websiteForm.addEventListener('submit', function(e) {
+      // Sync CKEditor data
+      editors.forEach((editor, element) => {
+        element.value = editor.getData();
+      });
+
       let isValid = true;
-      
       const requiredFields = this.querySelectorAll('[required]');
       requiredFields.forEach(function(field) {
         if (!field.value.trim()) {
@@ -1305,11 +1376,65 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
+  // ========== CHARACTER COUNT ==========
+  const charInputs = [
+    { id: 'name', countId: 'nameCount', max: 100 },
+    { id: 'main_title', countId: 'mainTitleCount', max: 50 },
+    { id: 'add_title', countId: 'addCount', max: 100 },
+    { id: 'slug', countId: 'slugCount', max: 100 },
+    { id: 'meta_title', countId: 'metaTitleCount', max: 60 },
+    { id: 'meta_description', countId: 'metaDescriptionCount', max: 160 },
+    { id: 'description', countId: 'descriptionCount', max: 1000 },
+    { id: 'add_description', countId: 'addDescriptionCount', max: 2000 }
+  ];
+
+  function updateCharacterCount(element, countElement, maxLength) {
+    if (!element || !countElement) return;
+    const currentLength = element.value.length;
+    countElement.textContent = currentLength + '/' + maxLength + ' characters';
+    
+    if (currentLength > maxLength * 0.9) {
+      countElement.classList.add('warning');
+      countElement.classList.remove('error');
+    } else if (currentLength > maxLength) {
+      countElement.classList.add('error');
+      countElement.classList.remove('warning');
+    } else {
+      countElement.classList.remove('warning', 'error');
+    }
+  }
+
+  charInputs.forEach(item => {
+    const el = document.getElementById(item.id);
+    const countEl = document.getElementById(item.countId);
+    if (el && countEl) {
+      el.addEventListener('input', () => updateCharacterCount(el, countEl, item.max));
+      updateCharacterCount(el, countEl, item.max);
+    }
+  });
+
+  // Auto-generate slug from Website Name
+  const nameInput = document.getElementById('name');
+  const slugInput = document.getElementById('slug');
+  if (nameInput && slugInput) {
+    nameInput.addEventListener('input', function() {
+      const slug = this.value
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/[\s_-]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+      
+      slugInput.value = slug;
+      updateCharacterCount(slugInput, document.getElementById('slugCount'), 100);
+    });
+  }
 });
 </script>
 
 {% comment %} 
-<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
 
 <script>
   // Initialize CKEditor and store the instance
