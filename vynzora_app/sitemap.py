@@ -2,11 +2,13 @@ from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
 from .models import Blog, Website, Category
 
-# Define the site domain correctly
-SITE_DOMAIN = "https://vynzora.com"
-
-class StaticViewSitemap(Sitemap):
+class VynzoraSitemap(Sitemap):
     protocol = "https"
+    
+    def get_domain(self, site=None):
+        return "vynzora.com"
+
+class StaticViewSitemap(VynzoraSitemap):
     changefreq = "weekly"
     priority = 1.0
 
@@ -20,9 +22,7 @@ class StaticViewSitemap(Sitemap):
     def location(self, item):
         return reverse(item)
 
-SITE_DOMAIN = "https://vynzora.com"
-
-class BlogSitemap(Sitemap):
+class BlogSitemap(VynzoraSitemap):
     priority = 0.8
     changefreq = "weekly"
 
@@ -30,9 +30,9 @@ class BlogSitemap(Sitemap):
         return Blog.objects.all()
 
     def location(self, obj):
-        return f"{SITE_DOMAIN}{reverse('blog_details', kwargs={'slug': obj.slug})}"
+        return reverse('blog_details', kwargs={'slug': obj.slug})
 
-class WebsiteSitemap(Sitemap):
+class WebsiteSitemap(VynzoraSitemap):
     priority = 0.7
     changefreq = "weekly"
 
@@ -40,9 +40,9 @@ class WebsiteSitemap(Sitemap):
         return Website.objects.all()
 
     def location(self, obj):
-        return f"{SITE_DOMAIN}{reverse('website_detail', kwargs={'category_slug': obj.category.slug, 'website_slug': obj.slug})}"
+        return reverse('website_detail', kwargs={'category_slug': obj.category.slug, 'website_slug': obj.slug})
 
-class CategorySitemap(Sitemap):
+class CategorySitemap(VynzoraSitemap):
     priority = 0.6
     changefreq = "monthly"
 
@@ -50,4 +50,4 @@ class CategorySitemap(Sitemap):
         return Category.objects.all()
 
     def location(self, obj):
-        return f"{SITE_DOMAIN}{reverse('view_category')}"
+        return reverse('view_category')
