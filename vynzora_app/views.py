@@ -1688,7 +1688,7 @@ def service_update(request, pk):
         
         service = form.save()
         
-        # ===== PROCESS OFFERS (OPTIONAL, UNLIMITED) =====
+        # ===== PROCESS OFFERS (OPTIONAL, MAX 10) =====
         offer_count = int(request.POST.get('offers-TOTAL_FORMS', 0))
         offers_to_keep = []
         
@@ -1709,6 +1709,10 @@ def service_update(request, pk):
             
             # Skip if both fields are empty
             if not title or not description:
+                continue
+
+            # Enforce max 10 offers
+            if len(offers_to_keep) >= 10:
                 continue
             
             if offer_id:
@@ -1867,12 +1871,13 @@ from django.db import transaction
 @login_required
 @never_cache
 def service_create(request):
+    draft_service = Services()
     if request.method == "POST":
         # 1. Initialize all forms with POST data
         form = ServiceForm(request.POST, request.FILES)
-        offer_formset = OfferFormSet(request.POST)
-        step_formset = StepFormSet(request.POST)
-        faq_formset = FAQFormSet(request.POST)
+        offer_formset = OfferFormSet(request.POST, instance=draft_service, queryset=ServiceOffer.objects.none())
+        step_formset = StepFormSet(request.POST, instance=draft_service, queryset=ServiceProcessStep.objects.none())
+        faq_formset = FAQFormSet(request.POST, instance=draft_service, queryset=ServiceFAQ.objects.none())
 
         # 2. Check MAIN form first (Service)
         if form.is_valid():
@@ -1881,10 +1886,10 @@ def service_create(request):
                     # A. Save the Service first (so it gets an ID)
                     service = form.save()
 
-                    # B. Bind the formsets to this new Service ID
-                    offer_formset.instance = service
-                    step_formset.instance = service
-                    faq_formset.instance = service
+                    # B. Re-bind formsets to the saved Service instance
+                    offer_formset = OfferFormSet(request.POST, instance=service)
+                    step_formset = StepFormSet(request.POST, instance=service)
+                    faq_formset = FAQFormSet(request.POST, instance=service)
 
                     # C. NOW validate the formsets (Safe because Service ID exists)
                     if (offer_formset.is_valid() and 
@@ -1913,9 +1918,9 @@ def service_create(request):
     else:
         # GET Request Logic
         form = ServiceForm()
-        offer_formset = OfferFormSet()
-        step_formset = StepFormSet()
-        faq_formset = FAQFormSet()
+        offer_formset = OfferFormSet(instance=draft_service, queryset=ServiceOffer.objects.none())
+        step_formset = StepFormSet(instance=draft_service, queryset=ServiceProcessStep.objects.none())
+        faq_formset = FAQFormSet(instance=draft_service, queryset=ServiceFAQ.objects.none())
 
     # 3. Render the page (This MUST be outside the if/else blocks)
     return render(request, "admin_home/add_service.html", {

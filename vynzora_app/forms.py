@@ -39,7 +39,8 @@ class ServiceForm(forms.ModelForm):
 OfferFormSet = inlineformset_factory(
     Services, ServiceOffer,
     fields=["title", "description"],
-    extra=3,  # You can change count shown initially
+    extra=10,
+    max_num=10,
     can_delete=True
 )
 

@@ -75,7 +75,7 @@
 
         <div class="col-lg-12">
             <div class="tp-contact-form-btn">
-                <button type="submit" class="tp-btn-xl w-100 d-inline-block lh-0 tp-round-26 fs-15 tp-bg-common-black text-uppercase ls-0 tp-btn-switch-animation tp-text-common-white hover-text-white tp-ff-heading fw-500">
+                <button type="submit" class="contact-submit-btn tp-btn-ai p-relative hover-text-white d-inline-block text-uppercase tp-text-common-black-6 lh-1 fs-16 fw-700 tp-ff-dm w-100">
                     <span class="d-flex align-items-center justify-content-center">
                         <span class="btn-text">Send Message</span>
                     </span> 
@@ -316,22 +316,13 @@
     font-size: 16px;
 }
 
-/* Button Fix */
-.tp-contact-us-btn a {
-    background: #0a0f29;        /* dark navy blue */
-    color: #fff !important;
-    border-radius: 30px;
-    padding: 16px 20px;
-    font-weight: 600;
+/* Match CTA style used across other pages */
+.contact-submit-btn {
+    width: 100%;
     text-align: center;
-    transition: all 0.3s ease;
-    display: block;
-}
-
-.tp-contact-us-btn a:hover {
-    background: #1a234a;        /* lighter navy blue hover */
-    color: #fff !important;
-    transform: translateY(-2px);
+    padding: 18px 20px;
+    border: 0;
+    cursor: pointer;
 }
 
 /* Responsive */
@@ -345,6 +336,12 @@
     }
     .contact-img-wrap {
         height: 260px;
+    }
+    .contact-submit-btn {
+        width: 100%;
+        min-height: 54px;
+        font-size: 15px;
+        padding: 16px 16px;
     }
 }
 

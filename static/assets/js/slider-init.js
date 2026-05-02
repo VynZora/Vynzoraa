@@ -294,14 +294,16 @@
 	////////////////////////////////////////////////////
 	// 10. tp-service-cst-slider
 	var service_cst = new Swiper('.tp-service-cst-slider', {
-		slidesPerView: 6,
+		slidesPerView: 2,
 		loop: true,
 		autoplay: false,
 		arrow: false,
+		allowTouchMove: true,
+		grabCursor: true,
 		spaceBetween: 27,
 		breakpoints: {
 			'1200': {
-				slidesPerView: 3,
+				slidesPerView: 2,
 			},
 			'992': {
 				slidesPerView: 2,

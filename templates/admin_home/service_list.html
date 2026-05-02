@@ -1359,7 +1359,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="formset-container">
             <div class="tab-header">
               <h4>Service Offers (Optional)</h4>
-              <button type="button" class="btn-add-formset" onclick="addOffer()">
+              <button type="button" class="btn-add-formset" id="addOfferBtn" onclick="addOffer()">
                 <i class="mdi mdi-plus"></i>
                 Add Offer
               </button>
@@ -1727,9 +1727,19 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+function stripHtml(text) {
+    const div = document.createElement('div');
+    div.innerHTML = text || '';
+    return (div.textContent || div.innerText || '').trim();
+}
+
 // Show Alert
 function showAlert(message, type = 'success') {
     const alert = document.getElementById('alertMessage');
+    if (!alert) {
+        console[type === 'error' ? 'error' : 'log'](message);
+        return;
+    }
     alert.textContent = message;
     alert.className = `alert-message alert-${type}`;
     alert.style.display = 'block';
@@ -1766,7 +1776,14 @@ function updateCharCount(inputId, counterId, max) {
 
 // Add Offer
 function addOffer(data = {}) {
+    const currentOffers = document.querySelectorAll('#offerFormset .formset-item:not(.marked-for-deletion)').length;
+    if (currentOffers >= 10) {
+        showAlert('Maximum 10 offers allowed', 'error');
+        return;
+    }
+
     offerCounter++;
+    const cleanDescription = stripHtml(data.description || '');
     const html = `
         <div class="formset-item" id="offer-${offerCounter}">
             <div class="formset-header">
@@ -1782,17 +1799,21 @@ function addOffer(data = {}) {
             <input type="hidden" name="offers-${offerCounter}-DELETE" value="">
             <div class="form-group">
                 <label class="form-label">Title<span class="required">*</span></label>
-                <input type="text" class="form-control" name="offers-${offerCounter}-title" value="${escapeHtml(data.title || '')}" required>
+                <input type="text" class="form-control" name="offers-${offerCounter}-title" value="${escapeHtml(data.title || '')}">
             </div>
             <div class="form-group">
                 <label class="form-label">Description<span class="required">*</span></label>
-                <textarea class="form-control" name="offers-${offerCounter}-description" rows="3" required>${escapeHtml(data.description || '')}</textarea>
+                <textarea class="form-control" name="offers-${offerCounter}-description" rows="3">${escapeHtml(cleanDescription)}</textarea>
             </div>
         </div>
     `;
     document.getElementById('offerFormset').insertAdjacentHTML('beforeend', html);
-    const textarea = document.querySelector(`#offer-${offerCounter} textarea`);
-    initCKEditor(textarea);
+    // Keep offer description as plain textarea to avoid duplicate editor UI.
+
+    const addBtn = document.getElementById('addOfferBtn');
+    if (currentOffers + 1 >= 10 && addBtn) {
+        addBtn.style.display = 'none';
+    }
 }
 
 // Remove Offer
@@ -1802,17 +1823,24 @@ function removeOffer(id) {
     deleteInput.value = 'on';
     item.classList.add('marked-for-deletion');
     item.style.display = 'none';
+
+    const currentOffers = document.querySelectorAll('#offerFormset .formset-item:not(.marked-for-deletion)').length;
+    const addBtn = document.getElementById('addOfferBtn');
+    if (currentOffers < 10 && addBtn) {
+        addBtn.style.display = 'inline-flex';
+    }
 }
 
 // Add FAQ
 function addFaq(data = {}) {
     const currentFaqs = document.querySelectorAll('#faqFormset .formset-item:not(.marked-for-deletion)').length;
     if (currentFaqs >= 10) {
-        showAlert('Maximum 6 FAQs allowed', 'error');
+        showAlert('Maximum 10 FAQs allowed', 'error');
         return;
     }
     
     faqCounter++;
+    const cleanAnswer = stripHtml(data.answer || '');
     const html = `
         <div class="formset-item" id="faq-${faqCounter}">
             <div class="formset-header">
@@ -1828,17 +1856,16 @@ function addFaq(data = {}) {
             <input type="hidden" name="faqs-${faqCounter}-DELETE" value="">
             <div class="form-group">
                 <label class="form-label">Question<span class="required">*</span></label>
-                <input type="text" class="form-control" name="faqs-${faqCounter}-question" value="${escapeHtml(data.question || '')}" required>
+                <input type="text" class="form-control" name="faqs-${faqCounter}-question" value="${escapeHtml(data.question || '')}">
             </div>
             <div class="form-group">
                 <label class="form-label">Answer<span class="required">*</span></label>
-                <textarea class="form-control" name="faqs-${faqCounter}-answer" rows="4" required>${escapeHtml(data.answer || '')}</textarea>
+                <textarea class="form-control" name="faqs-${faqCounter}-answer" rows="4">${escapeHtml(cleanAnswer)}</textarea>
             </div>
         </div>
     `;
     document.getElementById('faqFormset').insertAdjacentHTML('beforeend', html);
-    const textarea = document.querySelector(`#faq-${faqCounter} textarea`);
-    initCKEditor(textarea);
+    // Keep FAQ answer as plain textarea to avoid duplicate editor UI.
     
     const addBtn = document.getElementById('addFaqBtn');
     if (currentFaqs + 1 >= 10) {
@@ -1941,6 +1968,11 @@ function openUpdateModal(serviceId) {
             if (data.offers && Array.isArray(data.offers)) {
                 data.offers.forEach(offer => addOffer(offer));
             }
+
+            const addOfferBtn = document.getElementById('addOfferBtn');
+            if (addOfferBtn) {
+                addOfferBtn.style.display = (data.offers && data.offers.length >= 10) ? 'none' : 'inline-flex';
+            }
             
             // Load steps (always 4)
             if (data.steps && Array.isArray(data.steps)) {
@@ -2003,6 +2035,30 @@ document.getElementById('updateForm').addEventListener('submit', function(e) {
         if (editor) editor.editing.view.focus();
         return false;
     }
+
+    // Validate optional offers: if one field is filled, both are required.
+    const offerItems = document.querySelectorAll('#offerFormset .formset-item:not(.marked-for-deletion)');
+    for (const item of offerItems) {
+        const title = item.querySelector('input[name*="-title"]')?.value.trim() || '';
+        const description = item.querySelector('textarea[name*="-description"]')?.value.trim() || '';
+        if ((title && !description) || (!title && description)) {
+            document.getElementById('formErrors').textContent = 'For each offer, please fill both title and description.';
+            document.getElementById('formErrors').style.display = 'block';
+            return false;
+        }
+    }
+
+    // Validate optional FAQs: if one field is filled, both are required.
+    const faqItems = document.querySelectorAll('#faqFormset .formset-item:not(.marked-for-deletion)');
+    for (const item of faqItems) {
+        const question = item.querySelector('input[name*="-question"]')?.value.trim() || '';
+        const answer = item.querySelector('textarea[name*="-answer"]')?.value.trim() || '';
+        if ((question && !answer) || (!question && answer)) {
+            document.getElementById('formErrors').textContent = 'For each FAQ, please fill both question and answer.';
+            document.getElementById('formErrors').style.display = 'block';
+            return false;
+        }
+    }
     
     const formData = new FormData(this);
     formData.set('offers-TOTAL_FORMS', offerCounter);
@@ -2022,7 +2078,13 @@ document.getElementById('updateForm').addEventListener('submit', function(e) {
             'X-Requested-With': 'XMLHttpRequest'
         }
     })
-    .then(res => res.json())
+    .then(async res => {
+        const payload = await res.json();
+        if (!res.ok) {
+            throw payload;
+        }
+        return payload;
+    })
     .then(data => {
         if (data.success) {
            

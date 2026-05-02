@@ -322,7 +322,9 @@ class ServiceProcessStep(models.Model):
     tagline = models.CharField(max_length=250)  # short single-line description
 
     def clean(self):
-        if ServiceProcessStep.objects.filter(service=self.service).count() >= 4:
+        if not self.service_id:
+            return
+        if ServiceProcessStep.objects.filter(service_id=self.service_id).exclude(pk=self.pk).count() >= 4:
             raise ValidationError("Each Service can have a maximum of 4 process steps.")
 
     def __str__(self):
@@ -334,8 +336,10 @@ class ServiceFAQ(models.Model):
     answer = models.TextField()
 
     def clean(self):
-        if ServiceFAQ.objects.filter(service=self.service).count() >= 6:
-            raise ValidationError("Each Service can have a maximum of 6 FAQs.")
+        if not self.service_id:
+            return
+        if ServiceFAQ.objects.filter(service_id=self.service_id).exclude(pk=self.pk).count() >= 10:
+            raise ValidationError("Each Service can have a maximum of 10 FAQs.")
 
     def __str__(self):
         return f"FAQ: {self.question}"
