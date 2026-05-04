@@ -45,16 +45,6 @@ def index(request):
     ).first()
    
 
-    if request.method == 'POST':
-        id1 = request.POST.get('id1')
-        pdf_url = verify_certificate(id1)
-        if pdf_url:
-            messages.success(request, "Your certificate has been successfully generated!")
-            return render(request, 'home/certificate.html', {'pdf_url': pdf_url})
-        else:
-            messages.error(request, "Oops! No certificate found for the provided ID. Please try again.")
-            return redirect('index')
-        
     return render(request, 'home/index.html',{'active_banner': active_banner,'cat':cat,'technologies':technologies,'projects':projects,'reviews':reviews,'blogs':blogs,'services':services,'career_job_count': active_jobs})
 
 
@@ -66,24 +56,40 @@ def verify_certificate(request):
     previous_url = request.META.get('HTTP_REFERER') or '/'
     
     if request.method == 'POST':
-        id1 = request.POST.get('id1')
+        id1 = request.POST.get('id1', '').strip()
         try:
-            certificate = Certificates.objects.get(id1=id1)
-            pdf_url = f'{settings.MEDIA_URL}{certificate.pdf_file}'
+            # Use __iexact for case-insensitive matching and first() to avoid MultipleObjectsReturned
+            certificate = Certificates.objects.filter(id1__iexact=id1).first()
+            
+            if not certificate:
+                raise Certificates.DoesNotExist
+                
+            pdf_url = certificate.pdf_file.url
             messages.success(request, f"Certificate verified successfully for ID: {id1}")
             return render(request, 'home/certificate.html', {
                 'pdf_url': pdf_url,
                 'certificate': certificate,
-                'services':services,
-                'footer_services':footer_services,
+                'services': services,
+                'footer_services': footer_services,
                 'career_job_count': active_jobs
-            
             })
         except Certificates.DoesNotExist:
             messages.error(request, f"No certificate found with ID: {id1}. Please check and try again.")
+            # If the referer was the dedicated verify page, redirect back to it.
+            # Otherwise redirect to the previous page.
+            if 'verify-certificate' in previous_url:
+                 return render(request, 'home/verify.html', {
+                    'services': services,
+                    'footer_services': footer_services,
+                    'career_job_count': active_jobs
+                })
             return redirect(previous_url)
     
-    return redirect(previous_url)
+    return render(request, 'home/verify.html', {
+        'services': services,
+        'footer_services': footer_services,
+        'career_job_count': active_jobs
+    })
 
 def index_redirect(request):
     return redirect('index')

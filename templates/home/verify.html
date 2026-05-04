@@ -1,0 +1,365 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Verify Certificate - Vynzora{% endblock %}
+
+{% block extra_css %}
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    /* ── Advanced Light Immersive Background ── */
+    .tp-verify-immersive-wrap {
+        /* Not plain white: a sophisticated light mesh gradient */
+        background: #f8fafc; 
+        background-image: 
+            radial-gradient(at 0% 0%, rgba(102, 126, 234, 0.08) 0, transparent 50%), 
+            radial-gradient(at 50% 0%, rgba(125, 93, 255, 0.08) 0, transparent 50%), 
+            radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.08) 0, transparent 50%);
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 120px 0;
+    }
+
+    /* Vibrant but "Light-Theme Friendly" Spheres for Refraction */
+    .tp-v-sphere {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        z-index: 1;
+        opacity: 0.5;
+        animation: sphereFloat 25s infinite alternate ease-in-out;
+    }
+
+    .tp-v-sphere-1 {
+        width: 500px;
+        height: 500px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        top: 20%;
+        right: 15%;
+        opacity: 0.15;
+    }
+
+    .tp-v-sphere-2 {
+        width: 450px;
+        height: 450px;
+        background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+        bottom: 15%;
+        left: 10%;
+        opacity: 0.12;
+        animation-delay: -5s;
+    }
+
+    .tp-v-sphere-3 {
+        width: 300px;
+        height: 300px;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        top: 40%;
+        left: 20%;
+        opacity: 0.1;
+        animation-delay: -10s;
+    }
+
+    @keyframes sphereFloat {
+        0% { transform: translate(0, 0) scale(1); }
+        100% { transform: translate(60px, -40px) scale(1.1); }
+    }
+
+    /* Mesh Grid */
+    .tp-v-grid {
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(11, 29, 58, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(11, 29, 58, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    /* ── Hero Heading ── */
+    .tp-v-hero-title {
+        font-size: 72px;
+        font-weight: 800;
+        color: #0B1D3A;
+        margin-bottom: 20px;
+        letter-spacing: -2px;
+        line-height: 1.1;
+        font-family: var(--tp-ff-heading);
+    }
+    .tp-v-hero-subtitle {
+        font-size: 19px;
+        color: #475569;
+        font-weight: 400;
+        line-height: 1.6;
+        font-family: var(--tp-ff-p);
+        max-width: 650px;
+        margin: 0 auto;
+    }
+
+    /* ── Enhanced Frosted Glass Card ── */
+    .vz-glass-card {
+        position: relative;
+        z-index: 10;
+        width: 95%;
+        max-width: 580px;
+        margin: 0 auto;
+        /* Balanced transparency for visibility and glass effect */
+        background: rgba(255, 255, 255, 0.45); 
+        backdrop-filter: blur(40px) saturate(200%);
+        -webkit-backdrop-filter: blur(40px) saturate(200%);
+        border-radius: 36px;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        padding: 55px 60px 45px;
+        box-shadow:
+            0 4px 24px -1px rgba(0, 0, 0, 0.06),
+            0 20px 48px -10px rgba(0, 0, 0, 0.1),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+        transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.4s ease;
+    }
+
+    .vz-glass-card:hover {
+        transform: translateY(-6px);
+        box-shadow:
+            0 8px 30px -2px rgba(0, 0, 0, 0.08),
+            0 30px 60px -12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Specular Reflection Line */
+    .vz-glass-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 10%; right: 10%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #fff, transparent);
+        opacity: 0.8;
+    }
+
+    /* ── Card Content Visibility ── */
+    .vz-gc-stamp {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 35px;
+        padding-bottom: 22px;
+        border-bottom: 1px solid rgba(11, 29, 58, 0.08);
+    }
+
+    .vz-gc-sid {
+        font-family: 'Space Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        color: #64748b; /* Sharper gray for visibility */
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .vz-gc-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(102, 126, 234, 0.1);
+        border: 1px solid rgba(102, 126, 234, 0.3);
+        border-radius: 40px;
+        padding: 7px 15px;
+        font-family: 'Space Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        color: #0752c5;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .vz-gc-badge-dot {
+        width: 7px; height: 7px;
+        border-radius: 50%;
+        background: #0752c5;
+        animation: vz-blink 1.5s infinite;
+    }
+
+    .vz-gc-label {
+        display: block;
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        color: #1e293b; /* Dark Navy for readability */
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        text-align: left;
+    }
+
+    .vz-gc-input {
+        width: 100%;
+        padding: 22px 24px;
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(11, 29, 58, 0.15);
+        border-radius: 18px;
+        font-family: 'Space Mono', monospace;
+        font-size: 17px;
+        color: #0f172a; /* Deep Navy */
+        letter-spacing: 0.1em;
+        outline: none;
+        transition: all 0.3s ease;
+        text-align: left;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.02) inset;
+    }
+
+    .vz-gc-input::placeholder {
+        color: rgba(15, 23, 42, 0.3);
+    }
+
+    .vz-gc-input:focus {
+        background: #ffffff;
+        border-color: #667eea;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.12);
+    }
+
+    /* ── Footer ── */
+    .vz-gc-foot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 35px;
+        padding-top: 25px;
+        border-top: 1px solid rgba(11, 29, 58, 0.08);
+    }
+
+    .vz-gc-fn {
+        font-family: 'Space Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        color: #64748b;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .vz-gc-seal {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: 'Space Mono', monospace;
+        font-size: 10px;
+        color: #0752c5;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .vz-gc-seal-icon {
+        width: 14px; height: 14px;
+        border-radius: 50%;
+        border: 2px solid #0752c5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .vz-gc-seal-icon::after {
+        content: '';
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: #0752c5;
+    }
+
+    @media (max-width: 768px) {
+        .tp-v-hero-title { font-size: 42px; }
+        .vz-glass-card { padding: 40px 30px; }
+        .vz-gc-stamp, .vz-gc-foot { flex-direction: column; gap: 15px; text-align: center; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="tp-verify-immersive-wrap">
+    <!-- Mesh Grid and Sophisticated Refraction Layer -->
+    <div class="tp-v-grid"></div>
+    <div class="tp-v-sphere tp-v-sphere-1"></div>
+    <div class="tp-v-sphere tp-v-sphere-2"></div>
+    <div class="tp-v-sphere tp-v-sphere-3"></div>
+
+    <div class="container p-relative z-index-10">
+        <!-- Hero Heading -->
+        <div class="row justify-content-center mb-60">
+            <div class="col-lg-10">
+                <div class="tp-v-hero-content text-center">
+                    <h1 class="tp-v-hero-title tp_fade_bottom">Verify Certificate</h1>
+                    <p class="tp-v-hero-subtitle tp_fade_bottom">
+                        Authenticated verification system for Vynzora credentials. <br>
+                        Enter your reference ID below to access the secure digital validation.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Re-intensified Frosted Glass Card -->
+        <div class="vz-glass-card tp_fade_bottom">
+
+            <!-- Stamp row -->
+            <div class="vz-gc-stamp">
+                <span class="vz-gc-sid">SYSTEM · VZ-VERIFIED</span>
+                <div class="vz-gc-badge">
+                    <div class="vz-gc-badge-dot"></div>
+                    Secured Protocol
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form method="post" action="{% url 'verify_certificate' %}">
+                {% csrf_token %}
+
+                <label class="vz-gc-label" for="vz-cert-id">
+                    Credential Reference ID
+                </label>
+
+                <div class="vz-gc-iwrap" style="margin-bottom: 30px;">
+                    <input
+                        id="vz-cert-id"
+                        type="text"
+                        name="id1"
+                        class="vz-gc-input"
+                        placeholder="e.g. 7441dba70ea2"
+                        required
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+                </div>
+
+                <button type="submit" class="tp-btn-ai p-relative hover-text-white d-inline-block text-uppercase tp-text-common-black-6 lh-1 fs-16 fw-700 tp-ff-dm w-100" style="color:white; border-radius: 18px;">
+                    <span>Authenticate Certificate</span>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2.2"
+                         stroke-linecap="round" stroke-linejoin="round" style="margin-left: 10px;">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </form>
+
+            <!-- Footer -->
+            <div class="vz-gc-foot">
+                <span class="vz-gc-fn">Vynzora Digital Authentication</span>
+                <div class="vz-gc-seal">
+                    <div class="vz-gc-seal-icon"></div>
+                    Verified Issuer
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    /* Auto-uppercase certificate ID as user types */
+    document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('vz-cert-id');
+        if(input) {
+            input.addEventListener('input', function () {
+                var pos = this.selectionStart;
+                this.value = this.value.toUpperCase();
+                this.setSelectionRange(pos, pos);
+            });
+        }
+    });
+</script>
+{% endblock %}
