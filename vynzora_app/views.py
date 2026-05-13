@@ -561,7 +561,7 @@ def add_technologies(request):
             messages.success(request, 'Technology added successfully!')
             return redirect('view_technologies') 
     else:
-        form = Client_Logo_Form()
+        form = TechnologiesForm()
 
     return render(request, 'admin_home/add_technologies.html', {'form': form})
 

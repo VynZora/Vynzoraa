@@ -42,7 +42,7 @@ class Technologies(models.Model):
     logo = models.ImageField(upload_to='team_images/')
 
     def __str__(self):
-        return self.name
+        return self.name if self.name else f"Technology {self.id}"
 
 # Blog
 class Blog(models.Model):

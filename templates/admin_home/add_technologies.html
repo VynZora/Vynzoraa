@@ -656,11 +656,7 @@
       let isValid = true;
       
       // Validate name
-      if (!techName.value.trim()) {
-        alert('Please enter a technology name.');
-        techName.focus();
-        isValid = false;
-      } else if (techName.value.length > 50) {
+      if (techName.value.length > 50) {
         alert('Technology name must be 50 characters or less.');
         isValid = false;
       }
