@@ -784,7 +784,9 @@
             align-items: center;
             justify-content: center;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            padding: 40px;
+            padding: 0;
+            min-height: 320px;
+            overflow: hidden;
             position: relative;
         }
 
@@ -799,10 +801,9 @@
         }
 
         .tp-partner-card-icon {
-            max-width: 180px;
             width: 100%;
-            height: auto;
-            object-fit: contain;
+            height: 100%;
+            object-fit: cover;
             transition: transform 0.5s ease;
         }
 
@@ -889,7 +890,8 @@
 
             .tp-partner-card-left {
                 flex: 0 0 auto;
-                padding: 40px;
+                min-height: 280px;
+                padding: 0;
             }
 
             .tp-partner-card-left::after {
@@ -927,7 +929,8 @@
             }
 
             .tp-partner-card-left {
-                padding: 30px;
+                min-height: 240px;
+                padding: 0;
             }
 
             .tp-partner-card-right {
@@ -961,9 +964,15 @@
         {% for partner in partners %}
         <div class="tp-partner-card">
             <div class="tp-partner-card-left">
+                {% if partner.logo %}
                 <img src="{{ partner.logo.url }}" 
                      alt="{{ partner.name }}" 
                      class="tp-partner-card-icon">
+                {% else %}
+                <img src="{% static 'assets/img/team/team-inner-2/team-inner-thumb-3.jpg' %}" 
+                     alt="{{ partner.name }}" 
+                     class="tp-partner-card-icon">
+                {% endif %}
             </div>
 
             <div class="tp-partner-card-right">
@@ -1205,15 +1214,15 @@
                                        </div>
                                    </div>
                                    <div class="accordion-item tp_fade_anim" data-delay=".3">
-                                       <h2 class="accordion-header p-relative" id="order_five">
-                                           <button class="collapsed tp-faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#order__collapse_five" aria-expanded="false" aria-controls="order__collapse_five">
+                                       <h2 class="accordion-header p-relative" id="order_six">
+                                           <button class="collapsed tp-faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#order__collapse_six" aria-expanded="false" aria-controls="order__collapse_six">
                                                <span class="tp-faq-ai-count">06</span>
                                                ⁠How long does a typical web development or digital marketing project take with Vynzora in Kochi?
 
                                                <span class="accordion-btn"></span>
                                            </button>
                                        </h2>
-                                       <div id="order__collapse_five" class="accordion-collapse collapse" aria-labelledby="order_five" data-bs-parent="#general_faqaccordion">
+                                       <div id="order__collapse_six" class="accordion-collapse collapse" aria-labelledby="order_six" data-bs-parent="#general_faqaccordion">
                                            <div class="accordion-body tp-faq-details-para">
                                                <p>Timelines depend on project scope. A standard business website typically takes 3–6 weeks. A custom ecommerce or software development project takes 6–16 weeks. For digital marketing and SEO campaigns, initial results are visible within 4–8 weeks, with significant organic growth typically achieved within 4–6 months. We provide detailed project timelines at the start of every engagement with our clients in Kerala.
                                              </p>
@@ -1234,4 +1243,3 @@
 </div>
 
 {% endblock %}
-

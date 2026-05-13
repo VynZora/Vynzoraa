@@ -350,7 +350,7 @@
     </div>
 
     <div class="form-body">
-      <form method="POST" enctype="multipart/form-data" id="addPartnerForm">
+      <form method="POST" action="{% url 'add_partner' %}" enctype="multipart/form-data" id="addPartnerForm">
         {% csrf_token %}
         
         <div class="form-section">
@@ -388,7 +388,6 @@
               name="description" 
               id="partnerDescription"
               placeholder="Describe the partner and their services..."
-              required
             ></textarea>
             <div class="help-text">
               <i class="mdi mdi-information"></i>
@@ -551,127 +550,143 @@
 <script>
   let descriptionEditor;
 
-  ClassicEditor
-    .create(document.querySelector('#partnerDescription'), {
-      toolbar: [
-        'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList',
-        '|', 'insertTable', 'blockQuote', 'undo', 'redo'
-      ]
-    })
-    .then(editor => {
-      descriptionEditor = editor;
-    })
-    .catch(error => {
-      console.error(error);
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof ClassicEditor !== 'undefined') {
+      ClassicEditor
+        .create(document.querySelector('#partnerDescription'), {
+          toolbar: [
+            'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList',
+            '|', 'insertTable', 'blockQuote', 'undo', 'redo'
+          ]
+        })
+        .then(editor => {
+          descriptionEditor = editor;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+
+    const fileUploadBox = document.getElementById('fileUploadBox');
+    const fileInput = document.getElementById('logoFile');
+    const imagePreview = document.getElementById('imagePreview');
+    const previewImg = document.getElementById('previewImg');
+    const fileName = document.getElementById('fileName');
+    const removeImageBtn = document.getElementById('removeImageBtn');
+
+    if (!fileUploadBox || !fileInput) return;
+
+    fileUploadBox.addEventListener('click', () => {
+      fileInput.click();
     });
 
-  const fileUploadBox = document.getElementById('fileUploadBox');
-  const fileInput = document.getElementById('logoFile');
-  const imagePreview = document.getElementById('imagePreview');
-  const previewImg = document.getElementById('previewImg');
-  const fileName = document.getElementById('fileName');
-  const removeImageBtn = document.getElementById('removeImageBtn');
+    fileInput.addEventListener('change', function() {
+      handleFile(this.files[0]);
+    });
 
-  fileUploadBox.addEventListener('click', () => {
-    fileInput.click();
-  });
-
-  fileInput.addEventListener('change', function(e) {
-    handleFile(this.files[0]);
-  });
-
-  fileUploadBox.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    fileUploadBox.classList.add('drag-over');
-  });
-
-  fileUploadBox.addEventListener('dragleave', () => {
-    fileUploadBox.classList.remove('drag-over');
-  });
-
-  fileUploadBox.addEventListener('drop', (e) => {
-    e.preventDefault();
-    fileUploadBox.classList.remove('drag-over');
-    
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) {
-      const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(file);
-      fileInput.files = dataTransfer.files;
-      handleFile(file);
-    }
-  });
-
-  function handleFile(file) {
-    if (!file) return;
-
-    if (!file.type.startsWith('image/')) {
-      alert('Please upload an image file (PNG, JPG, JPEG)');
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      alert('File size must be less than 5MB');
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      previewImg.src = e.target.result;
-      fileName.textContent = file.name;
-      fileUploadBox.style.display = 'none';
-      imagePreview.classList.add('show');
-    };
-    reader.readAsDataURL(file);
-  }
-
-  removeImageBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    fileInput.value = '';
-    previewImg.src = '';
-    fileUploadBox.style.display = 'block';
-    imagePreview.classList.remove('show');
-  });
-
-  const form = document.getElementById('addPartnerForm');
-  form.addEventListener('submit', function(e) {
-    // Sync CKEditor
-    if (descriptionEditor) {
-      document.getElementById('partnerDescription').value = descriptionEditor.getData();
-    }
-
-    const name = form.querySelector('[name="name"]').value.trim();
-    const description = document.getElementById('partnerDescription').value.trim();
-    const logo = fileInput.files[0];
-    
-    if (!name || !description || !logo) {
+    fileUploadBox.addEventListener('dragover', (e) => {
       e.preventDefault();
-      alert('Please fill in all required fields');
-      return false;
-    }
-
-    for (let i = 1; i <= 6; i++) {
-      const point = form.querySelector(`[name="point${i}"]`).value.trim();
-      if (!point) {
-        e.preventDefault();
-        alert(`Please fill in Point ${i}`);
-        return false;
-      }
-    }
-
-    const submitBtn = form.querySelector('[type="submit"]');
-    submitBtn.innerHTML = '<i class="mdi mdi-loading mdi-spin"></i> Adding...';
-    submitBtn.disabled = true;
-  });
-
-  const inputs = document.querySelectorAll('.form-control');
-  inputs.forEach(input => {
-    input.addEventListener('focus', function() {
-      this.parentElement.style.transform = 'scale(1.01)';
+      fileUploadBox.classList.add('drag-over');
     });
-    
-    input.addEventListener('blur', function() {
-      this.parentElement.style.transform = 'scale(1)';
+
+    fileUploadBox.addEventListener('dragleave', () => {
+      fileUploadBox.classList.remove('drag-over');
+    });
+
+    fileUploadBox.addEventListener('drop', (e) => {
+      e.preventDefault();
+      fileUploadBox.classList.remove('drag-over');
+      
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        fileInput.files = dataTransfer.files;
+        handleFile(file);
+      }
+    });
+
+    function handleFile(file) {
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        alert('Please upload an image file (PNG, JPG, JPEG)');
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        alert('File size must be less than 5MB');
+        return;
+      }
+
+      if (!previewImg || !fileName || !imagePreview) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        previewImg.src = e.target.result;
+        fileName.textContent = file.name;
+        fileUploadBox.style.display = 'none';
+        imagePreview.classList.add('show');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    if (removeImageBtn) {
+      removeImageBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fileInput.value = '';
+        if (previewImg) previewImg.src = '';
+        fileUploadBox.style.display = 'block';
+        if (imagePreview) imagePreview.classList.remove('show');
+      });
+    }
+
+    const form = document.getElementById('addPartnerForm');
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+      if (descriptionEditor) {
+        document.getElementById('partnerDescription').value = descriptionEditor.getData();
+      }
+
+      const descriptionField = document.getElementById('partnerDescription');
+      const descriptionText = (descriptionField.value || '')
+        .replace(/<[^>]*>/g, ' ')
+        .replace(/&nbsp;/gi, ' ')
+        .trim();
+      if (!descriptionText) {
+        e.preventDefault();
+        alert('Please enter partner description.');
+        return;
+      }
+
+      if (!form.checkValidity()) {
+        e.preventDefault();
+        const firstInvalid = form.querySelector(':invalid');
+        if (firstInvalid) {
+          firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          firstInvalid.focus();
+        }
+        alert('Please complete all required fields before submitting.');
+        return;
+      }
+
+      const submitBtn = form.querySelector('[type="submit"]');
+      if (submitBtn) {
+        submitBtn.innerHTML = '<i class="mdi mdi-loading mdi-spin"></i> Adding...';
+        submitBtn.disabled = true;
+      }
+    });
+
+    const inputs = document.querySelectorAll('.form-control');
+    inputs.forEach(input => {
+      input.addEventListener('focus', function() {
+        if (this.parentElement) this.parentElement.style.transform = 'scale(1.01)';
+      });
+      
+      input.addEventListener('blur', function() {
+        if (this.parentElement) this.parentElement.style.transform = 'scale(1)';
+      });
     });
   });
 </script>
