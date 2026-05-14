@@ -1113,6 +1113,7 @@
       <table class="service-table">
         <thead>
           <tr>
+            <th width="50"><i class="mdi mdi-drag-vertical text-muted"></i></th>
             <th>Service</th>
             <th>Details</th>
             <th>Actions</th>
@@ -1120,7 +1121,10 @@
         </thead>
         <tbody id="serviceTableBody">
           {% for service in services %}
-          <tr data-name="{{ service.name }}" data-description="{{ service.description }}" id="service-row-{{ service.id }}">
+          <tr data-name="{{ service.name }}" data-description="{{ service.description }}" id="service-row-{{ service.id }}" data-id="{{ service.id }}" class="draggable-row">
+            <td class="drag-handle" style="cursor: move;">
+              <i class="mdi mdi-drag-vertical" style="font-size: 20px; color: #6c757d;"></i>
+            </td>
             <td>
               <div class="service-info">
                 {% if service.image %}
@@ -1733,17 +1737,46 @@ function stripHtml(text) {
     return (div.textContent || div.innerText || '').trim();
 }
 
-// Show Alert
+// Show Alert matching Admin Dashboard style
 function showAlert(message, type = 'success') {
-    const alert = document.getElementById('alertMessage');
-    if (!alert) {
+    const toastContainer = document.getElementById('toastContainer');
+    if (!toastContainer) {
         console[type === 'error' ? 'error' : 'log'](message);
         return;
     }
-    alert.textContent = message;
-    alert.className = `alert-message alert-${type}`;
-    alert.style.display = 'block';
-    setTimeout(() => alert.style.display = 'none', 5000);
+
+    // Map type to icon
+    let iconClass = 'mdi-information';
+    if (type === 'success') iconClass = 'mdi-check-circle';
+    else if (type === 'error' || type === 'danger') iconClass = 'mdi-close-circle';
+    else if (type === 'warning') iconClass = 'mdi-alert-circle';
+
+    // Create toast element
+    const toastEl = document.createElement('div');
+    toastEl.className = 'toast border-0 shadow-lg mb-3';
+    toastEl.setAttribute('role', 'alert');
+    toastEl.setAttribute('aria-live', 'assertive');
+    toastEl.setAttribute('aria-atomic', 'true');
+    toastEl.innerHTML = `
+        <div class="toast-body toast-${type}">
+            <i class="mdi ${iconClass}"></i>
+            <span>${message}</span>
+        </div>
+    `;
+
+    toastContainer.appendChild(toastEl);
+
+    // Initialize and show
+    const bsToast = new bootstrap.Toast(toastEl, {
+        autohide: true,
+        delay: 4500
+    });
+    bsToast.show();
+
+    // Clean up DOM after it's hidden
+    toastEl.addEventListener('hidden.bs.toast', () => {
+        toastEl.remove();
+    });
 }
 
 // Tab functionality
@@ -2151,7 +2184,66 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCharCount('updateMetaDescription', 'metaDescCount', 160);
     }
 });
+
+// --- SortableJS Logic ---
+document.addEventListener('DOMContentLoaded', function() {
+    const tbody = document.getElementById('serviceTableBody');
+    if (tbody) {
+        Sortable.create(tbody, {
+            handle: '.drag-handle', // use the drag handle class
+            animation: 150,
+            ghostClass: 'sortable-ghost',
+            dragClass: 'sortable-drag',
+            onEnd: function (evt) {
+                // Get the new order of service IDs
+                const rows = tbody.querySelectorAll('tr[data-id]');
+                const newOrder = Array.from(rows).map(row => row.dataset.id);
+                
+                // Send AJAX request to update order
+                fetch('/reorder-services/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]') ? document.querySelector('[name=csrfmiddlewaretoken]').value : getCookie('csrftoken')
+                    },
+                    body: JSON.stringify({ order: newOrder })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        showAlert('Services order updated successfully!', 'success');
+                    } else {
+                        showAlert('Failed to update order', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showAlert('An error occurred', 'error');
+                });
+            }
+        });
+    }
+});
+
+// Helper function to get CSRF token if not in form
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 </script>
+
+<!-- SortableJS CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
 
 

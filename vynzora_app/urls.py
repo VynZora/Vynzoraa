@@ -46,6 +46,7 @@ urlpatterns = [
     path('add-service/', views.service_create, name='service_add'),
     path('edit/<int:pk>/', views.service_update, name='service_update'),
     path('delete/<int:pk>/', views.service_delete, name='service_delete'),
+    path('reorder-services/', views.reorder_services, name='reorder_services'),
     path('api/service/<int:pk>/', views.service_api_detail, name='service_api_detail'),
     # Public Service Detail
     path('services/<slug:slug>/', views.service_detail, name='service_detail'),

@@ -1610,6 +1610,27 @@ def service_list(request):
     services = Services.objects.all()
     return render(request, "admin_home/service_list.html", {"services": services})
 
+import json
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+
+@csrf_exempt
+@require_POST
+@login_required(login_url='user_login')
+def reorder_services(request):
+    try:
+        data = json.loads(request.body)
+        order = data.get('order', [])
+        
+        for index, service_id in enumerate(order):
+            service = Services.objects.get(id=service_id)
+            service.order = index
+            service.save()
+            
+        return JsonResponse({'status': 'success'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)})
+
 def service_detail(request,  slug):
     service = get_object_or_404(Services, slug=slug)
     services = Services.objects.all()   

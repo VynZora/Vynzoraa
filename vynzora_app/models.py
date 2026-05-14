@@ -175,7 +175,10 @@ class Services(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     meta_title = models.CharField(max_length=70, blank=True, null=True)
     meta_description = models.CharField(max_length=160, blank=True, null=True)
+    order = models.IntegerField(default=0, db_index=True)
 
+    class Meta:
+        ordering = ['order', '-created_at']
 
     def save(self, *args, **kwargs):
         if not self.slug:
