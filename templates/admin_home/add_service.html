@@ -499,7 +499,36 @@
             </div>
             <div class="help-text">
               <i class="mdi mdi-information"></i>
-              <span>Enter the name of the service</span>
+              <span>Enter the internal name of the service (used in menus & navigation)</span>
+            </div>
+          </div>
+
+          <!-- SEO Page Headings -->
+          <div class="form-group">
+            <label class="form-label">
+              Page H1 Heading <span style="font-weight:400; color:#6c757d;">(Optional — SEO)</span>
+            </label>
+            <div class="input-icon-wrapper">
+              <i class="mdi mdi-format-header-1"></i>
+              {{ form.seo_h1_title }}
+            </div>
+            <div class="help-text">
+              <i class="mdi mdi-information"></i>
+              <span>Custom hero heading shown on the service detail page. Leave blank to use the Service Name above.</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              Page H2 Heading <span style="font-weight:400; color:#6c757d;">(Optional — SEO)</span>
+            </label>
+            <div class="input-icon-wrapper">
+              <i class="mdi mdi-format-header-2"></i>
+              {{ form.seo_h2_title }}
+            </div>
+            <div class="help-text">
+              <i class="mdi mdi-information"></i>
+              <span>Custom section heading on the detail page. Leave blank to use the Service Name above.</span>
             </div>
           </div>
 
@@ -514,6 +543,7 @@
             </div>
           </div>
         </div>
+
 
         <!-- SEO Meta Section -->
 <div class="form-section">

@@ -175,6 +175,18 @@ class Services(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     meta_title = models.CharField(max_length=70, blank=True, null=True)
     meta_description = models.CharField(max_length=160, blank=True, null=True)
+    seo_h1_title = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="Custom H1 heading for the service detail page hero. Leave blank to use the service Name."
+    )
+    seo_h2_title = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="Custom H2 heading for the service details section. Leave blank to use the service Name."
+    )
     order = models.IntegerField(default=0, db_index=True)
 
     class Meta:

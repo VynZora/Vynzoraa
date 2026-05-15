@@ -23,7 +23,7 @@
                      <div class="col-lg-7">
                         <div class="tp-service-hero-left p-relative z-index-1 mb-40">
                            <h1 class="fs-70 fs-lg-60 fs-xs-40">
-                              {{ service.name|wordwrap:1|linebreaksbr }}
+                              {{ service.seo_h1_title|default:service.name }}
                           </h1>
 
                            <span class="tp-service-hero-shape tpswing d-none d-sm-inline-block">
@@ -70,7 +70,7 @@
          
          <div class="col-lg-8">
             <div class="tp-postbox-wrapper mr-110 mb-50">
-               <h2 class="fs-50 fs-sm-40 fs-xs-30 lh-120-per mb-55">{{ service.name }}</h2>
+               <h2 class="fs-50 fs-sm-40 fs-xs-30 lh-120-per mb-55">{{ service.seo_h2_title|default:service.name }}</h2>
                <div class="tp-blog-details-link-wrap mb-25">
                   <div class="tp-blog-details-dates mr-20 mb-10">
                      <span>{{ service.name }}</span>

@@ -1664,6 +1664,8 @@ def service_api_detail(request, pk):
             'image': service.image.url if service.image else None,
             'meta_title': service.meta_title,
             'meta_description': service.meta_description,
+            'seo_h1_title': service.seo_h1_title or '',
+            'seo_h2_title': service.seo_h2_title or '',
             
             'offers': [
                 {

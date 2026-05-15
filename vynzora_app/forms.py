@@ -17,7 +17,7 @@ class NewsletterForm(forms.ModelForm):
 class ServiceForm(forms.ModelForm):
     class Meta:
         model = Services
-        fields = ["name", "description", "image","meta_title", "meta_description"]
+        fields = ["name", "seo_h1_title", "seo_h2_title", "description", "image", "meta_title", "meta_description"]
         widgets = {
             'description': forms.Textarea(attrs={
                 'id': 'description', 
