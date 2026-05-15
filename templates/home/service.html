@@ -1,6 +1,7 @@
 
 {% extends "home/base.html" %}
 {% load static %}
+{% load seo_filters %}
 
 {% block title %}
 {{ service.meta_title }} 
@@ -77,10 +78,22 @@
                      
                   </div>
                </div>
-               <div class="tp-blog-details-content mb-70">
+               {% comment %} <div class="tp-blog-details-content mb-70">
                   <p class="fs-18 lh-150-per">{{ service.description|safe }}</p>
-               </div>
+               </div> {% endcomment %}
+               <div class="tp-blog-details-content mb-70 fs-18 lh-150-per">
+                  {{ service.description|bold_to_inline_h3 }}
+              </div>
+              <style>
+                  .tp-blog-details-content .seo-p-wrapper {
+                     margin-bottom: 15px;
+                  }
 
+                  h3.seo-h3 {
+                     all: unset !important;
+                     display: inline !important;
+                  }
+               </style>
                <div class="tp-blog-details-tag-wrap">
                   <div class="tp-blog-details-tag mr-20 mb-10">
                      <ul>
@@ -152,6 +165,24 @@
   line-height: 1.4;
 }
 
+.tp-sidebar-rc-post-tag {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 12px !important;
+}
+
+.tp-sidebar-rc-post-title a {
+  display: inline;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.tp-sidebar-rc-border {
+  height: 1px;
+  background: #eee;
+}
+
 .tp-sidebar-rc-post-dates {
   display: block;
   margin-top: 5px;
@@ -172,6 +203,87 @@
    stroke: #001448 !important;
 }
 
+.tp-service-cst-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 540px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.tp-service-cst-bg .tp-service-cst-content {
+  width: calc(100% - 64px);
+}
+
+@media (max-width: 767.98px) {
+  .tp-sidebar-widget {
+    padding: 24px 16px 4px;
+  }
+
+  .tp-sidebar-widget-title {
+    font-size: 22px;
+    margin-bottom: 16px !important;
+    line-height: 1.2;
+  }
+
+  .tp-sidebar-rc-post {
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+  }
+
+  .tp-sidebar-rc-post-title {
+    font-size: 16px;
+    line-height: 1.45;
+    margin-bottom: 0;
+  }
+
+  /* Mobile fix: prevent offer-card content from overlapping the image */
+  .tp-service-cst-item {
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  .tp-service-cst-content {
+    position: relative !important;
+    margin: 12px !important;
+    padding: 16px !important;
+    border-radius: 14px;
+  }
+
+  .tp-service-cst-bg {
+    min-height: 500px;
+    background-size: cover;
+    background-position: center top;
+    align-items: flex-end;
+  }
+
+  .tp-service-cst-bg .tp-service-cst-content {
+    width: calc(100% - 24px);
+  }
+
+  .tp-service-cst-content h5 {
+    font-size: 30px;
+    line-height: 1.15;
+    margin-bottom: 10px !important;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .tp-service-cst-item-border {
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
+
+  .tp-service-cst-item-border,
+  .tp-service-cst-content p {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
+
 </style>
 
 <div class="tp-service-area pt-10 pb-80">
@@ -185,10 +297,7 @@
 
                      {% for offer in service.offers.all %}
                      <div class="swiper-slide">
-                        <div class="tp-service-cst-item p-relative">
-                           <div class="tp-service-cst-thumb">
-                             <img class="w-100"  src="{% static 'assets/img/New/service_bg.jpg' %}" alt="">
-                           </div>
+                        <div class="tp-service-cst-item tp-service-cst-bg p-relative" style="background-image: url('{% static 'assets/img/New/service_bg.jpg' %}');">
                            <div class="tp-service-cst-content tp-bg-common-white">
                               <h5 class="fw-600 fs-28 tp-ff-dm tp-text-common-black-1 mb-15"><a class="underline-black" href="#">{{ offer.title }}</a></h5>
                               <p class="tp-service-cst-item-border tp-ff-dm fs-18 lh-140-per tp-text-common-black-1"> {{ offer.description|safe }}</p>
@@ -372,5 +481,4 @@
            
                </div>
            </div>
-
 {% endblock %}
