@@ -368,140 +368,7 @@
     margin: 30px 0;
   }
 
-  /* Video Preview Styles */
-  .video-preview-section {
-    margin-top: 20px;
-    padding: 20px;
-    background: #f0f4ff;
-    border-radius: 10px;
-    border: 2px solid #667eea;
-    display: none;
-    animation: slideDown 0.3s ease;
-  }
 
-  .video-preview-section.active {
-    display: block;
-  }
-
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .video-preview-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 15px;
-  }
-
-  .video-item {
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-  }
-
-  .video-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    border-color: #667eea;
-  }
-
-  .video-thumbnail {
-    width: 100%;
-    height: 160px;
-    background: #000;
-    position: relative;
-    overflow: hidden;
-    border-radius: 8px 8px 0 0;
-  }
-
-  .video-thumbnail iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 8px 8px 0 0;
-  }
-
-  .video-info {
-    padding: 12px;
-  }
-
-  .video-type {
-    font-size: 11px;
-    font-weight: 600;
-    color: #667eea;
-    background: #f0f4ff;
-    padding: 4px 8px;
-    border-radius: 4px;
-    display: inline-block;
-    margin-bottom: 8px;
-  }
-
-  .video-url {
-    font-size: 12px;
-    color: #6c757d;
-    word-break: break-all;
-    margin-bottom: 8px;
-    max-height: 30px;
-    overflow: hidden;
-  }
-
-  .video-actions {
-    display: flex;
-    gap: 5px;
-  }
-
-  .btn-small {
-    flex: 1;
-    padding: 6px 8px;
-    border: none;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .btn-remove-video {
-    background: #e74c3c;
-    color: white;
-    width: 100%;
-  }
-
-  .btn-remove-video:hover {
-    background: #c0392b;
-  }
-
-  .no-videos {
-    text-align: center;
-    padding: 20px;
-    color: #6c757d;
-    font-size: 14px;
-  }
-
-  @media (max-width: 768px) {
-    .video-grid {
-      grid-template-columns: 1fr;
-    }
 
     .page-header {
       flex-direction: column;
@@ -661,6 +528,7 @@
             name="description" 
             rows="5" 
             placeholder="Enter detailed website description"
+            data-ck-skip="1"
           ></textarea>
           <div class="character-count" id="descriptionCount">0/1000 characters</div>
         </div>
@@ -693,6 +561,7 @@
             name="add_description" 
             rows="5" 
             placeholder="Enter additional details"
+            data-ck-skip="1"
           ></textarea>
           <div class="character-count" id="addDescriptionCount">0/2000 characters</div>
         </div>
@@ -723,33 +592,6 @@
             <img src="" alt="Preview" class="preview-image" id="previewImage">
             <div class="preview-info" id="previewInfo"></div>
           </div>
-        </div>
-
-        <!-- Videos Section -->
-        <div class="form-group">
-          <label class="form-label">
-            Website Videos
-          </label>
-          <textarea 
-            class="form-control" 
-            id="videos" 
-            name="videos" 
-            rows="5" 
-            placeholder="Paste YouTube/Vimeo URLs here (one per line)&#10;Examples:&#10;https://www.youtube.com/watch?v=VIDEO_ID&#10;https://youtu.be/VIDEO_ID&#10;https://vimeo.com/VIDEO_ID"
-          ></textarea>
-          <div class="character-count" id="videosCount">0 videos detected</div>
-          <small style="color: #6c757d; display: block; margin-top: 8px;">
-            💡 Tip: Paste one video URL per line. Supports YouTube and Vimeo links.
-          </small>
-        </div>
-
-        <!-- Video Preview Section -->
-        <div class="video-preview-section" id="videoPreviewSection">
-          <div class="video-preview-title">
-            <i class="mdi mdi-play-circle" style="font-size: 18px;"></i>
-            Video Previews
-          </div>
-          <div class="video-grid" id="videoPreviewContainer"></div>
         </div>
 
         <div class="section-divider"></div>
@@ -789,6 +631,7 @@
                   name="service_description[]"
                   rows="3"
                   placeholder="Enter service description"
+                  data-ck-skip="1"
                 ></textarea>
               </div>
             </div>
@@ -837,6 +680,7 @@
                   name="faq_answer[]" 
                   rows="3" 
                   placeholder="Enter FAQ answer"
+                  data-ck-skip="1"
                 ></textarea>
               </div>
             </div>
@@ -867,6 +711,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   // ========== CHARACTER COUNT FUNCTIONALITY ==========
   function updateCharacterCount(element, countElement, maxLength) {
+    if (!element || !countElement) return;
     const currentLength = element.value.length;
     countElement.textContent = currentLength + '/' + maxLength + ' characters';
     
@@ -950,170 +795,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // ========== VIDEO PREVIEW FUNCTIONALITY ==========
-  // ========== VIDEO PREVIEW FUNCTIONALITY ==========
-const videosInput = document.getElementById('videos');
-const videosCount = document.getElementById('videosCount');
-const videoPreviewSection = document.getElementById('videoPreviewSection');
-const videoPreviewContainer = document.getElementById('videoPreviewContainer');
 
-function extractVideoId(url) {
-  url = url.trim();
-  
-  try {
-    const urlObj = new URL(url);
-    
-    // YouTube
-    if (urlObj.hostname.includes('youtube.com')) {
-      return urlObj.searchParams.get('v');
-    }
-    if (urlObj.hostname.includes('youtu.be')) {
-      return urlObj.pathname.substring(1);
-    }
-    // Vimeo
-    if (urlObj.hostname.includes('vimeo.com')) {
-      const pathParts = urlObj.pathname.split('/').filter(Boolean);
-      return pathParts[pathParts.length - 1];
-    }
-  } catch (e) {
-    // Try to extract YouTube ID with simple regex for malformed URLs
-    const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/);
-    if (ytMatch) return ytMatch[1];
-    
-    const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
-    if (vimeoMatch) return vimeoMatch[1];
-    
-    return null;
-  }
-  
-  return null;
-}
-
-function getVideoType(url) {
-  if (url.includes('youtube.com') || url.includes('youtu.be')) {
-    return 'YouTube';
-  }
-  if (url.includes('vimeo.com')) {
-    return 'Vimeo';
-  }
-  return 'Video';
-}
-
-function getThumbnailUrl(url, videoId, videoType) {
-  if (!videoId) return null;
-  
-  if (videoType === 'YouTube') {
-    return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-  } else if (videoType === 'Vimeo') {
-    // Using vumbnail service for Vimeo thumbnails
-    return `https://vumbnail.com/${videoId}.jpg`;
-  }
-  return null;
-}
-
-function createVideoThumbnail(url, videoId, videoType) {
-  const thumbnailUrl = getThumbnailUrl(url, videoId, videoType);
-  
-  const videoItem = document.createElement('div');
-  videoItem.className = 'video-item';
-  
-  videoItem.innerHTML = `
-    <div class="video-thumbnail">
-      <img 
-        src="${thumbnailUrl}" 
-        alt="${videoType} thumbnail" 
-        style="width: 100%; height: 100%; object-fit: cover;"
-        onerror="this.onerror=null; this.src='https://via.placeholder.com/280x160/667eea/ffffff?text=${videoType}+Video'"
-      >
-      <div class="play-button-overlay">
-        <i class="mdi mdi-play"></i>
-      </div>
-    </div>
-    <div class="video-info">
-      <div class="video-type">${videoType}</div>
-      <div class="video-url" title="${url}">${url.length > 50 ? url.substring(0, 50) + '...' : url}</div>
-      <div class="video-actions">
-        <button type="button" class="btn-small btn-remove-video" data-url="${url}">
-          <i class="mdi mdi-delete"></i>
-          Remove
-        </button>
-      </div>
-    </div>
-  `;
-  
-  return videoItem;
-}
-
-function updateVideoPreview() {
-  const lines = videosInput.value.split('\n')
-    .map(line => line.trim())
-    .filter(line => line !== '');
-  
-  videoPreviewContainer.innerHTML = '';
-  
-  let validCount = 0;
-  const uniqueUrls = new Set();
-
-  lines.forEach((url) => {
-    if (uniqueUrls.has(url)) return; // Skip duplicates
-    uniqueUrls.add(url);
-    
-    const videoId = extractVideoId(url);
-    if (videoId) {
-      validCount++;
-      const videoType = getVideoType(url);
-      const videoItem = createVideoThumbnail(url, videoId, videoType);
-      
-      if (videoItem) {
-        videoPreviewContainer.appendChild(videoItem);
-      }
-    }
-  });
-
-  videosCount.textContent = validCount + ' video' + (validCount !== 1 ? 's' : '') + ' detected';
-  
-  if (validCount > 0) {
-    videoPreviewSection.classList.add('active');
-  } else {
-    videoPreviewSection.classList.remove('active');
-  }
-}
-
-// Remove video functionality
-function removeVideo(url) {
-  const lines = videosInput.value.split('\n')
-    .map(line => line.trim())
-    .filter(line => line !== '' && line !== url);
-  
-  videosInput.value = lines.join('\n');
-  updateVideoPreview();
-}
-
-// Event listeners
-if (videosInput) {
-  videosInput.addEventListener('input', updateVideoPreview);
-  
-  // Handle remove video clicks
-  videoPreviewContainer.addEventListener('click', function(e) {
-    if (e.target.closest('.btn-remove-video')) {
-      const url = e.target.closest('.btn-remove-video').getAttribute('data-url');
-      removeVideo(url);
-    }
-  });
-}
-
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', function() {
-  if (typeof updateVideoPreview === 'function') {
-    updateVideoPreview();
-  }
 
   // Store CKEditor instances
   const editors = new Map();
 
   // Initialize CKEditor
   function initCKEditor(element) {
-    if (!element || editors.has(element)) return;
+    if (!element || editors.has(element) || element.dataset.ckReady === '1' || element.dataset.ckReady === 'loading') return;
+    element.dataset.ckReady = 'loading';
 
     ClassicEditor
       .create(element, {
@@ -1123,6 +813,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ]
       })
       .then(editor => {
+        element.dataset.ckReady = '1';
         editors.set(element, editor);
 
         // Update original textarea on change
@@ -1144,6 +835,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
       })
       .catch(error => {
+        element.removeAttribute('data-ck-ready');
         console.error('CKEditor initialization error:', error);
       });
   }
@@ -1178,11 +870,15 @@ document.addEventListener('DOMContentLoaded', function() {
       
       newFAQ.querySelectorAll('textarea').forEach(function(el) {
         el.value = '';
-        const ckEditorUI = el.nextSibling;
-        if (ckEditorUI && ckEditorUI.classList && ckEditorUI.classList.contains('ck-editor')) {
+        const ckEditorUI = el.parentNode.querySelector('.ck-editor');
+        if (ckEditorUI) {
           ckEditorUI.remove();
         }
-        el.style.display = 'block';
+        // Reset styles and CKEditor flags from the cloned element
+        el.removeAttribute('style');
+        el.removeAttribute('data-ck-ready');
+        delete el.dataset.ckReady;
+        
         if (el.classList.contains('rich-editor')) {
           setTimeout(() => initCKEditor(el), 100);
         }
@@ -1231,11 +927,15 @@ document.addEventListener('DOMContentLoaded', function() {
       
       newItem.querySelectorAll('textarea').forEach(function(el) {
         el.value = '';
-        const ckEditorUI = el.nextSibling;
-        if (ckEditorUI && ckEditorUI.classList && ckEditorUI.classList.contains('ck-editor')) {
+        const ckEditorUI = el.parentNode.querySelector('.ck-editor');
+        if (ckEditorUI) {
           ckEditorUI.remove();
         }
-        el.style.display = 'block';
+        // Reset styles and CKEditor flags from the cloned element
+        el.removeAttribute('style');
+        el.removeAttribute('data-ck-ready');
+        delete el.dataset.ckReady;
+
         if (el.classList.contains('rich-editor')) {
           setTimeout(() => initCKEditor(el), 100);
         }
@@ -1389,21 +1089,7 @@ document.addEventListener('DOMContentLoaded', function() {
     { id: 'add_description', countId: 'addDescriptionCount', max: 2000 }
   ];
 
-  function updateCharacterCount(element, countElement, maxLength) {
-    if (!element || !countElement) return;
-    const currentLength = element.value.length;
-    countElement.textContent = currentLength + '/' + maxLength + ' characters';
-    
-    if (currentLength > maxLength * 0.9) {
-      countElement.classList.add('warning');
-      countElement.classList.remove('error');
-    } else if (currentLength > maxLength) {
-      countElement.classList.add('error');
-      countElement.classList.remove('warning');
-    } else {
-      countElement.classList.remove('warning', 'error');
-    }
-  }
+
 
   charInputs.forEach(item => {
     const el = document.getElementById(item.id);
@@ -1414,22 +1100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Auto-generate slug from Website Name
-  const nameInput = document.getElementById('name');
-  const slugInput = document.getElementById('slug');
-  if (nameInput && slugInput) {
-    nameInput.addEventListener('input', function() {
-      const slug = this.value
-        .toLowerCase()
-        .trim()
-        .replace(/[^\w\s-]/g, '')
-        .replace(/[\s_-]+/g, '-')
-        .replace(/^-+|-+$/g, '');
-      
-      slugInput.value = slug;
-      updateCharacterCount(slugInput, document.getElementById('slugCount'), 100);
-    });
-  }
+
 });
 </script>
 

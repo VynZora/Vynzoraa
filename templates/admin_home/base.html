@@ -1463,6 +1463,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
       function isDescriptionTextarea(textarea) {
         if (!textarea || textarea.tagName !== 'TEXTAREA') return false;
+        if (textarea.classList.contains('rich-editor')) return true;
+
         const name = (textarea.getAttribute('name') || '').trim();
         const id = (textarea.getAttribute('id') || '').trim();
         const placeholder = (textarea.getAttribute('placeholder') || '').toLowerCase();
@@ -1476,8 +1478,9 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       function isEligible(textarea) {
+        if (textarea.dataset.ckSkip === '1') return false;
         if (!isDescriptionTextarea(textarea)) return false;
-        if (textarea.dataset.ckReady === '1') return false;
+        if (textarea.dataset.ckReady === '1' || textarea.dataset.ckReady === 'loading') return false;
         if (textarea.closest('.ck-editor')) return false;
         if (textarea.classList.contains('ck-editor__editable')) return false;
         if (textarea.offsetParent === null) return false; // skip hidden fields; modal hooks will handle later
@@ -1486,6 +1489,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
       function initEditor(textarea) {
         if (!isEligible(textarea)) return;
+        textarea.dataset.ckReady = 'loading';
+
         ClassicEditor.create(textarea, {
           toolbar: [
             'heading', '|',
@@ -1497,9 +1502,17 @@ document.addEventListener('DOMContentLoaded', function() {
           .then(function (editor) {
             textarea.dataset.ckReady = '1';
             editors.set(textarea, editor);
+
+            // Sync CKEditor data to textarea on change
+            editor.model.document.on('change:data', () => {
+              textarea.value = editor.getData();
+              // Trigger change event on textarea
+              textarea.dispatchEvent(new Event('change', { bubbles: true }));
+            });
           })
-          .catch(function () {
-            // Keep the plain textarea if editor init fails.
+          .catch(function (error) {
+            textarea.removeAttribute('data-ck-ready');
+            console.error('CKEditor initialization error in base.html:', error);
           });
       }
 
@@ -1516,17 +1529,42 @@ document.addEventListener('DOMContentLoaded', function() {
         initWithin(event.target);
       });
 
-      // Handle dynamically-added form rows (offers/services etc.)
-      const observer = new MutationObserver(function (mutations) {
-        mutations.forEach(function (mutation) {
-          mutation.addedNodes.forEach(function (node) {
-            if (node.nodeType !== 1) return;
-            if (node.tagName === 'TEXTAREA') initEditor(node);
-            if (node.querySelectorAll) initWithin(node);
-          });
+      // Global fallback to sync on submit
+      document.addEventListener('submit', function (event) {
+        editors.forEach((editor, textarea) => {
+          if (textarea.form === event.target || event.target.contains(textarea)) {
+            textarea.value = editor.getData();
+          }
         });
       });
-      observer.observe(document.body, { childList: true, subtree: true });
+
+      // Handle dynamically-added form rows and visibility changes (modal display/show class)
+      const observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+          if (mutation.type === 'childList') {
+            mutation.addedNodes.forEach(function (node) {
+              if (node.nodeType !== 1) return;
+              if (node.tagName === 'TEXTAREA') initEditor(node);
+              if (node.querySelectorAll) initWithin(node);
+            });
+          } else if (mutation.type === 'attributes') {
+            const target = mutation.target;
+            if (target.nodeType === 1) {
+              const isVisible = target.classList.contains('show') || 
+                                (target.style && target.style.display === 'block');
+              if (isVisible) {
+                initWithin(target);
+              }
+            }
+          }
+        });
+      });
+      observer.observe(document.body, { 
+        childList: true, 
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['class', 'style']
+      });
     });
   </script>
 </body>

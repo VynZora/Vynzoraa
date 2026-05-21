@@ -1372,7 +1372,7 @@
 
         <div class="form-group">
           <label class="form-label">Description</label>
-          <textarea class="form-control" name="description" id="updateDescription" rows="4"></textarea>
+          <textarea class="form-control rich-editor" name="description" id="updateDescription" rows="4"></textarea>
            <div class="character-count" id="updateDescriptionCount">0/5000 characters</div>
         </div>
 
@@ -1384,7 +1384,7 @@
 
         <div class="form-group">
           <label class="form-label">Additional Description</label>
-          <textarea class="form-control" name="add_description" id="updateAddDescription" rows="4"></textarea>
+          <textarea class="form-control rich-editor" name="add_description" id="updateAddDescription" rows="4"></textarea>
         </div>
 
         <!-- IMAGE SECTION - Single Preview Area -->
@@ -1408,19 +1408,7 @@
           </div>
         </div>
 
-        <!-- VIDEO SECTION - Single Preview Area -->
-        <div class="form-group">
-          <label class="form-label">YouTube Video URL</label>
-          <input type="text" class="form-control" name="videos" id="updateVideoUrl" placeholder="Paste YouTube link here">
-          
-          <!-- Single Video Preview Container -->
-          <div class="video-preview-wrapper" id="videoPreviewWrapper" style="display: none; margin-top: 15px;">
-            <div class="preview-label" id="videoPreviewLabel">Current Video</div>
-            <div class="video-frame-container">
-              <iframe id="updateVideoFrame" width="100%" height="250" frameborder="0" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-          </div>
-        </div>
+
 
         <!-- FAQs Section -->
         <div class="section-divider"></div>
@@ -1514,27 +1502,7 @@
   color: #6c757d;
 }
 
-/* Video Preview Wrapper */
-.video-preview-wrapper {
-  padding: 15px;
-  background: #f8f9fa;
-  border-radius: 12px;
-  border: 2px solid #e9ecef;
-}
 
-.video-preview-wrapper.show {
-  display: block !important;
-}
-
-.video-frame-container {
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.video-frame-container iframe {
-  display: block;
-}
 
 /* File input styling for modal */
 #updateModal .file-input-wrapper {
@@ -1604,22 +1572,7 @@ function generateSlug(text) {
     .replace(/--+/g, '-');
 }
 
-// Convert YouTube URL to embed URL
-function convertToEmbedURL(url) {
-  if (!url) return "";
-  let videoId = "";
-  
-  if (url.includes("watch?v=")) {
-    videoId = url.split("v=")[1].split("&")[0];
-  } else if (url.includes("youtu.be/")) {
-    videoId = url.split("youtu.be/")[1].split("?")[0];
-  } else if (url.includes("youtube.com/embed/")) {
-    videoId = url.split("embed/")[1].split("?")[0];
-  }
-  
-  if (!videoId) return "";
-  return `https://www.youtube.com/embed/${videoId}`;
-}
+
 
 // Add FAQ
 function addFaq(data = {}) {
@@ -1649,7 +1602,7 @@ function addFaq(data = {}) {
       </div>
       <div class="form-group">
         <label class="form-label">Answer</label>
-        <textarea class="form-control" name="faqs-${faqCounter}-answer" rows="3">${escapeHtml(data.answer || '')}</textarea>
+        <textarea class="form-control rich-editor" name="faqs-${faqCounter}-answer" rows="3">${escapeHtml(data.answer || '')}</textarea>
       </div>
     </div>
   `;
@@ -1698,7 +1651,7 @@ function addService(data = {}) {
       </div>
       <div class="form-group">
         <label class="form-label">Description</label>
-        <textarea class="form-control" name="services-${serviceCounter}-description" rows="3">${escapeHtml(data.description || '')}</textarea>
+        <textarea class="form-control rich-editor" name="services-${serviceCounter}-description" rows="3">${escapeHtml(data.description || '')}</textarea>
       </div>
     </div>
   `;
@@ -1742,32 +1695,7 @@ function updateImagePreview(src, isNew = false, fileInfo = null) {
   }
 }
 
-// Update Video Preview (same container)
-function updateVideoPreview(url, isNew = false) {
-  const wrapper = document.getElementById('videoPreviewWrapper');
-  const iframe = document.getElementById('updateVideoFrame');
-  const label = document.getElementById('videoPreviewLabel');
-  
-  const embedUrl = convertToEmbedURL(url);
-  
-  if (embedUrl) {
-    iframe.src = embedUrl;
-    wrapper.classList.add('show');
-    wrapper.style.display = 'block';
-    
-    if (isNew) {
-      label.textContent = 'New Video Preview';
-      label.style.color = '#27ae60';
-    } else {
-      label.textContent = 'Current Video';
-      label.style.color = '#667eea';
-    }
-  } else {
-    wrapper.classList.remove('show');
-    wrapper.style.display = 'none';
-    iframe.src = '';
-  }
-}
+
 
 // Open Update Modal
 function openUpdateModal(websiteId) {
@@ -1811,14 +1739,7 @@ function openUpdateModal(websiteId) {
         updateImagePreview(null);
       }
       
-      // Video - Show in single preview area with preview immediately
-      const videoUrl = data.videos || '';
-      document.getElementById('updateVideoUrl').value = videoUrl;
-      if (videoUrl) {
-        updateVideoPreview(videoUrl, false);
-      } else {
-        updateVideoPreview('');
-      }
+
       
       // FAQs
       data.faqs.forEach(faq => addFaq(faq));
@@ -1852,7 +1773,6 @@ function closeUpdateModal() {
   
   // Reset previews
   updateImagePreview(null);
-  updateVideoPreview('');
 }
 
 // Website Name Input Change Handler - Auto-generate slug
@@ -1898,16 +1818,7 @@ document.getElementById('updateImageInput').addEventListener('change', function(
   }
 });
 
-// Video URL Input Handler - Replace in same preview area and update in real-time
-document.getElementById('updateVideoUrl').addEventListener('input', function() {
-  const url = this.value.trim();
-  // Show updated preview as user types (mark as new when editing)
-  if (url) {
-    updateVideoPreview(url, true);
-  } else {
-    updateVideoPreview('');
-  }
-});
+
 
 // Submit Form
 document.getElementById('updateForm').addEventListener('submit', function(e) {

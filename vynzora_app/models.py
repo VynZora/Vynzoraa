@@ -456,7 +456,7 @@ class WebsiteFAQ(models.Model):
     answer = models.TextField()
 
     def __str__(self):
-        return f"FAQ for {self.website.website_name}: {self.question[:50]}"
+        return f"FAQ for {self.website.name}: {self.question[:50]}"
 
 
 class WebsiteService(models.Model):
