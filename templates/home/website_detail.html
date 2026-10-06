@@ -652,9 +652,9 @@ Kochi, Kerala 683104, India</a>
                                     <div class="row">
                                         <div class="col-lg-9">
                                             <div class="tp-hero-2-title-wrap pt-115 mb-40">
-                                                <h2 class="tp-hero-2-title tp-ff-funnel fw-600 fs-100 tp-text-common-white lh-1">
-                                                    {{ website.name }}
-                                                </h2>
+                                                <h1 class="tp-hero-2-title tp-ff-funnel fw-600 fs-100 tp-text-common-white lh-1">
+                                                {{ website.name }}
+                                                    </h1>
 
                                                 <div class="vynzora-google-badge hero-mobile-google-badge d-lg-none mb-20">
                                                     <div class="g-icon-box">
@@ -865,12 +865,25 @@ Kochi, Kerala 683104, India</a>
     }
 
 }
+.add-title-gradient {
+    font-size: 48px;
+    line-height: 1.15;
+    background: linear-gradient(90deg, #000000 0%, #001a66 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    padding-bottom: 6px;
+}
+@media (max-width: 576px) { .add-title-gradient { font-size: 36px; } }
+
+.tp-about-ai-para img { max-width: 100%; height: auto; border-radius: 12px; margin: 20px 0; }
+.tp-about-ai-para figure.image { margin: 20px 0; }
 
     </style>
                                         <div class="tp_fade_anim" data-delay=".5">
-                                            <p class="tp-about-ai-para tp-ff-dm mb-55 fw-400 fs-22 ls-m-2 lh-150-per tp-text-common-black-6">
-                                                {{ website.description|default:website.add_description|safe }}
-                                            </p>
+                                            <div class="tp-about-ai-para tp-ff-dm mb-55 fw-400 fs-22 ls-m-2 lh-150-per tp-text-common-black-6">
+                                                {{ website.description|safe }}
+                                        </div>
                                         </div>
                                         <div class="tp_fade_anim" data-delay=".7" data-fade-from="bottom" data-ease="bounce">
                                             <a href="{% url 'about' %}" class="tp-btn-ai tp-btn-switch-2-animation p-relative hover-text-white d-inline-block text-uppercase tp-text-common-black-6 lh-1 fs-16 fw-700 tp-ff-dm">
@@ -894,7 +907,29 @@ Kochi, Kerala 683104, India</a>
                             </div>
                         </div>
                     </div>
-
+{% if website.add_title or website.add_description %}
+<div class="tp-about-area pb-130 p-relative z-index-1">
+    <div class="container-fluid container-1524">
+        <div class="row align-items-start">
+            <div class="col-lg-5">
+                <div class="tp-about-ai-subtitle mb-30 text-lg-center">
+                    <span class="tp-ff-inter fw-500 fs-18 ls-m-4 tp-text-common-black-5">/ More Details /</span>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                {% if website.add_title %}
+                <h2 class="tp-ff-jakarta fw-600 ls-m-4 mb-35 add-title-gradient">{{ website.add_title }}</h2>
+                {% endif %}
+                {% if website.add_description %}
+                <div class="tp-about-ai-para tp-ff-dm fw-400 fs-22 ls-m-2 lh-150-per tp-text-common-black-6">
+                    {{ website.add_description|safe }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
                     <div class="tp-banner-ai-thumb section-triger">
                         <div class="box h-100">
                             <img data-speed=".8" class="img-cover myimg" src="{{ website.image.url }}"  alt="">

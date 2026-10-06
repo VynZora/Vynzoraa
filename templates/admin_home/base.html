@@ -1491,17 +1491,43 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!isEligible(textarea)) return;
         textarea.dataset.ckReady = 'loading';
 
-        ClassicEditor.create(textarea, {
+                ClassicEditor.create(textarea, {
           toolbar: [
             'heading', '|',
             'bold', 'italic', 'link', '|',
             'bulletedList', 'numberedList', '|',
+            'imageUpload', 'insertTable', 'blockQuote', '|',
             'undo', 'redo'
-          ]
+          ],
+          image: {
+            toolbar: [
+              'imageStyle:inline', 'imageStyle:block', 'imageStyle:side',
+              '|', 'toggleImageCaption', 'imageTextAlternative'
+            ]
+          }
         })
           .then(function (editor) {
             textarea.dataset.ckReady = '1';
             editors.set(textarea, editor);
+                        textarea.dataset.ckReady = '1';
+            editors.set(textarea, editor);
+
+            // Base64 image upload adapter
+            editor.plugins.get('FileRepository').createUploadAdapter = function (loader) {
+              return {
+                upload: function () {
+                  return loader.file.then(function (file) {
+                    return new Promise(function (resolve, reject) {
+                      const reader = new FileReader();
+                      reader.onload = function () { resolve({ default: reader.result }); };
+                      reader.onerror = function (err) { reject(err); };
+                      reader.readAsDataURL(file);
+                    });
+                  });
+                },
+                abort: function () {}
+              };
+            };
 
             // Sync CKEditor data to textarea on change
             editor.model.document.on('change:data', () => {
